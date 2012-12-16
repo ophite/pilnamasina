@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block source %}
+	<script src="/content/js/jquery.combobox.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.combobox.css" />
+{% endblock %}		
+
+{% block content %}
+
+	<script type="text/javascript">
+		$(function() {
+			// datepicker
+			$( "#id_date" ).datetimepicker();
+			//combobox
+			$("#id_place_to").combobox();
+			$("#id_place_from").combobox();
+			$("#toggle").click(function() {
+				$( "#id_place_from" ).toggle();
+			});
+			$( "#toggle" ).click(function() {
+				$( "#id_place_to" ).toggle();
+			});
+			//button
+			$( "input[type=submit], button" ).button();
+			//width, class
+			width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
+			width = width - 13;
+			$('#id_name').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#id_name').width(width);
+			$('#id_comments').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#id_date').width(width);	
+			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#id_phone_number').width(width);	
+		});		
+	</script>	
+	
+	<table>
+		<tr>
+			<td>
+				<h1>New trip</h1>
+			</td>
+			<td id = "right">
+				<h1><a href='/index/'> Trips </a></h1>
+			</td>
+		</tr>
+	</table>
+	
+	<form action="/add/" method="post">
+		{% csrf_token %}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type='submit' value='Save'/>
+	</form> 
+		
+{% endblock %}							
