@@ -1,15 +1,33 @@
+﻿# coding=utf-8
 from django import forms
 from django.core import validators
 from django.forms import ModelForm, Textarea
 from django.forms.util import ErrorList
 from django.utils.timezone import utc
-
+ 
+#python
 import datetime
-
+#my
 from myapp.models import Trip
-
+from myapp.translate.localize import *
+#3rd party
 from recaptchawidget.fields import ReCaptchaField 
+
+"""
+from django.forms.widgets import Widget
+from __future__ import unicode_literals
+Работает и без этого
+def flatatt(attrs):
+    return u''.join([u' %s="%s"' % (k, conditional_escape(v)) for k, v in attrs.items()])
 	
+class Label(Widget):    
+    def render(self, name, value, attrs=None):
+        if value is None: value = ''
+        final_attrs = self.build_attrs(attrs, name=name)
+       return mark_safe(u'<label%s>%s</label>' % (flatatt(final_attrs),
+                conditional_escape(force_unicode(value))))
+"""
+
 class DivModelForm(forms.ModelForm):
     error_css_class = 'class-error'
     #required_css_class = 'class-required'
@@ -23,13 +41,24 @@ class DivModelForm(forms.ModelForm):
             errors_on_separate_row = False)
 
 class TripForm(DivModelForm):
-	#date = forms.DateTimeField(label='Date C', widget=forms.DateTimeField(attrs={'class':'form-field'}))
 	captcha = ReCaptchaField()
-	
+
+	def __init__(self, *args, **kwargs):
+		super(TripForm, self).__init__(*args, **kwargs)
+		self.label_suffix = ''
+		d = dict(DEFAULT_TRANSLATE_NEW_TRIP)
+		for name, field in self.fields.items():
+			field.label = field.label if d.get(name) is None else d[name]
+            #if field.widget.__class__ == forms.widgets.TextInput:
+             #   if field.widget.attrs.has_key('class'):
+              #      field.widget.attrs['class'] += ' my-class'
+               # else:
+                #    field.widget.attrs.update({'class':'my-class'})
+		
 	class Meta:
 		model = Trip
 		widgets = {
-            'place_from': forms.Select(),
+			'place_from': forms.Select(),
             'place_to': forms.Select(),
             'name': forms.TextInput(),
             'comments': Textarea(attrs={'cols': 40, 'rows': 5}),

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block source %}
 	<script src="/content/js/jquery.combobox.js" type="text/javascript"></script>
@@ -7,8 +7,63 @@
 
 {% block content %}
 
+	{% load dict_by_key %}
 	<script type="text/javascript">
+	
+		function str_to_list(var_str){
+			var res = new Array()
+			//var str = ;
+			arr = var_str.split(",");
+			for (var i = 0; i < arr.length; i++) {
+				res.push(arr[i]);
+			}
+			
+			return res;
+		}
+		
 		$(function() {
+		
+			// date localize
+			$.timepicker.regional['ru'] = {
+				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
+				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
+				hourText: '{{ time_translate|dict_getbykey:"hourText"}}',
+				minuteText: '{{ time_translate|dict_getbykey:"minuteText"}}',
+				secondText: '{{ time_translate|dict_getbykey:"secondText"}}',
+				millisecText: '{{ time_translate|dict_getbykey:"millisecText"}}',
+				timezoneText: '{{ time_translate|dict_getbykey:"timezoneText"}}',
+				currentText: '{{ time_translate|dict_getbykey:"currentText"}}',
+				closeText: '{{ time_translate|dict_getbykey:"closeText"}}',
+				timeFormat: '{{ time_translate|dict_getbykey:"timeFormat"}}',
+				amNames: str_to_list('{{ time_translate|dict_getbykey:"amNames"}}'),
+				pmNames: str_to_list('{{ time_translate|dict_getbykey:"pmNames"}}'),
+				isRTL: false
+			};
+			$.timepicker.setDefaults($.timepicker.regional['ru']);
+			
+			{% autoescape off %}
+
+			$.datepicker.regional['ru'] = {
+				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',
+				prevText: '{{ date_translate|dict_getbykey:"prevText"}}',
+				nextText: '{{ date_translate|dict_getbykey:"nextText"}}',
+				currentText: '{{ date_translate|dict_getbykey:"currentText"}}',
+				monthNames:str_to_list('{{ date_translate|dict_getbykey:"monthNames"}}'),
+				monthNamesShort: str_to_list('{{ date_translate|dict_getbykey:"monthNamesShort"}}'),
+				dayNames: str_to_list('{{ date_translate|dict_getbykey:"dayNames"}}'),
+				dayNamesShort: str_to_list('{{ date_translate|dict_getbykey:"dayNamesShort"}}'),
+				dayNamesMin: str_to_list('{{ date_translate|dict_getbykey:"dayNamesMin"}}'),
+				weekHeader: '{{ date_translate|dict_getbykey:"weekHeader"}}',
+				dateFormat: '{{ date_translate|dict_getbykey:"dateFormat"}}',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: false,
+				yearSuffix: ''
+			};
+			$.datepicker.setDefaults($.datepicker.regional['ru']);
+
+			{% endautoescape %}	
+			
 			// datepicker
 			$( "#id_date" ).datetimepicker();
 			//combobox
@@ -31,6 +86,7 @@
 			$('#id_date').width(width);	
 			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_phone_number').width(width);	
+
 		});		
 	</script>	
 	
@@ -48,7 +104,9 @@
 	<form action="/add/" method="post">
 		{% csrf_token %}
 		<table>
+		{% autoescape off %}
 			{{ form.as_table }}
+		{% endautoescape %}
 		</table>
 		<input type='submit' value='Save'/>
 	</form> 

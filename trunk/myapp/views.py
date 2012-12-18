@@ -1,12 +1,15 @@
+﻿# coding=utf-8 
 from django.shortcuts import render_to_response
 from django.template import loader, Context, RequestContext
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.utils import simplejson as json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
-
-from myapp.models import Trip, LithuaniaCities
+ 
+ #my
+from myapp.models import Trip
 from myapp.forms import TripForm
+from myapp.translate.localize import *
 
 import datetime
 from datetime import date, timedelta
@@ -22,8 +25,14 @@ def add(request):
 			return HttpResponseRedirect('/index/')
 	else:
 		form = TripForm()
+		
+	c = {
+		'form':form, 
+		'time_translate':DEFAULT_TIME, 
+		'date_translate':DEFAULT_DATE
+	}
 	
-	return render_to_response('add.html', {'form':form}, RequestContext(request))
+	return render_to_response('add.html', c, RequestContext(request))
 
 def set_session(request):
 	print 'call set_session'
@@ -53,7 +62,7 @@ def index(request):
 	place_to = request.session.get('place_to', '')
 	
 	trips = Trip.objects.filter(date__range=[startdate, enddate], place_from=place_from, place_to=place_to)
-	LithuaniaCities_dict = dict(LithuaniaCities); 
+	Citites = dict(DEFAULT_CITY); 
 
 	data = {
 		'trips':trips, 
@@ -61,7 +70,7 @@ def index(request):
 		'enddate':enddate.strftime('%Y-%m-%dT%H:%M:%S'),
 		'place_from':place_from,
 		'place_to':place_to,
-		'cities':LithuaniaCities_dict,
+		'cities':Citites,
 	}
 
 	return render_to_response('index.html', data, RequestContext(request))
