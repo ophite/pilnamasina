@@ -6,196 +6,257 @@
 {% endblock %}		
 		
 {% block content %}
+	{% load dict_by_key %}
 
-<script type="text/javascript">
-    $(function() {
+	<script type="text/javascript">
+		$(function() {
+	
+			function str_to_list(var_str){
+				var res = new Array()
+				//var str = ;
+				arr = var_str.split(",");
+				for (var i = 0; i < arr.length; i++) {
+					res.push(arr[i]);
+				}
+				
+				return res;
+			}
+			
+			// date localize
+			{% autoescape off %}
+			
+			$.timepicker.regional['ru'] = {
+				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
+				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
+				hourText: '{{ time_translate|dict_getbykey:"hourText"}}',
+				minuteText: '{{ time_translate|dict_getbykey:"minuteText"}}',
+				secondText: '{{ time_translate|dict_getbykey:"secondText"}}',
+				millisecText: '{{ time_translate|dict_getbykey:"millisecText"}}',
+				timezoneText: '{{ time_translate|dict_getbykey:"timezoneText"}}',
+				currentText: '{{ time_translate|dict_getbykey:"currentText"}}',
+				closeText: '{{ time_translate|dict_getbykey:"closeText"}}',
+				timeFormat: '{{ time_translate|dict_getbykey:"timeFormat"}}',
+				amNames: str_to_list('{{ time_translate|dict_getbykey:"amNames"}}'),
+				pmNames: str_to_list('{{ time_translate|dict_getbykey:"pmNames"}}'),
+				isRTL: false
+			};
+			$.timepicker.setDefaults($.timepicker.regional['ru']);
 
-		search_controls_maxcount = 2;
-		search_controls = 0;
-		search_controls_indexes = new Array();
+			$.datepicker.regional['ru'] = {
+				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',
+				prevText: '{{ date_translate|dict_getbykey:"prevText"}}',
+				nextText: '{{ date_translate|dict_getbykey:"nextText"}}',
+				currentText: '{{ date_translate|dict_getbykey:"currentText"}}',
+				monthNames:str_to_list('{{ date_translate|dict_getbykey:"monthNames"}}'),
+				monthNamesShort: str_to_list('{{ date_translate|dict_getbykey:"monthNamesShort"}}'),
+				dayNames: str_to_list('{{ date_translate|dict_getbykey:"dayNames"}}'),
+				dayNamesShort: str_to_list('{{ date_translate|dict_getbykey:"dayNamesShort"}}'),
+				dayNamesMin: str_to_list('{{ date_translate|dict_getbykey:"dayNamesMin"}}'),
+				weekHeader: '{{ date_translate|dict_getbykey:"weekHeader"}}',
+				dateFormat: '{{ date_translate|dict_getbykey:"dateFormat"}}',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: false,
+				yearSuffix: ''
+			};
+			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
-		$( "#accordion" ).accordion({
-			collapsible: true,
-			active:false
-		});
-		$( "input[type=submit], button" )
-			.button()
-			.click(function( event ) {
-				event.preventDefault();
+			{% endautoescape %}	
+
+			search_controls_maxcount = 2;
+			search_controls = 0;
+			search_controls_indexes = new Array();
+
+			$( "#accordion" ).accordion({
+				collapsible: true,
+				active:false
 			});
- 		$("#combobox_from").combobox();
-        $("#combobox_to").combobox();
-		$("#toggle").click(function() {
-				$( "#combobox_from" ).toggle();
-		});
-		$( "#toggle" ).click(function() {
-				$( "#combobox_to" ).toggle();
-		});
-	
-		// search
-		$( "[id=Go]" ).click(function( event ) {
-			$.ajax({
-				url: '/search/', //document.location,
-				type: "GET",
-				data: {
-					'date_from':$('#datepicker_from').val(),
-					'date_to':$('#datepicker_to').val(),
-					'place_from':$('#combobox_from').val(),
-					'place_to':$('#combobox_to').val()
-				},
-				dataType: "json",
-				success: function(msg){
-					//alert('success');
-				},
-				complete: function(jsondata, stat) { 
-					if (stat == "success"){
-						//alert('complete');
-						json_all = json_parse(jsondata.responseText);
-						json_trips = json_parse(json_all[0]);
-						holder = $('#accordion');
-						holder.html('');
-						
-						jQuery.each(json_trips, function(){					
-							holder.append('<h3>'
-											+ 'trip name:' + this.fields.name 
-											+ ', from: ' + this.fields.place_from 
-											+ ', to: ' + this.fields.place_to 
-											+ ', date: ' + this.fields.date 
-											+ '</h3> <div> <p>' + this.fields.comments + '</p> </div>'
-							);
-						});	
-												
-						$( "#accordion" ).accordion("destroy").accordion({
-							collapsible: true,
-							active:false
-						});
-
-					}
-			},
-				error: function(msg){
-					alert('error');
-				}
-			});	
-		});
-		
-		// add new filter
-		$("[id=Add]").click(function( event ) {
-			isNew = false;
-			
-			do{
-				search_controls++;
-				
-				if (search_controls_indexes.indexOf(search_controls) == -1){
-					isNew=true;
-					search_controls_indexes.push(search_controls);
-					break;
-				}
-			}
-			while(search_controls<=search_controls_maxcount)
-
-			if(search_controls_indexes.length > search_controls_maxcount){
-				$('#Add').hide();
-				//$('#Add').attr('disabled', true);
-			}
-			
-			if (isNew==false)
-				return;
-			
-			html_option = '';
-			$.map($('#combobox_from option'), function(e) { return html_option += '<option value="' + e.value + '">' + e.value + '</option>'; });
-			
-			$('<tr id="filter_' + search_controls + '">'
-				+'<td>' 
-					+'<input id="Del_' + search_controls + '" type="submit" value="Del" />'
-				+'</td>'
-				+'<td>From:<input class="search_datepicker" type="text" id="datepicker_from_' + search_controls + '" />'
-					+' <select id="combobox_from_' + search_controls + '">'
-					+ html_option
-					+'</select>'
-				+'</td>'
-				+'<td>To:<input class="search_datepicker" type="text" id="datepicker_to_' + search_controls + '" />'
-					+' <select id="combobox_to_' + search_controls + '">'
-					+ html_option
-					+'</select>'	
-				+'</td>'
-			+'</tr>').appendTo('#filter_main');
-			//.insertAfter('#filter_first')
-			
-			// reInit
-			$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
-			$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
-				
-			$('[id^="combobox_from_' + search_controls + '"]').combobox();
-			$('[id^="combobox_from_' + search_controls + '"]').next().children('input').val('');
-			$('[id^="combobox_to_' + search_controls + '"]').combobox();
-			$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val('');
-
-			$('[id^="accordion"]').accordion("destroy").accordion({
-															collapsible:true,
-															active:false
-														});
-	
-			$('[id^="datepicker_from_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('[id^="datepicker_to_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-
-			// delete current filter
-			$('[id^="Del_' + search_controls + '"]')
+			$( "input[type=submit], button" )
 				.button()
 				.click(function( event ) {
-						
-					str = $(this).attr('id');
-					search_control = str.substring(str.length, str.length-1);
-					search_controls_indexes.splice(search_controls_indexes.indexOf(parseInt(search_control)), 1);
+					event.preventDefault();
+				});
+			$("#combobox_from").combobox();
+			$("#combobox_to").combobox();
+			$("#toggle").click(function() {
+					$( "#combobox_from" ).toggle();
+			});
+			$( "#toggle" ).click(function() {
+					$( "#combobox_to" ).toggle();
+			});
+		
+			// search
+			$( "[id=Go]" ).click(function( event ) {
+				$.ajax({
+					url: '/search/', //document.location,
+					type: "GET",
+					data: {
+						'date_from':$('#datepicker_from').val(),
+						'date_to':$('#datepicker_to').val(),
+						'place_from':$('#combobox_from').val(),
+						'place_to':$('#combobox_to').val()
+					},
+					dataType: "json",
+					success: function(msg){
+						//alert('success');
+					},
+					complete: function(jsondata, stat) { 
+						if (stat == "success"){
+							//alert('complete');
+							json_all = json_parse(jsondata.responseText);
+							json_trips = json_parse(json_all[0]);
+							holder = $('#accordion');
+							holder.html('');
+							
+							jQuery.each(json_trips, function(){					
+								holder.append('<h3>'
+												+ 'trip name:' + this.fields.name 
+												+ ', from: ' + this.fields.place_from 
+												+ ', to: ' + this.fields.place_to 
+												+ ', date: ' + this.fields.date 
+												+ '</h3> <div> <p>' + this.fields.comments + '</p> </div>'
+								);
+							});	
+													
+							$( "#accordion" ).accordion("destroy").accordion({
+								collapsible: true,
+								active:false
+							});
 
-					search_controls = 0;
-					$('#Add').show();
-					//$('#Add').attr('disabled', false)
+						}
+					},
+					error: function(msg){
+						alert('error Go');
+					}
+				});	
+			});
+			
+			// add new filter
+			$("[id=Add]").click(function( event ) {
+				isNew = false;
+				
+				do{
+					search_controls++;
 					
-					$(this).parent().parent().remove();;
-					//event.preventDefault();
-			});
-		});
-		
-		// add new filter
-		$("[id=add_new_trip]").click(function( event ) {
-			$.ajax({
-				url: '/set_session/',
-				data: {
-					'startdate': $('#datepicker_from').val(), 
-					'enddate': $('#datepicker_to').val(),
-					'place_from': $('#combobox_from').val(),
-					'place_to':	$('#combobox_to').val()
-				},	
-				success: function(msg){
-					//alert('success');
-				},
-				complete:function(data){
-					document.location.href = location.protocol + '//' + location.host + '/add';
-				},
-				//dataType: "json",
-				type: 'GET',
-				error : function () {
-					alert('error');
-					console.log("add_new_trip ajax error");
+					if (search_controls_indexes.indexOf(search_controls) == -1){
+						isNew=true;
+						search_controls_indexes.push(search_controls);
+						break;
+					}
 				}
-			});
-		});
+				while(search_controls<=search_controls_maxcount)
+
+				if(search_controls_indexes.length > search_controls_maxcount){
+					$('#Add').hide();
+					//$('#Add').attr('disabled', true);
+				}
+				
+				if (isNew==false)
+					return;
+				
+				html_option = '';
+				$.map($('#combobox_from option'), function(e) { return html_option += '<option value="' + e.value + '">' + e.value + '</option>'; });
+				
+				$('<tr id="filter_' + search_controls + '">'
+					+'<td>' 
+						+'<input id="Del_' + search_controls + '" type="submit" value="Del" />'
+					+'</td>'
+					+'<td>From:<input class="search_datepicker" type="text" id="datepicker_from_' + search_controls + '" />'
+						+' <select id="combobox_from_' + search_controls + '">'
+						+ html_option
+						+'</select>'
+					+'</td>'
+					+'<td>To:<input class="search_datepicker" type="text" id="datepicker_to_' + search_controls + '" />'
+						+' <select id="combobox_to_' + search_controls + '">'
+						+ html_option
+						+'</select>'	
+					+'</td>'
+				+'</tr>').appendTo('#filter_main');
+				//.insertAfter('#filter_first')
+				
+				// reInit
+				$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
+				$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
+					
+				$('[id^="combobox_from_' + search_controls + '"]').combobox();
+				$('[id^="combobox_from_' + search_controls + '"]').next().children('input').val('');
+				$('[id^="combobox_to_' + search_controls + '"]').combobox();
+				$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val('');
+
+				$('[id^="accordion"]').accordion("destroy").accordion({
+																collapsible:true,
+																active:false
+															});
 		
-		// set values
-		// datetimepicker			
-		$('#datepicker_from').datetimepicker();
-		$('#datepicker_to').datetimepicker();
-		$('#datepicker_from').datetimepicker("setDate", new Date('{{startdate}}'));
-		$('#datepicker_to').datetimepicker("setDate", new Date('{{enddate}}'));
-		$('#datepicker_from').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-		$('#datepicker_to').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-		// combo
-		$('#combobox_from').val('{{place_from}}')
-		$('#combobox_from').next().children('input').val($('#combobox_from').val())
-		$('#combobox_to').val('{{place_to}}')
-		$('#combobox_to').next().children('input').val($('#combobox_to').val())
-	});
-</script>
+				$('[id^="datepicker_from_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+				$('[id^="datepicker_to_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+
+				// delete current filter
+				$('[id^="Del_' + search_controls + '"]')
+					.button()
+					.click(function( event ) {
+							
+						str = $(this).attr('id');
+						search_control = str.substring(str.length, str.length-1);
+						search_controls_indexes.splice(search_controls_indexes.indexOf(parseInt(search_control)), 1);
+
+						search_controls = 0;
+						$('#Add').show();
+						//$('#Add').attr('disabled', false)
+						
+						$(this).parent().parent().remove();;
+						//event.preventDefault();
+				});
+			});
+			
+			// add new filter
+			$("[id=add_new_trip]").click(function( event ) {
+							
+				{% autoescape off %}
+
+				$.ajax({
+					url: '/set_session/',
+					data: {
+						'startdate': $('#datepicker_from').val(), 
+						'enddate': $('#datepicker_to').val(),
+						'place_from': $('#combobox_from').val(),
+						'place_to':	$('#combobox_to').val()
+					},	
+					success: function(msg){
+						//alert('success');
+					},
+					complete:function(jsondata, stat){
+						if (stat == "success"){
+							document.location.href = location.protocol + '//' + location.host + '/add';
+						}
+					},
+					//dataType: "json",
+					type: 'GET',
+					error : function () {
+						alert('error add_new_trip');
+						console.log("add_new_trip ajax error");
+					}
+				});
+				
+				{% endautoescape %}	
+			});
+
+			
+			// set values
+			// datetimepicker			
+			$('#datepicker_from').datetimepicker();
+			$('#datepicker_to').datetimepicker();
+			$('#datepicker_from').datetimepicker("setDate", new Date('{{startdate}}'));
+			$('#datepicker_to').datetimepicker("setDate", new Date('{{enddate}}'));
+			$('#datepicker_from').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#datepicker_to').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			// combo
+			$('#combobox_from').val('{{place_from}}')
+			$('#combobox_from').next().children('input').val($('#combobox_from').val())
+			$('#combobox_to').val('{{place_to}}')
+			$('#combobox_to').next().children('input').val($('#combobox_to').val())
+		});
+	</script>
 
 <table>
 	<tr>

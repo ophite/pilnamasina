@@ -37,8 +37,10 @@ def add(request):
 def set_session(request):
 	print 'call set_session'
 	
-	request.session['startdate'] = datetime.datetime.strptime(request.GET['startdate'], '%m/%d/%Y %H:%M')
-	request.session['enddate'] = datetime.datetime.strptime(request.GET['enddate'], '%m/%d/%Y %H:%M')
+	format = DEFAULT_DATE.get('pythonDateFormat', '%d/%m/%Y %H:%M')
+	
+	request.session['startdate'] = datetime.datetime.strptime(request.GET['startdate'], format)	
+	request.session['enddate'] = datetime.datetime.strptime(request.GET['enddate'], format)
 	request.session['place_from'] = request.GET.get('place_from', '')
 	request.session['place_to'] = request.GET.get('place_to', '')
 	
@@ -71,12 +73,15 @@ def index(request):
 		'place_from':place_from,
 		'place_to':place_to,
 		'cities':Citites,
+		'time_translate':DEFAULT_TIME, 
+		'date_translate':DEFAULT_DATE,
 	}
-
+	#print 1111111111111111111111122222222222222222222222222333333333333333	
+	#print data
+	
 	return render_to_response('index.html', data, RequestContext(request))
 
 def search(request):
-	print 22222
 	
 	startdate = datetime.datetime.strptime(request.GET['date_from'], '%m/%d/%Y %H:%M')
 	enddate = datetime.datetime.strptime(request.GET['date_to'], '%m/%d/%Y %H:%M')

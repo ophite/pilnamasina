@@ -22,8 +22,9 @@
 		}
 		
 		$(function() {
-		
 			// date localize
+			{% autoescape off %}
+			
 			$.timepicker.regional['ru'] = {
 				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
 				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
@@ -40,8 +41,6 @@
 				isRTL: false
 			};
 			$.timepicker.setDefaults($.timepicker.regional['ru']);
-			
-			{% autoescape off %}
 
 			$.datepicker.regional['ru'] = {
 				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',

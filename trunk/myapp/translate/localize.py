@@ -9,6 +9,7 @@ Cities_LT = (
 )
 
 #new trip translates
+#RUSSIAN
 NewTrip_RU = (
 	('name', 'Имя:') ,
 	('place_from', 'Откуда:'),
@@ -18,7 +19,7 @@ NewTrip_RU = (
 	('date', 'Дата:'),
 	('captcha', ' '),
 )
-
+#LITHUANIAN
 NewTrip_LT = (
 	('name', 'Vardas:') ,
 	('place_from', 'Iš:'),
@@ -30,6 +31,7 @@ NewTrip_LT = (
 )
 
 # time translates
+# RUSSIAN
 Time_RU = {
 	'timeOnlyTitle': u'Выберите время',
 	'timeText': u'Время',
@@ -57,7 +59,9 @@ Date_RU = {
 	'dayNamesMin': [u'Вс',u'Пн',u'Вт',u'Ср',u'Чт',u'Пт',u'Сб'],
 	'weekHeader': u'Не',
 	'dateFormat': u'dd.mm.yy',
+	'pythonDateFormat': '%d.%m.%Y %H:%M',
 }
+# LITHUANIAN
 Time_LT = {
 	'timeOnlyTitle': u'Pasirinkite laiką',
 	'timeText': u'Laikas',
@@ -85,7 +89,9 @@ Date_LT = {
 	'dayNamesMin': [u'Sk',u'Pr',u'An',u'Tr',u'Kt',u'Pn',u'Še'],
 	'weekHeader': u'Не',
 	'dateFormat': u'dd.mm.yy',
+	'pythonDateFormat': '%d.%m.%Y %H:%M',
 }
+
 #defaults
 DEFAULT_CITY = Cities_LT
 DEFAULT_TIME = Time_LT
