@@ -29,7 +29,8 @@ def add(request):
 	c = {
 		'form':form, 
 		'time_translate':DEFAULT_TIME, 
-		'date_translate':DEFAULT_DATE
+		'date_translate':DEFAULT_DATE,
+		'controls_translate':DEFAULT_CONTROLS,
 	}
 	
 	return render_to_response('add.html', c, RequestContext(request))
@@ -75,6 +76,7 @@ def index(request):
 		'cities':Citites,
 		'time_translate':DEFAULT_TIME, 
 		'date_translate':DEFAULT_DATE,
+		'controls_translate':DEFAULT_CONTROLS,
 	}
 	#print 1111111111111111111111122222222222222222222222222333333333333333	
 	#print data

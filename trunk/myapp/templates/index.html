@@ -255,6 +255,11 @@
 			$('#combobox_from').next().children('input').val($('#combobox_from').val())
 			$('#combobox_to').val('{{place_to}}')
 			$('#combobox_to').next().children('input').val($('#combobox_to').val())
+			
+			// translate controls
+			$( "[id=Go]" ).attr('value','{{ controls_translate|dict_getbykey:"Go" }}');
+			$( "[id=Add]" ).attr('value','{{ controls_translate|dict_getbykey:"Add" }}');
+			$( "[id=add_new_trip]" ).attr('value','{{ controls_translate|dict_getbykey:"AddNewTrip" }}');
 		});
 	</script>
 

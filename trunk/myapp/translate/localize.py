@@ -8,6 +8,23 @@ Cities_LT = (
 	('Vilnus', 'Vilnus'),
 )
 
+#controls
+Controls_RU = {
+	'Go': u'Поиск',
+	'Add': u'Добавить',
+	'AddNewTrip': u'Добавить поездку',
+	'Save': u'Сохранить',
+	'Trips': u'Поездки',
+}
+
+Controls_LT = {
+	'Go': u'Поиск',
+	'Add': u'Добавить',
+	'AddNewTrip': u'Добавить поездку',
+	'Save': u'Сохранить',
+	'Trips': u'Поездки',
+}
+
 #new trip translates
 #RUSSIAN
 NewTrip_RU = (
@@ -93,6 +110,7 @@ Date_LT = {
 }
 
 #defaults
+DEFAULT_CONTROLS = Controls_LT
 DEFAULT_CITY = Cities_LT
 DEFAULT_TIME = Time_LT
 DEFAULT_DATE = Date_LT
