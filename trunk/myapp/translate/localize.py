@@ -39,25 +39,26 @@ Controls_LT = {
 
 #new trip translates
 #RUSSIAN
-NewTrip_RU = (
-	('name', 'Имя:') ,
-	('place_from', 'Откуда:'),
-	('place_to', 'Куда:'),
-	('comments', 'Комментарий:'),
-	('phone_number', 'Телефон:'),
-	('date', 'Дата:'),
-	('captcha', ' '),
-)
+NewTrip_RU = {
+	'name': 'Имя:',
+	'place_from': 'Откуда:',
+	'place_to': 'Куда:',
+	'comments': 'Комментарий:',
+	'phone_number': 'Телефон:',
+	'date': 'Дата:',
+	'captcha': ' ',
+}
+
 #LITHUANIAN
-NewTrip_LT = (
-	('name', 'Vardas:') ,
-	('place_from', 'Iš:'),
-	('place_to', 'Į:'),
-	('comments', 'Komentaras:'),
-	('phone_number', 'Telefonas:'),
-	('date', 'Data:'),
-	('captcha', ' '),
-)
+NewTrip_LT = {
+	'name': 'Vardas:',
+	'place_from': 'Iš:',
+	'place_to': 'Į:',
+	'comments': 'Komentaras:',
+	'phone_number': 'Telefonas:',
+	'date': 'Data:',
+	'captcha': ' ',
+}
 
 # time translates
 # RUSSIAN
@@ -108,8 +109,8 @@ Time_LT = {
 
 Date_LT = {
 	'closeText': u'Uždaryti',
-	'prevText': u'<Ankst',
-	'nextText': u'Sekan>',
+	'prevText': u'Ankst',
+	'nextText': u'Sekan',
 	'currentText': u'Šiandien',
 	'monthNames': [u'Sausis',u'Vasaris',u'Kovas',u'Balandis',u'Gegužė',u'Birželis', u'Liepa',u'Rugpjūtis',u'Rugsėjis',u'Spalis',u'Lapkritis',u'Gruodis'],
 	'monthNamesShort': [u'Sau',u'Vas',u'Kov',u'Bal',u'Geg',u'Bir',u'Lie',u'Rugp',u'Rugs',u'Spa',u'Lap',u'Gruo'],

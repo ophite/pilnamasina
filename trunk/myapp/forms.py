@@ -46,7 +46,7 @@ class TripForm(DivModelForm):
 	def __init__(self, *args, **kwargs):
 		super(TripForm, self).__init__(*args, **kwargs)
 		self.label_suffix = ''
-		d = dict(DEFAULT_TRANSLATE_NEW_TRIP)
+		d = DEFAULT_TRANSLATE_NEW_TRIP
 		for name, field in self.fields.items():
 			field.label = field.label if d.get(name) is None else d[name]
             #if field.widget.__class__ == forms.widgets.TextInput:

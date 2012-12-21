@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block source %}
-<!--	<link rel="stylesheet" type="text/css" media="screen" href="/content/myapp/myapp_add.css" /> -->
 	<script src="/content/js/jquery.combobox.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.combobox.css" />
 {% endblock %}		
@@ -9,22 +8,22 @@
 	{% load dict_by_key %}
 
 	<script type="text/javascript">
-		$(function() {
 	
-			function str_to_list(var_str){
-				var res = new Array()
-				//var str = ;
-				arr = var_str.split(",");
-				for (var i = 0; i < arr.length; i++) {
-					res.push(arr[i]);
-				}
-				
-				return res;
+		function str_to_list(var_str){
+			var res = new Array()
+			arr = var_str.split(",");
+			for (var i = 0; i < arr.length; i++) {
+				res.push(arr[i]);
 			}
+			
+			return res;
+		}
+
+		$(function() {
 			
 			// date localize
 			{% autoescape off %}
-			
+				
 			$.timepicker.regional['ru'] = {
 				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
 				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
@@ -41,7 +40,7 @@
 				isRTL: false
 			};
 			$.timepicker.setDefaults($.timepicker.regional['ru']);
-
+			
 			$.datepicker.regional['ru'] = {
 				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',
 				prevText: '{{ date_translate|dict_getbykey:"prevText"}}',
@@ -62,7 +61,7 @@
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
 			{% endautoescape %}	
-
+		
 			search_controls_maxcount = 2;
 			search_controls = 0;
 			search_controls_indexes = new Array();
@@ -84,7 +83,7 @@
 			$( "#toggle" ).click(function() {
 					$( "#combobox_to" ).toggle();
 			});
-		
+			
 			// search
 			$( "[id=Go]" ).click(function( event ) {
 				$.ajax({
@@ -243,7 +242,7 @@
 
 			
 			// set values
-			// datetimepicker			
+			// datetimepicker	
 			$('#datepicker_from').datetimepicker();
 			$('#datepicker_to').datetimepicker();
 			$('#datepicker_from').datetimepicker("setDate", new Date('{{startdate}}'));
@@ -251,10 +250,10 @@
 			$('#datepicker_from').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#datepicker_to').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			// combo
-			$('#combobox_from').val('{{place_from}}')
-			$('#combobox_from').next().children('input').val($('#combobox_from').val())
+			$('#combobox_from').val('{{place_from}}');
+			$('#combobox_from').next().children('input').val($('#combobox_from').val());
 			$('#combobox_to').val('{{place_to}}')
-			$('#combobox_to').next().children('input').val($('#combobox_to').val())
+			$('#combobox_to').next().children('input').val($('#combobox_to').val());
 			
 			// translate controls
 			$( "[id=Go]" ).attr('value','{{ controls_translate|dict_getbykey:"Go" }}');

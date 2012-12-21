@@ -1,4 +1,4 @@
-(function($) {
+	(function($) {
 
 	// jQuery plugin definition
 	$.fn.timePicker = function(params) {

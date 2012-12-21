@@ -31,6 +31,7 @@ def add(request):
 		'time_translate':DEFAULT_TIME, 
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
+		'startdate':datetime.datetime.today().strftime('%m/%d/%Y %H:%M'),
 	}
 	
 	return render_to_response('add.html', c, RequestContext(request))
@@ -69,8 +70,8 @@ def index(request):
 
 	data = {
 		'trips':trips, 
-		'startdate':startdate.strftime('%Y-%m-%dT%H:%M:%S'),
-		'enddate':enddate.strftime('%Y-%m-%dT%H:%M:%S'),
+		'startdate':startdate.strftime('%m/%d/%Y %H:%M'),
+		'enddate':enddate.strftime('%m/%d/%Y %H:%M'),
 		'place_from':place_from,
 		'place_to':place_to,
 		'cities':Citites,
