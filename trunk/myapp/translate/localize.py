@@ -15,6 +15,12 @@ Controls_RU = {
 	'AddNewTrip': u'Добавить поездку',
 	'Save': u'Сохранить',
 	'Trips': u'Поездки',
+	'From:': u'Откуда:',
+	'To:': u'Куда:',
+	'Filters': u'Фильтры',
+	'NewTrip': u'Новая поездка',
+	'Trips': u'Поездки',
+	'Save': u'Сохранить',
 }
 
 Controls_LT = {
@@ -23,6 +29,12 @@ Controls_LT = {
 	'AddNewTrip': u'Добавить поездку',
 	'Save': u'Сохранить',
 	'Trips': u'Поездки',
+	'From:': u'Откуда:',
+	'To:': u'Куда:',
+	'Filters': u'Фильтры',
+	'NewTrip': u'Новая поездка',
+	'Trips': u'Поездки',
+	'Save': u'Сохранить',
 }
 
 #new trip translates

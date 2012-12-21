@@ -86,6 +86,10 @@
 			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_phone_number').width(width);	
 
+			// translate controls
+			$('h1:contains("New trip")').text('{{ controls_translate|dict_getbykey:"NewTrip" }}');
+			$('a:contains("Trips")').text('{{ controls_translate|dict_getbykey:"NewTrip" }}')
+			$('input[value="Save"]').val('{{ controls_translate|dict_getbykey:"Save" }}')
 		});		
 	</script>	
 	

@@ -260,6 +260,10 @@
 			$( "[id=Go]" ).attr('value','{{ controls_translate|dict_getbykey:"Go" }}');
 			$( "[id=Add]" ).attr('value','{{ controls_translate|dict_getbykey:"Add" }}');
 			$( "[id=add_new_trip]" ).attr('value','{{ controls_translate|dict_getbykey:"AddNewTrip" }}');
+			$('b:contains("From:")').text('{{ controls_translate|dict_getbykey:"From:" }}');
+			$('b:contains("To:")').text('{{ controls_translate|dict_getbykey:"To:" }}');
+			$('h1:contains("Filters")').text('{{ controls_translate|dict_getbykey:"Filters" }}');
+
 		});
 	</script>
 
@@ -279,14 +283,14 @@
 					<input id="Go" type="submit" value="Go" />
 					<input id="Add" type="submit" value="Add" />
 				</td>
-				<td>From:<input type="text" id="datepicker_from" />
+				<td><b>From:</b><input type="text" id="datepicker_from" />
 					<select id="combobox_from" >
 					{% for k,v in cities.items %}
 						<option value={{v}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
-				<td>To:<input type="text" id="datepicker_to" />
+				<td><b>To:</b><input type="text" id="datepicker_to" />
 					<select id="combobox_to">
 					{% for k,v in cities.items  %}
 						<option value={{v}}>{{v}}</option>
