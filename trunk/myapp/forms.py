@@ -70,6 +70,8 @@ class TripForm(DivModelForm):
 		cleaned_data = super(TripForm, self).clean()
 		#self.error_class([u'You must input date to create new trip'])		
 		date = cleaned_data.get("date")
+		
+		print '--------------------------------> call clean cleaned_data', cleaned_data
 
 		if date is None:
 			self._errors["date"] = ErrorList([u'You cannot input empty date']) 

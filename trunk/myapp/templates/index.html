@@ -18,6 +18,18 @@
 			
 			return res;
 		}
+		
+		// IE don't has indexof method
+		if(!Array.prototype.indexOf) {
+			Array.prototype.indexOf = function(needle) {
+				for(var i = 0; i < this.length; i++) {
+					if(this[i] === needle) {
+						return i;
+					}
+				}
+				return -1;
+			};
+		}
 
 		$(function() {
 			
@@ -62,6 +74,7 @@
 
 			{% endautoescape %}	
 		
+			// init vars
 			search_controls_maxcount = 2;
 			search_controls = 0;
 			search_controls_indexes = new Array();
@@ -78,10 +91,10 @@
 			$("#combobox_from").combobox();
 			$("#combobox_to").combobox();
 			$("#toggle").click(function() {
-					$( "#combobox_from" ).toggle();
+				$( "#combobox_from" ).toggle();
 			});
 			$( "#toggle" ).click(function() {
-					$( "#combobox_to" ).toggle();
+				$( "#combobox_to" ).toggle();
 			});
 			
 			// search

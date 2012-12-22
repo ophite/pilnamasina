@@ -6,7 +6,7 @@ from django.utils import simplejson as json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
  
- #my
+#my
 from myapp.models import Trip
 from myapp.forms import TripForm
 from myapp.translate.localize import *
@@ -15,10 +15,11 @@ import datetime
 from datetime import date, timedelta
 
 def add(request):
-	print 'call add'
+	print '--------------------------------> call add'
 
 	if request.method == 'POST':
 		form = TripForm(request.POST)
+		print '--------------------------------> call add form', dir(form.fields['date'])
 		
 		if form.is_valid():
 			form.save()
@@ -37,7 +38,7 @@ def add(request):
 	return render_to_response('add.html', c, RequestContext(request))
 
 def set_session(request):
-	print 'call set_session'
+	print '--------------------------------> call set_session'
 	
 	format = DEFAULT_DATE.get('pythonDateFormat', '%d/%m/%Y %H:%M')
 	
@@ -49,7 +50,7 @@ def set_session(request):
 	return render_to_response('add.html', RequestContext(request))
 
 def index(request):
-	print 'call index'
+	print '--------------------------------> call index'
 	#print request.session['startdate']
 	
 	if request.session.get('startdate', '') != '':
@@ -79,15 +80,14 @@ def index(request):
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
 	}
-	#print 1111111111111111111111122222222222222222222222222333333333333333	
-	#print data
-	
+
 	return render_to_response('index.html', data, RequestContext(request))
 
 def search(request):
+	print '--------------------------------> call search'
 	
-	startdate = datetime.datetime.strptime(request.GET['date_from'], '%m/%d/%Y %H:%M')
-	enddate = datetime.datetime.strptime(request.GET['date_to'], '%m/%d/%Y %H:%M')
+	startdate = datetime.datetime.strptime(request.GET['date_from'], '%d.%m.%Y %H:%M')
+	enddate = datetime.datetime.strptime(request.GET['date_to'], '%d.%m.%Y %H:%M')
 	
 	place_from_r = request.GET.get('place_from', '')
 	place_to_r = request.GET.get('place_to', '')
