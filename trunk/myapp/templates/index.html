@@ -146,8 +146,8 @@
 				while(search_controls<=search_controls_maxcount)
 
 				if(search_controls_indexes.length > search_controls_maxcount){
-					$('#Add').hide();
-					//$('#Add').attr('disabled', true);
+					//$('#Add').hide();
+					$('#Add').attr('disabled', true);
 				}
 				
 				if (isNew==false)
@@ -158,14 +158,14 @@
 				
 				$('<tr id="filter_' + search_controls + '">'
 					+'<td>' 
-						+'<input id="Del_' + search_controls + '" type="submit" value="Del" />'
+						+'<input id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
 					+'</td>'
-					+'<td>From:<input class="search_datepicker" type="text" id="datepicker_from_' + search_controls + '" />'
+					+'<td><b>{{ controls_translate|dict_getbykey:"From:"}}</b><input class="search_datepicker" type="text" id="datepicker_from_' + search_controls + '" />'
 						+' <select id="combobox_from_' + search_controls + '">'
 						+ html_option
 						+'</select>'
 					+'</td>'
-					+'<td>To:<input class="search_datepicker" type="text" id="datepicker_to_' + search_controls + '" />'
+					+'<td><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to_' + search_controls + '" />'
 						+' <select id="combobox_to_' + search_controls + '">'
 						+ html_option
 						+'</select>'	
@@ -200,8 +200,8 @@
 						search_controls_indexes.splice(search_controls_indexes.indexOf(parseInt(search_control)), 1);
 
 						search_controls = 0;
-						$('#Add').show();
-						//$('#Add').attr('disabled', false)
+						//$('#Add').show();
+						$('#Add').attr('disabled', false)
 						
 						$(this).parent().parent().remove();;
 						//event.preventDefault();

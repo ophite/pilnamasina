@@ -21,6 +21,7 @@ Controls_RU = {
 	'NewTrip': u'Новая поездка',
 	'Trips': u'Поездки',
 	'Save': u'Сохранить',
+	'Delete': u'Удалить',
 }
 
 Controls_LT = {
@@ -35,6 +36,7 @@ Controls_LT = {
 	'NewTrip': u'Новая поездка',
 	'Trips': u'Поездки',
 	'Save': u'Сохранить',
+	'Delete': u'Удалить',
 }
 
 #new trip translates
