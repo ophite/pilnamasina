@@ -11,32 +11,32 @@ Cities_LT = (
 #controls
 Controls_RU = {
 	'Go': u'Поиск',
-	'Add': u'Добавить',
+	'Add': u'+',
 	'AddNewTrip': u'Добавить поездку',
 	'Save': u'Сохранить',
 	'Trips': u'Поездки',
 	'From:': u'Откуда:',
 	'To:': u'Куда:',
-	'Filters': u'Фильтры',
+	'Filters': u'Поиск поездок',
 	'NewTrip': u'Новая поездка',
 	'Trips': u'Поездки',
 	'Save': u'Сохранить',
-	'Delete': u'Удалить',
+	'Delete': u'-',
 }
 
 Controls_LT = {
-	'Go': u'Поиск',
-	'Add': u'Добавить',
-	'AddNewTrip': u'Добавить поездку',
-	'Save': u'Сохранить',
-	'Trips': u'Поездки',
-	'From:': u'Откуда:',
-	'To:': u'Куда:',
-	'Filters': u'Фильтры',
-	'NewTrip': u'Новая поездка',
-	'Trips': u'Поездки',
-	'Save': u'Сохранить',
-	'Delete': u'Удалить',
+	'Go': u'Ieškoti',
+	'Add': u'+',
+	'AddNewTrip': u'Sukurti',
+	'Save': u'Išsaugoti',
+	'Trips': u'Kelionės',
+	'From:': u'Iš:',
+	'To:': u'Į:',
+	'Filters': u'Kelionų paieška',
+	'NewTrip': u'Nauja kelionė',
+	'Trips': u'Kelionės',
+	'Save': u'Išsaugoti',
+	'Delete': u'-',
 }
 
 #new trip translates
