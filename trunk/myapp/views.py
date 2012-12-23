@@ -18,8 +18,7 @@ def add(request):
 	print '--------------------------------> call add'
 
 	if request.method == 'POST':
-		form = TripForm(request.POST)
-		print '--------------------------------> call add form', dir(form.fields['date'])
+		form = TripForm(request.POST, request=request)
 		
 		if form.is_valid():
 			form.save()
@@ -32,7 +31,7 @@ def add(request):
 		'time_translate':DEFAULT_TIME, 
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
-		'startdate':datetime.datetime.today().strftime('%m/%d/%Y %H:%M'),
+		'startdate':datetime.datetime.today().strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
 	}
 	
 	return render_to_response('add.html', c, RequestContext(request))
@@ -40,7 +39,7 @@ def add(request):
 def set_session(request):
 	print '--------------------------------> call set_session'
 	
-	format = DEFAULT_DATE.get('pythonDateFormat', '%d/%m/%Y %H:%M')
+	format = DEFAULT_DATE.get('pythonDateFormat', DEFAULT_DATETIME_FORMAT_CLIENT)
 	
 	request.session['startdate'] = datetime.datetime.strptime(request.GET['startdate'], format)	
 	request.session['enddate'] = datetime.datetime.strptime(request.GET['enddate'], format)
@@ -71,8 +70,8 @@ def index(request):
 
 	data = {
 		'trips':trips, 
-		'startdate':startdate.strftime('%m/%d/%Y %H:%M'),
-		'enddate':enddate.strftime('%m/%d/%Y %H:%M'),
+		'startdate':startdate.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+		'enddate':enddate.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
 		'place_from':place_from,
 		'place_to':place_to,
 		'cities':Citites,
@@ -86,8 +85,8 @@ def index(request):
 def search(request):
 	print '--------------------------------> call search'
 	
-	startdate = datetime.datetime.strptime(request.GET['date_from'], '%d.%m.%Y %H:%M')
-	enddate = datetime.datetime.strptime(request.GET['date_to'], '%d.%m.%Y %H:%M')
+	startdate = datetime.datetime.strptime(request.GET['date_from'], DEFAULT_DATETIME_FORMAT_SERVER)
+	enddate = datetime.datetime.strptime(request.GET['date_to'], DEFAULT_DATETIME_FORMAT_SERVER)
 	
 	place_from_r = request.GET.get('place_from', '')
 	place_to_r = request.GET.get('place_to', '')

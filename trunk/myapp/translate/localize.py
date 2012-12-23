@@ -39,7 +39,7 @@ Controls_LT = {
 	'Delete': u'-',
 }
 
-#new trip translates
+#new trip
 #RUSSIAN
 NewTrip_RU = {
 	'name': 'Имя:',
@@ -62,7 +62,7 @@ NewTrip_LT = {
 	'captcha': ' ',
 }
 
-# time translates
+# time
 # RUSSIAN
 Time_RU = {
 	'timeOnlyTitle': u'Выберите время',
@@ -124,7 +124,29 @@ Date_LT = {
 	'pythonDateFormat': '%d.%m.%Y %H:%M',
 }
 
+# Validation
+Validation_RU = {
+	'empty_date' : u'Вы не можете ввести пустую дату', #u'You cannot input empty date'
+	'less_current_date' : u'Вы не можете ввести дату меньше текущей', #u'You cannot input less then current date'
+	'empty_place_from' : u'Вы не должны ввести место отправления', #u'You must input place from to create new trip'
+	'empty_place_to' : u'Вы не должны ввести место прибытия', #u'You must input place to to create new trip'
+	'empty_name' : u'Вы должны ввести имя', #u'You must input name to create new trip'
+	'required' : u'Поле должно быть заполнено', #u'This field is required'
+}
+
+Validation_LT = {
+	'empty_date' : u'Вы не можете ввести пустую дату', #u'You cannot input empty date'
+	'less_current_date' : u'Вы не можете ввести дату меньше текущей', #u'You cannot input less then current date'
+	'empty_place_from' : u'Вы не должны ввести место отправления', #u'You must input place from to create new trip'
+	'empty_place_to' : u'Вы не должны ввести место прибытия', #u'You must input place to to create new trip'
+	'empty_name' : u'Вы должны ввести имя', #u'You must input name to create new trip'
+	'required' : u'Поле должно быть заполнено', #u'This field is required'
+}
+
 #defaults
+DEFAULT_VALIDATION = Validation_LT 
+DEFAULT_DATETIME_FORMAT_SERVER = '%d.%m.%Y %H:%M'
+DEFAULT_DATETIME_FORMAT_CLIENT = '%m/%d/%Y %H:%M'
 DEFAULT_CONTROLS = Controls_LT
 DEFAULT_CITY = Cities_LT
 DEFAULT_TIME = Time_LT

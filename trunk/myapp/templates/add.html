@@ -99,7 +99,9 @@
 			// datepicker
 			//alert('{{startdate}}')
 			$('#id_date').datetimepicker();
-			$('#id_date').datetimepicker("setDate", new Date('{{startdate}}'));
+			if ($('#id_date').val().length == 0) {
+				$('#id_date').datetimepicker("setDate", new Date('{{startdate}}'));
+			}
 			//combobox
 			$("#id_place_to").combobox();
 			$("#id_place_from").combobox();
@@ -117,7 +119,7 @@
 			$('#id_name').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_name').width(width);
 			$('#id_comments').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('#id_date').width(width);	
+			//$('#id_date').width(width);	
 			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_phone_number').width(width);	
 

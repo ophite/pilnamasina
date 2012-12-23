@@ -4,6 +4,7 @@ from django.core import validators
 from django.forms import ModelForm, Textarea
 from django.forms.util import ErrorList
 from django.utils.timezone import utc
+from django.utils import timezone
  
 #python
 import datetime
@@ -42,13 +43,22 @@ class DivModelForm(forms.ModelForm):
 
 class TripForm(DivModelForm):
 	captcha = ReCaptchaField()
+	date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class':'ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right'}, format = DEFAULT_DATETIME_FORMAT_SERVER), input_formats=(DEFAULT_DATETIME_FORMAT_SERVER,))
 
 	def __init__(self, *args, **kwargs):
+		print '--------------------------------> call __init__'
+		self.request = kwargs.pop('request', None)
 		super(TripForm, self).__init__(*args, **kwargs)
 		self.label_suffix = ''
 		d = DEFAULT_TRANSLATE_NEW_TRIP
+		
 		for name, field in self.fields.items():
+			print name, field
+			#localize label
 			field.label = field.label if d.get(name) is None else d[name]
+			#localize error msg
+			for k,v in field.error_messages.items():
+				field.error_messages[k] = DEFAULT_VALIDATION.get(k, v)
             #if field.widget.__class__ == forms.widgets.TextInput:
              #   if field.widget.attrs.has_key('class'):
               #      field.widget.attrs['class'] += ' my-class'
@@ -63,33 +73,33 @@ class TripForm(DivModelForm):
             'name': forms.TextInput(),
             'comments': Textarea(attrs={'cols': 40, 'rows': 5}),
 			'phone_number':forms.TextInput(),
-            'date': forms.TextInput(attrs={'class':'ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right'}),
+            #'date': forms.DateTimeInput(attrs={'class':'ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right'}, format = DEFAULT_DATETIME_FORMAT_SERVER),
         }
 		
 	def clean(self):
 		cleaned_data = super(TripForm, self).clean()
-		#self.error_class([u'You must input date to create new trip'])		
 		date = cleaned_data.get("date")
 		
-		print '--------------------------------> call clean cleaned_data', cleaned_data
-
+		print '--------------------------------> call clean'
+		
 		if date is None:
-			self._errors["date"] = ErrorList([u'You cannot input empty date']) 
+			self._errors["date"] = ErrorList([DEFAULT_VALIDATION['empty_date']]) 
 		else:
-			now = datetime.datetime.utcnow().replace(tzinfo=utc)
+			#now = datetime.datetime.utcnow().replace(tzinfo=utc) + datetime.timedelta(hours = 1)
+			now = timezone.localtime(timezone.now()) - datetime.timedelta(hours = 1)
 			if date < now:
-				self._errors["date"] = ErrorList([u'You cannot input less then current date']) 		
+				self._errors["date"] = ErrorList([DEFAULT_VALIDATION['less_current_date']]) 		
 
 		place_from = cleaned_data.get("place_from")
 		if place_from is None:
-			self._errors["place_from"] = ErrorList([u'You must input place from to create new trip'])
+			self._errors["place_from"] = ErrorList([DEFAULT_VALIDATION['empty_place_from']])
 	
 		place_to = cleaned_data.get("place_to")
 		if place_to is None:
-			self._errors["place_to"] = ErrorList([u'You must input place to to create new trip'])
+			self._errors["place_to"] = ErrorList([DEFAULT_VALIDATION['empty_place_to']])
 
 		name = cleaned_data.get("name")
 		if name is None:
-			self._errors["name"] = ErrorList([u'You must input name to create new trip'])
+			self._errors["name"] = ErrorList([DEFAULT_VALIDATION['empty_name']])
 		
 		return cleaned_data
