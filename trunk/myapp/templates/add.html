@@ -9,29 +9,33 @@
 
 	{% load dict_by_key %}
 	<script type="text/javascript">
-	
+	/*
 		function str_to_list(var_str){
-			var res = new Array()
-			//var str = ;
+			var res = new Array();
 			arr = var_str.split(",");
+
 			for (var i = 0; i < arr.length; i++) {
 				res.push(arr[i]);
 			}
 			
 			return res;
 		}
-		
+		*/
 		$(function() {
 		
+			// JQUERY INITIALIZE
+			$( "input[type=submit], button" ).button();
+			$("#id_place_to").combobox();
+			$("#id_place_from").combobox();
+			$("#id_type").combobox();
+
+			//Custom style
 			// BEGIN FOR ILIJA
-			
 			$('form > table').children('tbody').children('tr').children('th').css('text-align', 'right');			
-			
 			// END FOR ILIJA
-		
-			// date localize
-			{% autoescape off %}
 			
+			// LOCALIZE
+			{% autoescape off %}			
 			$.timepicker.regional['ru'] = {
 				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
 				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
@@ -48,7 +52,6 @@
 				isRTL: false
 			};
 			$.timepicker.setDefaults($.timepicker.regional['ru']);
-
 			$.datepicker.regional['ru'] = {
 				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',
 				prevText: '{{ date_translate|dict_getbykey:"prevText"}}',
@@ -68,13 +71,33 @@
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
+			$('h1:contains("New trip")').text('{{ controls_translate|dict_getbykey:"NewTrip" }}');
+			$('input[value="Save"]').val('{{ controls_translate|dict_getbykey:"Save" }}')
+			$( "[id=trips]" ).attr('value','{{ controls_translate|dict_getbykey:"Trips" }}');
+			//$('a:contains("Trips")').text('{{ controls_translate|dict_getbykey:"Trips" }}')
 			{% endautoescape %}	
-			
+		
+			//SET DEFAULTS/STYLE
+			$('#id_date').datetimepicker();
+			if ($('#id_date').val().length == 0) {
+				$('#id_date').datetimepicker("setDate", new Date('{{startdate}}'));
+			}
+
+			width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
+			width = width - 13;
+			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
+			width = width - 13;
+			$('#id_name').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#id_name').width(width);
+			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#id_phone_number').width(width);	
+			$('#id_comments').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#id_date').width(width);	
+
+			// AJAX, EVENT
+			{% autoescape off %}
 			// add new filter
 			$("[id=trips]").click(function( event ) {
-							
-				{% autoescape off %}
-
 				$.ajax({
 					url: '/index/',
 					success: function(msg){
@@ -91,50 +114,9 @@
 						alert('error trips');
 						console.log("trips ajax error");
 					}
-				});
-				
-				{% endautoescape %}	
+				});				
 			});
-			
-			// datepicker
-			//alert('{{startdate}}')
-			$('#id_date').datetimepicker();
-			if ($('#id_date').val().length == 0) {
-				$('#id_date').datetimepicker("setDate", new Date('{{startdate}}'));
-			}
-			//combobox
-			$("#id_place_to").combobox();
-			$("#id_place_from").combobox();
-			$("#id_type").combobox();
-			/*$("#toggle").click(function() {
-				$( "#id_place_from" ).toggle();
-			});
-			$( "#toggle" ).click(function() {
-				$( "#id_place_to" ).toggle();
-			});
-			$( "#toggle" ).click(function() {
-					$( "#id_type" ).toggle();
-			});
-			*/
-			//button
-			$( "input[type=submit], button" ).button();
-			//width, class
-			width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
-			width = width - 13;
-			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
-			width = width - 13;
-			$('#id_name').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('#id_name').width(width);
-			$('#id_comments').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			//$('#id_date').width(width);	
-			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('#id_phone_number').width(width);	
-
-			// translate controls
-			$('h1:contains("New trip")').text('{{ controls_translate|dict_getbykey:"NewTrip" }}');
-			$('input[value="Save"]').val('{{ controls_translate|dict_getbykey:"Save" }}')
-			$( "[id=trips]" ).attr('value','{{ controls_translate|dict_getbykey:"Trips" }}');
-			//$('a:contains("Trips")').text('{{ controls_translate|dict_getbykey:"Trips" }}')
+			{% endautoescape %}	
 		});		
 	</script>	
 	

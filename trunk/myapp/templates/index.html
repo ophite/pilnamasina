@@ -20,7 +20,7 @@
 				return -1;
 			};
 		}
-	
+	/*
 		function str_to_list(var_str){
 			var res = new Array()
 			arr = var_str.split(",");
@@ -30,7 +30,7 @@
 			
 			return res;
 		}
-		
+		*/
 		function getfilters(key, filter_name){
 			var values = new Array();
 			
@@ -68,7 +68,7 @@
 			});
 		}
 		
-		function showTrips(json_trips){
+		function tripsShow(json_trips){
 			holder = $('#accordion');
 			holder.html('');
 			
@@ -91,12 +91,54 @@
 				phonenumber_images_setpath();
 			});	
 		}
+			
+		function tripsGet(){
+			$.ajax({
+				url: "/search/",
+				type: "GET",
+				data: {
+					'date_from': getfilters('date_from', 'datepicker_from'),
+					'date_to':getfilters('date_to', 'datepicker_to'),
+					'place_from':getfilters('place_from', 'combobox_from'),
+					'place_to':getfilters('place_to', 'combobox_to'),
+				},
+				dataType: "json",
+				success: function(msg){
+					//alert('success');
+				},
+				complete: function(jsondata, stat) { 
+					if (stat == "success"){
+						json_all = json_parse(jsondata.responseText);
+						json_trips = json_parse(json_all[0]);
+						tripsShow(json_trips);
+					}
+				},
+				error: function(msg){
+					alert('error search');
+				}
+			});
+		}
 
 		$(function() {
+		
+			// init vars
+			search_controls_maxcount = 2;
+			search_controls = 0;
+			search_controls_indexes = new Array();
 			
-			// date localize
-			{% autoescape off %}
-				
+			// JQUERY INITIALIZE
+			$( "input[type=submit], button" ).button();
+			$("#combobox_from").combobox();
+			$("#combobox_to").combobox();
+			$('#datepicker_from').datetimepicker();
+			$('#datepicker_to').datetimepicker();
+			$( "#accordion" ).accordion({
+				collapsible: true,
+				active:false
+			});
+			
+			// LOCALIZE
+			{% autoescape off %}				
 			$.timepicker.regional['ru'] = {
 				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
 				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
@@ -112,8 +154,7 @@
 				pmNames: str_to_list('{{ time_translate|dict_getbykey:"pmNames"}}'),
 				isRTL: false
 			};
-			$.timepicker.setDefaults($.timepicker.regional['ru']);
-			
+			$.timepicker.setDefaults($.timepicker.regional['ru']);			
 			$.datepicker.regional['ru'] = {
 				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',
 				prevText: '{{ date_translate|dict_getbykey:"prevText"}}',
@@ -133,86 +174,33 @@
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
+			//SET DEFAULTS/STYLE
+			$('#datepicker_from').datetimepicker("setDate", new Date('{{startdate}}'));
+			$('#datepicker_to').datetimepicker("setDate", new Date('{{enddate}}'));
+			$('#combobox_from').val('{{place_from}}');
+			$('#combobox_from').next().children('input').val($('#combobox_from').val());
+			$('#combobox_to').val('{{place_to}}')
+			$('#combobox_to').next().children('input').val($('#combobox_to').val());
+
+			$( "[id=search]" ).attr('value','{{ controls_translate|dict_getbykey:"Go" }}');
+			$( "[id=add_filter]" ).attr('value','{{ controls_translate|dict_getbykey:"Add" }}');
+			$( "[id=add_new_trip]" ).attr('value','{{ controls_translate|dict_getbykey:"AddNewTrip" }}');
+			$('b:contains("From:")').text('{{ controls_translate|dict_getbykey:"From:" }}');
+			$('b:contains("To:")').text('{{ controls_translate|dict_getbykey:"To:" }}');
+			$('h1:contains("Filters")').text('{{ controls_translate|dict_getbykey:"Filters" }}');
 			{% endautoescape %}	
-		
-			// init vars
-			search_controls_maxcount = 2;
-			search_controls = 0;
-			search_controls_indexes = new Array();
 			
-			$( "#accordion" ).accordion({
-				collapsible: true,
-				active:false
+			//SET DEFAULTS/STYLE
+			$('#datepicker_from').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('#datepicker_to').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			
+			// AJAX, EVENT
+			{% autoescape off %}
+			$("[id=search]").click(function( event ) {
+				tripsGet();
 			});
 			
-			$( "input[type=submit], button" )
-				.button()
-				.click(function( event ) {
-					event.preventDefault();
-				});
-			$("#combobox_from").combobox();
-			$("#combobox_to").combobox();
-			/*$("#toggle").click(function() {
-				$( "#combobox_from" ).toggle();
-			});
-			$( "#toggle" ).click(function() {
-				$( "#combobox_to" ).toggle();
-			});*/
-			
-			// search
-			$( "[id=Go]" ).click(function( event ) {
-				
-				$.ajax({
-					url: '/search/', //document.location,
-					type: "GET",
-					data: {
-						'date_from': getfilters('date_from', 'datepicker_from'),
-						'date_to':getfilters('date_to', 'datepicker_to'),
-						'place_from':getfilters('place_from', 'combobox_from'),
-						'place_to':getfilters('place_to', 'combobox_to'),
-					},
-					dataType: "json",
-					success: function(msg){
-						//alert('success');
-					},
-					complete: function(jsondata, stat) { 
-						if (stat == "success"){
-							//alert('complete');
-							json_all = json_parse(jsondata.responseText);
-							json_trips = json_parse(json_all[0]);
-							showTrips(json_trips);
-							/*holder = $('#accordion');
-							holder.html('');
-							alert(json_trips)
-							jQuery.each(json_trips, function(){					
-								holder.append('<h3>'
-												+ ' type:' + this.fields.type 
-												+ ' name:' + this.fields.name 
-												+ ' from: ' + this.fields.place_from 
-												+ ' to: ' + this.fields.place_to 
-												+ ' date: ' + this.fields.date 
-												+ '</h3> ' 
-												+ '<div><p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
-								);
-								alert(holder.html())
-							});	
-							
-							$( "#accordion" ).accordion("destroy").accordion({
-								collapsible: true,
-								active:false
-							});
-							
-							phonenumber_images_setpath();*/
-						}
-					},
-					error: function(msg){
-						alert('error Go');
-					}
-				});
-			});
-			
-			// add new filter
-			$("[id=Add]").click(function( event ) {
+			$("[id=add_filter]").click(function( event ) {
 				isNew = false;
 				
 				do{
@@ -228,7 +216,7 @@
 
 				if(search_controls_indexes.length > search_controls_maxcount){
 					//$('#Add').hide();
-					$('#Add').attr('disabled', true);
+					$('#add_filter').attr('disabled', true);
 				}
 				
 				if (isNew==false)
@@ -287,19 +275,15 @@
 						search_controls_indexes.splice(search_controls_indexes.indexOf(parseInt(search_control)), 1);
 
 						search_controls = 0;
-						//$('#Add').show();
-						$('#Add').attr('disabled', false)
+						//$('#add_filter').show();
+						$('#add_filter').attr('disabled', false)
 						
 						$(this).parent().parent().remove();;
 						//event.preventDefault();
 				});
 			});
 			
-			// add new filter
-			$("[id=add_new_trip]").click(function( event ) {
-							
-				{% autoescape off %}
-
+			$("[id=add_new_trip]").click(function( event ) {							
 				$.ajax({
 					url: '/set_session/',
 					data: {
@@ -322,48 +306,11 @@
 						alert('error add_new_trip');
 						console.log("add_new_trip ajax error");
 					}
-				});
-				
-				{% endautoescape %}	
+				});				
 			});
-			
-			// set values
-			// datetimepicker	
-			$('#datepicker_from').datetimepicker();
-			$('#datepicker_to').datetimepicker();
-			$('#datepicker_from').datetimepicker("setDate", new Date('{{startdate}}'));
-			$('#datepicker_to').datetimepicker("setDate", new Date('{{enddate}}'));
-			$('#datepicker_from').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('#datepicker_to').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			// combo
-			$('#combobox_from').val('{{place_from}}');
-			$('#combobox_from').next().children('input').val($('#combobox_from').val());
-			$('#combobox_to').val('{{place_to}}')
-			$('#combobox_to').next().children('input').val($('#combobox_to').val());
-			
-			// translate controls
-			$( "[id=Go]" ).attr('value','{{ controls_translate|dict_getbykey:"Go" }}');
-			$( "[id=Add]" ).attr('value','{{ controls_translate|dict_getbykey:"Add" }}');
-			$( "[id=add_new_trip]" ).attr('value','{{ controls_translate|dict_getbykey:"AddNewTrip" }}');
-			$('b:contains("From:")').text('{{ controls_translate|dict_getbykey:"From:" }}');
-			$('b:contains("To:")').text('{{ controls_translate|dict_getbykey:"To:" }}');
-			$('h1:contains("Filters")').text('{{ controls_translate|dict_getbykey:"Filters" }}');
-			
-			// load search result by default(session filters)
-			$.ajax({
-				url: "/search/",
-				type: "GET",
-				dataType: "json",
-				success: function(jsondata, stat){
-					if (stat == "success"){
-						json_all = json_parse(jsondata[0]);
-						showTrips(json_all);
-					}
-				},
-				error: function(msg){
-					alert('error first search');
-				}
-			});
+
+			tripsGet();
+			{% endautoescape %}	
 		});
 	</script>
 
@@ -380,8 +327,8 @@
 		<table id="filter_main">
 			<tr id="filter_first">
 					<td>
-						<input id="Go" type="submit" value="Go" />
-						<input id="Add" type="submit" value="Add" />
+						<input id="search" type="submit" value="Go" />
+						<input id="add_filter" type="submit" value="Add" />
 					</td>
 					<td><b>From:</b><input type="text" id="datepicker_from" />
 						<select id="combobox_from" >
@@ -401,14 +348,6 @@
 			</tr>
 		</table>
 	</table>
-	
-	<div id="accordion">
-	<!--	{% for trip in trips %}
-			<h3>trip name: {{ trip.name }}, from: {{ trip.place_from }}, to: {{ trip.place_to }}, date: {{ trip.date }}, phone: {{ trip.phone_number }} </h3>
-			<div>
-				<p> {{ trip.comments }} </p>
-			</div>
-		{% endfor %}-->
-	</div>
+	<div id="accordion"></div>
 	
 {% endblock %}							

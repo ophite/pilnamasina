@@ -21,11 +21,29 @@
 	{% block includes %}
 	{% endblock %}		
 </head>
+
+<script type="text/javascript">
+	
+	function str_to_list(var_str){
+		var res = new Array();
+		arr = var_str.split(",");
+
+		for (var i = 0; i < arr.length; i++) {
+			res.push(arr[i]);
+		}
+		
+		return res;
+	}
+
+	{% block script %}
+	{% endblock %}		
+</script>	
+
 <body>
 	<div id='header'>
 		<div class="header-menu"> 
 			{% block header %}
-			<h1>HEADER BLOCK</h1>
+				<h1>HEADER BLOCK</h1>
 			{% endblock %}		
 		</div>			
 	</div>
@@ -50,7 +68,7 @@
 	<div id='footer'>
 		<div class="footer">
 			{% block footer %}
-			<h1>FOOTER BLOCK</h1>
+				<h1>FOOTER BLOCK</h1>
 			{% endblock %}
 		</div>
 	</div>
