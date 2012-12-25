@@ -105,16 +105,23 @@
 			//combobox
 			$("#id_place_to").combobox();
 			$("#id_place_from").combobox();
-			$("#toggle").click(function() {
+			$("#id_type").combobox();
+			/*$("#toggle").click(function() {
 				$( "#id_place_from" ).toggle();
 			});
 			$( "#toggle" ).click(function() {
 				$( "#id_place_to" ).toggle();
 			});
+			$( "#toggle" ).click(function() {
+					$( "#id_type" ).toggle();
+			});
+			*/
 			//button
 			$( "input[type=submit], button" ).button();
 			//width, class
 			width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
+			width = width - 13;
+			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
 			width = width - 13;
 			$('#id_name').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_name').width(width);

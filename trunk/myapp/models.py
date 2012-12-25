@@ -8,6 +8,7 @@ class Trip(models.Model):
 	name = models.CharField(max_length=150)
 	place_from = models.CharField(max_length=150, choices=DEFAULT_CITY)
 	place_to = models.CharField(max_length=150, choices=DEFAULT_CITY)
+	type = models.CharField(max_length=150, choices=DEFAULT_TRIPTYPE)
 	comments = models.TextField(max_length=200, null=True, blank=True)
 	phone_number = PhoneNumberField()
 	date = models.DateTimeField()
@@ -16,6 +17,6 @@ class Trip(models.Model):
 		ordering = ["date"]
 
 class TripAdmin(admin.ModelAdmin):
-	list_display = ('name', 'place_from', 'place_to', 'phone_number', 'date', )
+	list_display = ('name', 'place_from', 'place_to', 'phone_number', 'date', 'type', )
 
 admin.site.register(Trip, TripAdmin)

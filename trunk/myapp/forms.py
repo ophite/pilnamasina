@@ -70,6 +70,7 @@ class TripForm(DivModelForm):
 		widgets = {
 			'place_from': forms.Select(),
             'place_to': forms.Select(),
+            'type': forms.Select(),
             'name': forms.TextInput(),
             'comments': Textarea(attrs={'cols': 40, 'rows': 5}),
 			'phone_number':forms.TextInput(),
@@ -97,6 +98,10 @@ class TripForm(DivModelForm):
 		place_to = cleaned_data.get("place_to")
 		if place_to is None:
 			self._errors["place_to"] = ErrorList([DEFAULT_VALIDATION['empty_place_to']])
+	
+		type = cleaned_data.get("type")
+		if type is None:
+			self._errors["type"] = ErrorList([DEFAULT_VALIDATION['empty_type']])
 
 		name = cleaned_data.get("name")
 		if name is None:

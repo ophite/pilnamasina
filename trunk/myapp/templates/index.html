@@ -19,6 +19,43 @@
 			return res;
 		}
 		
+		function getfilters(key, filter_name){
+			var values = new Array();
+			
+			$('[id^="' + filter_name + '"]').each(function(){
+				values.push($(this).val());
+			});
+
+			return JSON.stringify(values)
+		}
+			
+		function phonenumber_to_images(phonenumber){
+			html = '';
+
+			if (phonenumber.indexOf("+") != -1){
+				html = '<img name="plus" src="" width="16" height="16" alt="">';
+				phonenumber = phonenumber.replace('+', '');
+			}
+			
+			for (var i = 0; i < phonenumber.length; i++) {
+				html = html + '<img name="00' + phonenumber[i] + '" src="" width="16" height="16" alt="">';
+			}
+			
+			return html;
+		}
+		
+		function phonenumber_images_setpath(){
+			$('img[name^="0"]').each(function(){ 
+				name = $(this).attr('name');
+				$(this).attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/' + name + '.png');
+			});
+			
+			$('img[name^="plus"]').each(function(){ 
+				name = $(this).attr('name');
+				$(this).attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/' + name + '.png');
+			});
+		}
+
 		// IE don't has indexof method
 		if(!Array.prototype.indexOf) {
 			Array.prototype.indexOf = function(needle) {
@@ -90,27 +127,28 @@
 				});
 			$("#combobox_from").combobox();
 			$("#combobox_to").combobox();
-			$("#toggle").click(function() {
+			/*$("#toggle").click(function() {
 				$( "#combobox_from" ).toggle();
 			});
 			$( "#toggle" ).click(function() {
 				$( "#combobox_to" ).toggle();
-			});
+			});*/
 			
 			// search
 			$( "[id=Go]" ).click(function( event ) {
+				
 				$.ajax({
 					url: '/search/', //document.location,
 					type: "GET",
 					data: {
-						'date_from':$('#datepicker_from').val(),
-						'date_to':$('#datepicker_to').val(),
-						'place_from':$('#combobox_from').val(),
-						'place_to':$('#combobox_to').val()
+						'date_from': getfilters('date_from', 'datepicker_from'),
+						'date_to':getfilters('date_to', 'datepicker_to'),
+						'place_from':getfilters('place_from', 'combobox_from'),
+						'place_to':getfilters('place_to', 'combobox_to'),
 					},
 					dataType: "json",
 					success: function(msg){
-						alert('success');
+						//alert('success');
 					},
 					complete: function(jsondata, stat) { 
 						if (stat == "success"){
@@ -122,19 +160,21 @@
 							
 							jQuery.each(json_trips, function(){					
 								holder.append('<h3>'
-												+ 'trip name:' + this.fields.name 
-												+ ', from: ' + this.fields.place_from 
-												+ ', to: ' + this.fields.place_to 
-												+ ', date: ' + this.fields.date 
-												+ '</h3> <div> <p>' + this.fields.comments + '</p> </div>'
+												+ ' type:' + this.fields.type 
+												+ ' name:' + this.fields.name 
+												+ ' from: ' + this.fields.place_from 
+												+ ' to: ' + this.fields.place_to 
+												+ ' date: ' + this.fields.date 
+												+ '</h3> <div> <p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
 								);
 							});	
-													
+							
 							$( "#accordion" ).accordion("destroy").accordion({
 								collapsible: true,
 								active:false
 							});
-
+							
+							phonenumber_images_setpath();
 						}
 					},
 					error: function(msg){
@@ -185,15 +225,21 @@
 					+'</td>'
 				+'</tr>').appendTo('#filter_main');
 				//.insertAfter('#filter_first')
-				
+			
 				// reInit
+				var startdate = '{{startdate}}' != ''? new Date('{{startdate}}') : new Date();
 				$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
+				$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker("setDate", startdate);
+
+				var enddate = '{{enddate}}' != ''? new Date('{{enddate}}') : new Date();
 				$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
-					
+				$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker("setDate", enddate);
+			
 				$('[id^="combobox_from_' + search_controls + '"]').combobox();
-				$('[id^="combobox_from_' + search_controls + '"]').next().children('input').val('');
+				//$('[id^="combobox_from_' + search_controls + '"]').next().children('input').val('');			
+
 				$('[id^="combobox_to_' + search_controls + '"]').combobox();
-				$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val('');
+				//$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val('');
 
 				$('[id^="accordion"]').accordion("destroy").accordion({
 																collapsible:true,
@@ -252,7 +298,7 @@
 				
 				{% endautoescape %}	
 			});
-
+			
 			// set values
 			// datetimepicker	
 			$('#datepicker_from').datetimepicker();
@@ -274,7 +320,8 @@
 			$('b:contains("From:")').text('{{ controls_translate|dict_getbykey:"From:" }}');
 			$('b:contains("To:")').text('{{ controls_translate|dict_getbykey:"To:" }}');
 			$('h1:contains("Filters")').text('{{ controls_translate|dict_getbykey:"Filters" }}');
-
+			
+			$('img[name^="010"]').attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/010.png');
 		});
 	</script>
 

@@ -5,12 +5,14 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.utils import simplejson as json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
+from django.db.models import Q
  
 #my
 from myapp.models import Trip
 from myapp.forms import TripForm
 from myapp.translate.localize import *
 
+import operator
 import datetime
 from datetime import date, timedelta
 
@@ -85,18 +87,22 @@ def index(request):
 def search(request):
 	print '--------------------------------> call search'
 	
-	startdate = datetime.datetime.strptime(request.GET['date_from'], DEFAULT_DATETIME_FORMAT_SERVER)
-	enddate = datetime.datetime.strptime(request.GET['date_to'], DEFAULT_DATETIME_FORMAT_SERVER)
+	date_from = json.loads(request.GET['date_from'])
+	date_to = json.loads(request.GET['date_to'])
+	place_from = json.loads(request.GET['place_from'])
+	place_to = json.loads(request.GET['place_to'])
 	
-	place_from_r = request.GET.get('place_from', '')
-	place_to_r = request.GET.get('place_to', '')
-
-	#, place_from=request.GET['place_to'], place_from=request.GET['place_to']
-	trips = Trip.objects.filter(date__range=[startdate, enddate], place_from=place_from_r, place_to=place_to_r)
+	q_list = [Q(date__range=[datetime.datetime.strptime(date_from[i], DEFAULT_DATETIME_FORMAT_SERVER), 
+							 datetime.datetime.strptime(date_to[i], DEFAULT_DATETIME_FORMAT_SERVER)], 
+				place_from=place_from[i], 
+				place_to=place_to[i]) for i in range(date_from.__len__())]
+			
+#	trips = Trip.objects.filter(date__range=[startdate, enddate], place_from=place_from_r, place_to=place_to_r)
+	trips = Trip.objects.filter(reduce(operator.or_, q_list))
 
 	data = {
-		'startdate':startdate, 
-		'enddate':enddate,
+		'startdate':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
+		'enddate':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
 	}
 	
 	json_serializer = serializers.get_serializer("json")()
