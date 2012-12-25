@@ -8,6 +8,18 @@
 	{% load dict_by_key %}
 
 	<script type="text/javascript">
+
+		// IE don't has indexof method
+		if(!Array.prototype.indexOf) {
+			Array.prototype.indexOf = function(needle) {
+				for(var i = 0; i < this.length; i++) {
+					if(this[i] === needle) {
+						return i;
+					}
+				}
+				return -1;
+			};
+		}
 	
 		function str_to_list(var_str){
 			var res = new Array()
@@ -55,17 +67,29 @@
 				$(this).attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/' + name + '.png');
 			});
 		}
-
-		// IE don't has indexof method
-		if(!Array.prototype.indexOf) {
-			Array.prototype.indexOf = function(needle) {
-				for(var i = 0; i < this.length; i++) {
-					if(this[i] === needle) {
-						return i;
-					}
-				}
-				return -1;
-			};
+		
+		function showTrips(json_trips){
+			holder = $('#accordion');
+			holder.html('');
+			
+			jQuery.each(json_trips, function(){					
+				holder.append('<h3>'
+								+ ' type:' + this.fields.type 
+								+ ' name:' + this.fields.name 
+								+ ' from: ' + this.fields.place_from 
+								+ ' to: ' + this.fields.place_to 
+								+ ' date: ' + this.fields.date 
+								+ '</h3> ' 
+								+ '<div><p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
+				);
+			
+				$("#accordion").accordion("destroy").accordion({
+					collapsible: true,
+					active:false
+				});
+					
+				phonenumber_images_setpath();
+			});	
 		}
 
 		$(function() {
@@ -115,11 +139,12 @@
 			search_controls_maxcount = 2;
 			search_controls = 0;
 			search_controls_indexes = new Array();
-
+			
 			$( "#accordion" ).accordion({
 				collapsible: true,
 				active:false
 			});
+			
 			$( "input[type=submit], button" )
 				.button()
 				.click(function( event ) {
@@ -155,9 +180,10 @@
 							//alert('complete');
 							json_all = json_parse(jsondata.responseText);
 							json_trips = json_parse(json_all[0]);
-							holder = $('#accordion');
+							showTrips(json_trips);
+							/*holder = $('#accordion');
 							holder.html('');
-							
+							alert(json_trips)
 							jQuery.each(json_trips, function(){					
 								holder.append('<h3>'
 												+ ' type:' + this.fields.type 
@@ -165,8 +191,10 @@
 												+ ' from: ' + this.fields.place_from 
 												+ ' to: ' + this.fields.place_to 
 												+ ' date: ' + this.fields.date 
-												+ '</h3> <div> <p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
+												+ '</h3> ' 
+												+ '<div><p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
 								);
+								alert(holder.html())
 							});	
 							
 							$( "#accordion" ).accordion("destroy").accordion({
@@ -174,13 +202,13 @@
 								active:false
 							});
 							
-							phonenumber_images_setpath();
+							phonenumber_images_setpath();*/
 						}
 					},
 					error: function(msg){
 						alert('error Go');
 					}
-				});	
+				});
 			});
 			
 			// add new filter
@@ -321,52 +349,66 @@
 			$('b:contains("To:")').text('{{ controls_translate|dict_getbykey:"To:" }}');
 			$('h1:contains("Filters")').text('{{ controls_translate|dict_getbykey:"Filters" }}');
 			
-			$('img[name^="010"]').attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/010.png');
+			// load search result by default(session filters)
+			$.ajax({
+				url: "/search/",
+				type: "GET",
+				dataType: "json",
+				success: function(jsondata, stat){
+					if (stat == "success"){
+						json_all = json_parse(jsondata[0]);
+						showTrips(json_all);
+					}
+				},
+				error: function(msg){
+					alert('error first search');
+				}
+			});
 		});
 	</script>
 
-<table>
-	<tr>
-		<td>
-			<h1>Filters</h1>
-		</td>
-		<td id="right">
-			<input id="add_new_trip" type="submit" value="Add new trip" />
-			<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
-		</td>
-	</tr>
-	<table id="filter_main">
-		<tr id="filter_first">
-				<td>
-					<input id="Go" type="submit" value="Go" />
-					<input id="Add" type="submit" value="Add" />
-				</td>
-				<td><b>From:</b><input type="text" id="datepicker_from" />
-					<select id="combobox_from" >
-					{% for k,v in cities.items %}
-						<option value={{v}}>{{v}}</option>
-					{% endfor %}
-					</select>
-				</td>
-				<td><b>To:</b><input type="text" id="datepicker_to" />
-					<select id="combobox_to">
-					{% for k,v in cities.items  %}
-						<option value={{v}}>{{v}}</option>
-					{% endfor %}
-					</select>
-				</td>
-			</div>
+	<table>
+		<tr>
+			<td>
+				<h1>Filters</h1>
+			</td>
+			<td id="right">
+				<input id="add_new_trip" type="submit" value="Add new trip" />
+				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
+			</td>
 		</tr>
+		<table id="filter_main">
+			<tr id="filter_first">
+					<td>
+						<input id="Go" type="submit" value="Go" />
+						<input id="Add" type="submit" value="Add" />
+					</td>
+					<td><b>From:</b><input type="text" id="datepicker_from" />
+						<select id="combobox_from" >
+						{% for k,v in cities.items %}
+							<option value={{v}}>{{v}}</option>
+						{% endfor %}
+						</select>
+					</td>
+					<td><b>To:</b><input type="text" id="datepicker_to" />
+						<select id="combobox_to">
+						{% for k,v in cities.items  %}
+							<option value={{v}}>{{v}}</option>
+						{% endfor %}
+						</select>
+					</td>
+				</div>
+			</tr>
+		</table>
 	</table>
-</table>
-
-<div id="accordion">
-	{% for trip in trips %}
-		<h3>trip name: {{ trip.name }}, from: {{ trip.place_from }}, to: {{ trip.place_to }}, date: {{ trip.date }}, phone: {{ trip.phone_number }} </h3>
-		<div>
-			<p> {{ trip.comments }} </p>
-		</div>
-	{% endfor %}
-</div>
-
+	
+	<div id="accordion">
+	<!--	{% for trip in trips %}
+			<h3>trip name: {{ trip.name }}, from: {{ trip.place_from }}, to: {{ trip.place_to }}, date: {{ trip.date }}, phone: {{ trip.phone_number }} </h3>
+			<div>
+				<p> {{ trip.comments }} </p>
+			</div>
+		{% endfor %}-->
+	</div>
+	
 {% endblock %}							

@@ -52,31 +52,16 @@ def set_session(request):
 
 def index(request):
 	print '--------------------------------> call index'
-	#print request.session['startdate']
 	
-	if request.session.get('startdate', '') != '':
-		startdate = request.session.get('startdate', '')
-	else:
-		startdate = date.today()
-		
-	if request.session.get('enddate', ''):
-		enddate = request.session.get('enddate', '')
-	else:
-		enddate = startdate + timedelta(days=7)
-	
-	place_from = request.session.get('place_from', '')
-	place_to = request.session.get('place_to', '')
-	
-	trips = Trip.objects.filter(date__range=[startdate, enddate], place_from=place_from, place_to=place_to)
-	Citites = dict(DEFAULT_CITY); 
+	startdate = request.session.get('startdate', '') if request.session.get('startdate', '') != '' else date.today()
+	enddate = request.session.get('enddate', '') if request.session.get('enddate', '') else startdate + timedelta(days=7)
 
 	data = {
-		'trips':trips, 
 		'startdate':startdate.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
 		'enddate':enddate.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-		'place_from':place_from,
-		'place_to':place_to,
-		'cities':Citites,
+		'place_from':request.session.get('place_from', ''),
+		'place_to':request.session.get('place_to', ''),
+		'cities':dict(DEFAULT_CITY),
 		'time_translate':DEFAULT_TIME, 
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
@@ -87,24 +72,50 @@ def index(request):
 def search(request):
 	print '--------------------------------> call search'
 	
-	date_from = json.loads(request.GET['date_from'])
-	date_to = json.loads(request.GET['date_to'])
-	place_from = json.loads(request.GET['place_from'])
-	place_to = json.loads(request.GET['place_to'])
-	
-	q_list = [Q(date__range=[datetime.datetime.strptime(date_from[i], DEFAULT_DATETIME_FORMAT_SERVER), 
-							 datetime.datetime.strptime(date_to[i], DEFAULT_DATETIME_FORMAT_SERVER)], 
-				place_from=place_from[i], 
-				place_to=place_to[i]) for i in range(date_from.__len__())]
-			
-#	trips = Trip.objects.filter(date__range=[startdate, enddate], place_from=place_from_r, place_to=place_to_r)
-	trips = Trip.objects.filter(reduce(operator.or_, q_list))
+	#dates
+	if request.GET.get('date_from', '') == '':
+		date_from = request.session.get('startdate', '') if request.session.get('startdate', '') != '' else date.today()
+	else:
+		date_from = json.loads(request.GET['date_from'])
+		
+	if request.GET.get('date_to', '') == '':
+		date_to = request.session.get('enddate', '') if request.session.get('enddate', '') else startdate + timedelta(days=7)
+	else:
+		date_to = json.loads(request.GET['date_to'])
 
-	data = {
-		'startdate':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
-		'enddate':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
-	}
-	
+	#places
+	if request.GET.get('place_from', '') == '':
+		place_from = request.session.get('place_from', '')
+	else:
+		place_from = json.loads(request.GET['place_from'])
+
+	if request.GET.get('place_to', '') == '':
+		place_to = request.session.get('place_to', '')
+	else:
+		place_to = json.loads(request.GET['place_to'])
+		
+	# by many filters
+	if isinstance(date_from, list):
+		q_list = [Q(date__range=[datetime.datetime.strptime(date_from[i], DEFAULT_DATETIME_FORMAT_SERVER), 
+								 datetime.datetime.strptime(date_to[i], DEFAULT_DATETIME_FORMAT_SERVER)], 
+					place_from=place_from[i], 
+					place_to=place_to[i]) for i in range(date_from.__len__())]
+				
+		trips = Trip.objects.filter(reduce(operator.or_, q_list))
+
+		data = {
+			'startdate':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
+			'enddate':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
+		}
+	# by one filter
+	else:
+		trips = Trip.objects.filter(date__range=[date_from, date_to], place_from=place_from, place_to=place_to)
+
+		data = {
+			'startdate':date_from.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+			'enddate':date_to.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+		}
+		
 	json_serializer = serializers.get_serializer("json")()
 	jsonlist = [
 		json_serializer.serialize(trips), 
