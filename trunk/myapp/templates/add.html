@@ -5,34 +5,12 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.combobox.css" />
 {% endblock %}		
 
-{% block content %}
+{% load dict_by_key %}
 
-	{% load dict_by_key %}
+{% block script %}
+
 	<script type="text/javascript">
-	/*
-		function str_to_list(var_str){
-			var res = new Array();
-			arr = var_str.split(",");
-
-			for (var i = 0; i < arr.length; i++) {
-				res.push(arr[i]);
-			}
-			
-			return res;
-		}
-		*/
-		$(function() {
-		
-			// JQUERY INITIALIZE
-			$( "input[type=submit], button" ).button();
-			$("#id_place_to").combobox();
-			$("#id_place_from").combobox();
-			$("#id_type").combobox();
-
-			//Custom style
-			// BEGIN FOR ILIJA
-			$('form > table').children('tbody').children('tr').children('th').css('text-align', 'right');			
-			// END FOR ILIJA
+	$(function() {
 			
 			// LOCALIZE
 			{% autoescape off %}			
@@ -77,6 +55,17 @@
 			//$('a:contains("Trips")').text('{{ controls_translate|dict_getbykey:"Trips" }}')
 			{% endautoescape %}	
 		
+			// JQUERY INITIALIZE
+			$( "input[type=submit], button" ).button();
+			$("#id_place_to").combobox();
+			$("#id_place_from").combobox();
+			$("#id_type").combobox();
+
+			//Custom style
+			// BEGIN FOR ILIJA
+			$('form > table').children('tbody').children('tr').children('th').css('text-align', 'right');			
+			// END FOR ILIJA
+		
 			//SET DEFAULTS/STYLE
 			$('#id_date').datetimepicker();
 			if ($('#id_date').val().length == 0) {
@@ -119,6 +108,10 @@
 			{% endautoescape %}	
 		});		
 	</script>	
+
+{% endblock %}
+		
+{% block content %}
 	
 	<table>
 		<tr>

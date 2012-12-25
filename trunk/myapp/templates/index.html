@@ -4,8 +4,9 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.combobox.css" />
 {% endblock %}		
 		
-{% block content %}
-	{% load dict_by_key %}
+{% load dict_by_key %}
+
+{% block script %}
 
 	<script type="text/javascript">
 
@@ -20,17 +21,7 @@
 				return -1;
 			};
 		}
-	/*
-		function str_to_list(var_str){
-			var res = new Array()
-			arr = var_str.split(",");
-			for (var i = 0; i < arr.length; i++) {
-				res.push(arr[i]);
-			}
-			
-			return res;
-		}
-		*/
+
 		function getfilters(key, filter_name){
 			var values = new Array();
 			
@@ -121,21 +112,10 @@
 
 		$(function() {
 		
-			// init vars
+			// INIT VARS
 			search_controls_maxcount = 2;
 			search_controls = 0;
 			search_controls_indexes = new Array();
-			
-			// JQUERY INITIALIZE
-			$( "input[type=submit], button" ).button();
-			$("#combobox_from").combobox();
-			$("#combobox_to").combobox();
-			$('#datepicker_from').datetimepicker();
-			$('#datepicker_to').datetimepicker();
-			$( "#accordion" ).accordion({
-				collapsible: true,
-				active:false
-			});
 			
 			// LOCALIZE
 			{% autoescape off %}				
@@ -173,6 +153,17 @@
 				yearSuffix: ''
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
+			
+			// JQUERY INITIALIZE
+			$( "input[type=submit], button" ).button();
+			$("#combobox_from").combobox();
+			$("#combobox_to").combobox();
+			$('#datepicker_from').datetimepicker();
+			$('#datepicker_to').datetimepicker();
+			$( "#accordion" ).accordion({
+				collapsible: true,
+				active:false
+			});
 
 			//SET DEFAULTS/STYLE
 			$('#datepicker_from').datetimepicker("setDate", new Date('{{startdate}}'));
@@ -313,6 +304,10 @@
 			{% endautoescape %}	
 		});
 	</script>
+
+{% endblock %}
+	
+{% block content %}
 
 	<table>
 		<tr>

@@ -21,25 +21,24 @@
 	{% block includes %}
 	{% endblock %}		
 </head>
+<body>
+	<script type="text/javascript">
+		// common functions
+		function str_to_list(var_str){
+			var res = new Array();
+			arr = var_str.split(",");
 
-<script type="text/javascript">
-	
-	function str_to_list(var_str){
-		var res = new Array();
-		arr = var_str.split(",");
-
-		for (var i = 0; i < arr.length; i++) {
-			res.push(arr[i]);
+			for (var i = 0; i < arr.length; i++) {
+				res.push(arr[i]);
+			}
+			
+			return res;
 		}
-		
-		return res;
-	}
-
+	</script>	
+	
 	{% block script %}
 	{% endblock %}		
-</script>	
-
-<body>
+	
 	<div id='header'>
 		<div class="header-menu"> 
 			{% block header %}
