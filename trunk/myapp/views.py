@@ -33,7 +33,7 @@ def add(request):
 		'time_translate':DEFAULT_TIME, 
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
-		'startdate':datetime.datetime.today().strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+		'date_from':datetime.datetime.today().strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
 	}
 	
 	return render_to_response('add.html', c, RequestContext(request))
@@ -43,8 +43,8 @@ def set_session(request):
 	
 	format = DEFAULT_DATE.get('pythonDateFormat', DEFAULT_DATETIME_FORMAT_CLIENT)
 	
-	request.session['startdate'] = datetime.datetime.strptime(request.GET['startdate'], format)	
-	request.session['enddate'] = datetime.datetime.strptime(request.GET['enddate'], format)
+	request.session['date_from'] = datetime.datetime.strptime(request.GET['date_from'], format)	
+	request.session['date_to'] = datetime.datetime.strptime(request.GET['date_to'], format)
 	request.session['place_from'] = request.GET.get('place_from', '')
 	request.session['place_to'] = request.GET.get('place_to', '')
 	
@@ -53,12 +53,12 @@ def set_session(request):
 def index(request):
 	print '--------------------------------> call index'
 	
-	startdate = request.session.get('startdate', '') if request.session.get('startdate', '') != '' else date.today()
-	enddate = request.session.get('enddate', '') if request.session.get('enddate', '') else startdate + timedelta(days=7)
+	date_from = request.session.get('date_from', '') if request.session.get('date_from', '') != '' else date.today()
+	date_to = request.session.get('date_to', '') if request.session.get('date_to', '') else date_from + timedelta(days=7)
 
 	data = {
-		'startdate':startdate.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-		'enddate':enddate.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+		'date_from':date_from.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+		'date_to':date_to.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
 		'place_from':request.session.get('place_from', ''),
 		'place_to':request.session.get('place_to', ''),
 		'cities':dict(DEFAULT_CITY),
@@ -74,12 +74,12 @@ def search(request):
 	
 	#dates
 	if request.GET.get('date_from', '') == '':
-		date_from = request.session.get('startdate', '') if request.session.get('startdate', '') != '' else date.today()
+		date_from = request.session.get('date_from', '') if request.session.get('date_from', '') != '' else date.today()
 	else:
 		date_from = json.loads(request.GET['date_from'])
 		
 	if request.GET.get('date_to', '') == '':
-		date_to = request.session.get('enddate', '') if request.session.get('enddate', '') else startdate + timedelta(days=7)
+		date_to = request.session.get('date_to', '') if request.session.get('date_to', '') else date_from + timedelta(days=7)
 	else:
 		date_to = json.loads(request.GET['date_to'])
 
@@ -102,18 +102,16 @@ def search(request):
 					place_to=place_to[i]) for i in range(date_from.__len__())]
 				
 		trips = Trip.objects.filter(reduce(operator.or_, q_list))
-
 		data = {
-			'startdate':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
-			'enddate':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
+			'date_from':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
+			'date_to':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
 		}
 	# by one filter
 	else:
 		trips = Trip.objects.filter(date__range=[date_from, date_to], place_from=place_from, place_to=place_to)
-
 		data = {
-			'startdate':date_from.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-			'enddate':date_to.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+			'date_from':date_from.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+			'date_to':date_to.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
 		}
 		
 	json_serializer = serializers.get_serializer("json")()
