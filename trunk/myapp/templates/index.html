@@ -26,7 +26,7 @@
 			html = '';
 
 			if (phonenumber.indexOf("+") != -1){
-				html = '<img name="plus" src="" width="16" height="16" alt="">';
+				html = '<img name="accordion_plus" src="" width="16" height="16" alt="">';
 				phonenumber = phonenumber.replace('+', '');
 			}
 			
@@ -43,7 +43,7 @@
 				$(this).attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/' + name + '.png');
 			});
 			
-			$('img:not([name^="0"])').each(function(){ 
+			$('img[name^="accordion"]').each(function(){ 
 				name = $(this).attr('name');
 				$(this).attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/' + name + '.png');
 			});
@@ -55,7 +55,7 @@
 			
 			jQuery.each(json_trips, function(){	
 				holder.append('<h3>'
-								+ '<img name=' + (this.fields.type == 'Passenger' ? 'Man_32' : 'auto_32') + ' src="" width="32" height="32" alt="">'
+								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="32" height="32" alt="">'
 								//+ ' type:' + this.fields.type 
 								//+ ' name:' + this.fields.name 
 								+ this.fields.place_from 
