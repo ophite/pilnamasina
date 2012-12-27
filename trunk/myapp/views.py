@@ -41,26 +41,49 @@ def add(request):
 def set_session(request):
 	print '--------------------------------> call set_session'
 	
-	format = DEFAULT_DATE.get('pythonDateFormat', DEFAULT_DATETIME_FORMAT_CLIENT)
+#	format = DEFAULT_DATE.get('pythonDateFormat', DEFAULT_DATETIME_FORMAT_CLIENT)
 	
-	request.session['date_from'] = datetime.datetime.strptime(request.GET['date_from'], format)	
-	request.session['date_to'] = datetime.datetime.strptime(request.GET['date_to'], format)
-	request.session['place_from'] = request.GET.get('place_from', '')
-	request.session['place_to'] = request.GET.get('place_to', '')
+#	request.session['date_from'] = datetime.datetime.strptime(request.GET['date_from'], format)	
+#	request.session['date_to'] = datetime.datetime.strptime(request.GET['date_to'], format)
+#	request.session['place_from'] = request.GET.get('place_from', '')
+#	request.session['place_to'] = request.GET.get('place_to', '')
+		
+	request.session['date_from'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
+	request.session['date_to'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
+	request.session['place_from'] = json.loads(request.GET.get('place_from', ''))
+	request.session['place_to'] = json.loads(request.GET.get('place_from', ''))
+	
+#	print request.session['date_from']
+#	print request.session['date_to']
+#	print request.session['place_from']
+#	print request.session['place_to']
 	
 	return render_to_response('add.html', RequestContext(request))
 
 def index(request):
 	print '--------------------------------> call index'
 	
-	date_from = request.session.get('date_from', '') if request.session.get('date_from', '') != '' else date.today()
-	date_to = request.session.get('date_to', '') if request.session.get('date_to', '') else date_from + timedelta(days=7)
-
+#	date_from = request.session.get('date_from', [date.today()])
+#	date_to = request.session.get('date_to', [date.today() + timedelta(days=7)])
+	
+#	filters = {
+#		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
+#		'date_to':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_to], cls=DjangoJSONEncoder),
+#		'place_from':json.dumps(request.session.get('place_from', ''), cls=DjangoJSONEncoder),
+#		'place_to':json.dumps(request.session.get('place_to', ''), cls=DjangoJSONEncoder),
+#	}
+	
+#	print filters
+	
 	data = {
-		'date_from':date_from.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-		'date_to':date_to.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-		'place_from':request.session.get('place_from', ''),
-		'place_to':request.session.get('place_to', ''),
+		
+#		'filters' : [json.dumps(filters, cls=DjangoJSONEncoder)],
+	
+#		'date_from':date_from[0].strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+#		'date_to':date_to[0].strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+#		'place_from':request.session.get('place_from', '')[0],
+#		'place_to':request.session.get('place_to', '')[0],
+
 		'cities':dict(DEFAULT_CITY),
 		'time_translate':DEFAULT_TIME, 
 		'date_translate':DEFAULT_DATE,
@@ -74,14 +97,16 @@ def search(request):
 	
 	#dates
 	if request.GET.get('date_from', '') == '':
-		date_from = request.session.get('date_from', '') if request.session.get('date_from', '') != '' else date.today()
+		date_from = request.session.get('date_from', [datetime.date.today()])
 	else:
-		date_from = json.loads(request.GET['date_from'])
+		date_from = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
+		#json.loads(request.GET['date_from'])
 		
 	if request.GET.get('date_to', '') == '':
-		date_to = request.session.get('date_to', '') if request.session.get('date_to', '') else date_from + timedelta(days=7)
+		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=7)])
 	else:
-		date_to = json.loads(request.GET['date_to'])
+		date_to = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
+		#json.loads(request.GET['date_to'])
 
 	#places
 	if request.GET.get('place_from', '') == '':
@@ -94,17 +119,34 @@ def search(request):
 	else:
 		place_to = json.loads(request.GET['place_to'])
 		
+#	print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+#	print date_from[0]
+	
+	filters = {
+		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
+		'date_to':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_to], cls=DjangoJSONEncoder),
+		'place_from':json.dumps(request.session.get('place_from', ''), cls=DjangoJSONEncoder),
+		'place_to':json.dumps(request.session.get('place_to', ''), cls=DjangoJSONEncoder),
+	}
+		
 	# by many filters
 	if isinstance(date_from, list):
-		q_list = [Q(date__range=[datetime.datetime.strptime(date_from[i], DEFAULT_DATETIME_FORMAT_SERVER), 
-								 datetime.datetime.strptime(date_to[i], DEFAULT_DATETIME_FORMAT_SERVER)], 
+#		q_list = [Q(date__range=[datetime.datetime.strptime(date_from[i], DEFAULT_DATETIME_FORMAT_SERVER), 
+#								 datetime.datetime.strptime(date_to[i], DEFAULT_DATETIME_FORMAT_SERVER)], 
+#					place_from=place_from[i], 
+#					place_to=place_to[i]) for i in range(date_from.__len__())]
+		q_list = [Q(date__range=[date_from[i], date_to[i]], 
 					place_from=place_from[i], 
 					place_to=place_to[i]) for i in range(date_from.__len__())]
 				
 		trips = Trip.objects.filter(reduce(operator.or_, q_list))
+#		data = {
+#			'date_from':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
+#			'date_to':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
+#		}
 		data = {
-			'date_from':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
-			'date_to':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
+			'date_from':date_from[0], 
+			'date_to':date_to[0],
 		}
 	# by one filter
 	else:
@@ -117,7 +159,8 @@ def search(request):
 	json_serializer = serializers.get_serializer("json")()
 	jsonlist = [
 		json_serializer.serialize(trips), 
-		[json.dumps(data, cls=DjangoJSONEncoder)],
+		json.dumps(data, cls=DjangoJSONEncoder),
+		json.dumps(filters, cls=DjangoJSONEncoder),
 	]
 
 	return HttpResponse(json.dumps(jsonlist))
