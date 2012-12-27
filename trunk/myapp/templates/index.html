@@ -3,7 +3,6 @@
 	<script src="/content/js/jquery.combobox.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.combobox.css" />
 	<script src="/content/js/date.js" type="text/javascript"></script>
-	<!-- script src="/content/js/jquery.multi-accordion-1.5.3.js" type="text/javascript"></script -->	
 {% endblock %}		
 		
 {% load dict_by_key %}
@@ -52,9 +51,9 @@
 		function tripsShow(json_trips){
 			holder = $('#accordion');
 			holder.html('');
-			
+
 			jQuery.each(json_trips, function(){	
-				holder.append('<h3>'
+				holder.append('<h3><a href="#">'
 								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="32" height="32" alt="">'
 								//+ ' type:' + this.fields.type 
 								//+ ' name:' + this.fields.name 
@@ -65,15 +64,35 @@
 								+ '<div><p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
 				);
 
-				$("#accordion").accordion("destroy").accordion({
+				/*$("#accordion").accordion("destroy").accordion({
 					collapsible: true,
 					active:false
 				});
-
+*/
 				phonenumber_images_setpath();
 			});	
 		}
-			
+		
+		function tooglePanels(){
+			$("#accordion").addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")
+			.find("h3")
+			.addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
+			.hover(function() { $(this).toggleClass("ui-state-hover"); })
+			.prepend('<span class="ui-icon ui-icon-triangle-1-e"></span>')
+			.click(function() {
+				$(this)
+				.toggleClass("ui-accordion-header-active ui-state-active ui-state-default ui-corner-bottom")
+				.find("> .ui-icon").toggleClass("ui-icon-triangle-1-e ui-icon-triangle-1-s")
+				.end()
+				.next().toggleClass("ui-accordion-content-active").slideToggle();
+				
+				return false;
+			})
+			.next()
+			.addClass("ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom")
+			.hide();
+		}
+		
 		function tripsGet(){
 			$.ajax({
 				url: "/search/",
@@ -93,6 +112,7 @@
 						json_all = json_parse(jsondata.responseText);
 						json_trips = json_parse(json_all[0]);
 						tripsShow(json_trips);
+						tooglePanels();
 					}
 				},
 				error: function(msg){
@@ -151,11 +171,11 @@
 			$("#combobox_to").combobox();
 			$('#datepicker_from').datetimepicker();
 			$('#datepicker_to').datetimepicker();
-			$( "#accordion" ).accordion({
+/*			$( "#accordion" ).accordion({
 				collapsible: true,
 				active:false
 			});
-
+*/			
 			//SET DEFAULTS/STYLE
 			$('#datepicker_from').datetimepicker("setDate", new Date('{{date_from}}'));
 			$('#datepicker_to').datetimepicker("setDate", new Date('{{date_to}}'));
@@ -239,10 +259,11 @@
 				$('[id^="combobox_to_' + search_controls + '"]').combobox();
 				//$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val('');
 
+				/*
 				$('[id^="accordion"]').accordion("destroy").accordion({
 																collapsible:true,
 																active:false
-															});
+															});*/
 		
 				$('[id^="datepicker_from_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 				$('[id^="datepicker_to_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
@@ -334,5 +355,6 @@
 			</tr>
 		</table>
 	</table>
-	<div id="accordion"></div>
+	<div id="accordion"></div>	
+
 {% endblock %}							
