@@ -10,16 +10,6 @@
 {% block script %}
 
 	<script type="text/javascript">
-
-		function getfilters(key, filter_name){
-			var values = new Array();
-			
-			$('[id^="' + filter_name + '"]').each(function(){
-				values.push($(this).val());
-			});
-
-			return JSON.stringify(values)
-		}
 			
 		function phonenumber_to_images(phonenumber){
 			html = '';
@@ -47,6 +37,16 @@
 				$(this).attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/' + name + '.png');
 			});
 		}
+
+		function getfilters(key, filter_name){
+			var values = new Array();
+			
+			$('[id^="' + filter_name + '"]').each(function(){
+				values.push($(this).val());
+			});
+
+			return JSON.stringify(values)
+		}
 		
 		function showTrips(json_trips){
 			holder = $('#accordion');
@@ -72,7 +72,58 @@
 				phonenumber_images_setpath();
 			});	
 		}
+			
+		function getTrips(filterValues){
+					
+			$.ajax({
+				url: "/search/",
+				type: "GET",
+				data: filterValues,
+				dataType: "json",
+				success: function(msg){
+					//alert('success');
+				},
+				complete: function(jsondata, stat) { 
+					if (stat == "success"){
+						
+						json_all = json_parse(jsondata.responseText);
+						
+						// trips
+						json_trips = json_parse(json_all[0]);
+						showTrips(json_trips);
+						tooglePanels();
+						
+						// filters
+						filters = json_parse(json_all[2]);
+						filterLength = 0;					
+						
+						for(filter in filters){
+							filterLength = json_parse(filters[filter]).length;
+						}
+						
+						// create params for filter
+						params = {};
+						// begin from second filter - first is static one
+						for(var i = 1; i<filterLength; i++){
+							for(filter in filters){
+								params[filter] = json_parse(filters[filter])[i];
+							}
+							
+							addFilter(params);
+							params = {};
+						}
+					}
+				},
+				error: function(msg){
+					alert('error search');
+				}
+			});
+		}
 		
+		function addTrip(){
+			rememberFilters(true, true);	
+		}
+	
 		function tooglePanels(){
 			$("#accordion").addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")
 			.find("h3")
@@ -93,64 +144,34 @@
 			.hide();
 		}
 		
-		function getTrips(loadFilterFromSession){
+		function setFilterValue(filterValues, search_controls){
+			dateFrom = filterValues['date_from'];
+			var date_from = dateFrom != ''? new Date(dateFrom) : new Date();
+			$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
+			$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker("setDate", date_from);
+
+			dateTo = filterValues['date_to'];
+			var date_to = dateTo != ''? new Date(dateTo) : new Date();
+			$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
+			$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker("setDate", date_to);
 		
-		if (loadFilterFromSession == 0){
-			d = {
-				'date_from': getfilters('date_from', 'datepicker_from'),
-				'date_to':getfilters('date_to', 'datepicker_to'),
-				'place_from':getfilters('place_from', 'combobox_from'),
-				'place_to':getfilters('place_to', 'combobox_to'),
+			$('[id^="combobox_from_' + search_controls + '"]').combobox();
+			$('[id^="combobox_to_' + search_controls + '"]').combobox();
+			
+			placeFrom = filterValues['place_from'];
+			if (placeFrom != null){
+				$('[id^="combobox_from_' + search_controls + '"]').val(placeFrom);
+				$('[id^="combobox_from_' + search_controls + '"]').next().children('input').val(placeFrom);
+			}
+			
+			placeTo = filterValues['place_to'];
+			if (placeTo != null){
+				$('[id^="combobox_to_' + search_controls + '"]').val(placeTo);
+				$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val(placeTo);
 			}
 		}
-		else
-			d = {}
-					
-			$.ajax({
-				url: "/search/",
-				type: "GET",
-				data: d,
-				dataType: "json",
-				success: function(msg){
-					//alert('success');
-				},
-				complete: function(jsondata, stat) { 
-					if (stat == "success"){
-						
-						json_all = json_parse(jsondata.responseText);
-						json_trips = json_parse(json_all[0]);
-						filters = json_parse(json_all[2]);
-						
-						// calc length
-						filterLength = 0;						
-						for(filter in filters){
-							filterLength = json_parse(filters[filter]).length;
-						}
-						
-						// create params for filter
-						params = {};
-						for(var i = 0; i<filterLength; i++){
-							for(filter in filters){
-								params[filter] = json_parse(filters[filter])[i];
-							}
-							
-							//alert(params['date_from2']);
-							addFilter(params);
-							params = {};
-						}
-						
-						showTrips(json_trips);
-						tooglePanels();
-					}
-				},
-				error: function(msg){
-					alert('error search');
-				}
-			});
-		}
 		
-		function addFilter(dict){
-		//function addFilter(dateFrom, dateTo, placeFrom, placeTo){
+		function addFilter(filterValues){
 			isNew = false;
 			
 			do{
@@ -193,13 +214,12 @@
 			//.insertAfter('#filter_first')
 		
 			// reInit
-			dateFrom = dict['date_from'];
-			//alert(dateFrom);
+			dateFrom = filterValues['date_from'];
 			var date_from = dateFrom != ''? new Date(dateFrom) : new Date();
 			$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
 			$('[id^="datepicker_from_' + search_controls + '"]').datetimepicker("setDate", date_from);
 
-			dateTo = dict['date_to'];
+			dateTo = filterValues['date_to'];
 			var date_to = dateTo != ''? new Date(dateTo) : new Date();
 			$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
 			$('[id^="datepicker_to_' + search_controls + '"]').datetimepicker("setDate", date_to);
@@ -207,25 +227,17 @@
 			$('[id^="combobox_from_' + search_controls + '"]').combobox();
 			$('[id^="combobox_to_' + search_controls + '"]').combobox();
 			
-			placeFrom = dict['place_from'];
+			placeFrom = filterValues['place_from'];
 			if (placeFrom != null){
 				$('[id^="combobox_from_' + search_controls + '"]').val(placeFrom);
 				$('[id^="combobox_from_' + search_controls + '"]').next().children('input').val(placeFrom);
 			}
 			
-			placeTo = dict['place_to'];
+			placeTo = filterValues['place_to'];
 			if (placeTo != null){
 				$('[id^="combobox_to_' + search_controls + '"]').val(placeTo);
 				$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val(placeTo);
 			}
-			
-			//$('[id^="combobox_to_' + search_controls + '"]').next().children('input').val('');
-
-			/*
-			$('[id^="accordion"]').accordion("destroy").accordion({
-															collapsible:true,
-															active:false
-														});*/
 
 			$('[id^="datepicker_from_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('[id^="datepicker_to_' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
@@ -248,34 +260,41 @@
 			});
 		}
 
-		function addNewTrip(){
+		/*
+			redirectToAddTrip - for redirect ot add.html page
+			asyncValue - async mode for refresh current page to save filter values
+		*/
+		function rememberFilters(redirectToAddTrip, asyncValue){
 			$.ajax({
 				url: '/set_session/',
 				data: {
-	/*				'date_from': $('#datepicker_from').val(), 
-					'date_to': $('#datepicker_to').val(),
-					'place_from': $('#combobox_from').val(),
-					'place_to':	$('#combobox_to').val()
-	*/				'date_from': getfilters('date_from', 'datepicker_from'),
+					'date_from': getfilters('date_from', 'datepicker_from'),
 					'date_to':getfilters('date_to', 'datepicker_to'),
 					'place_from':getfilters('place_from', 'combobox_from'),
-					'place_to':getfilters('place_to', 'combobox_to'),
+					'place_to':getfilters('place_to', 'combobox_to')
 				},	
 				success: function(msg){
 					//alert('success');
 				},
 				complete:function(jsondata, stat){
-					if (stat == "success"){
+					if (stat == "success" & redirectToAddTrip == true){
 						document.location.href = location.protocol + '//' + location.host + '/add';
 					}
 				},
 				//dataType: "json",
 				type: 'GET',
+				async : asyncValue,
 				error : function () {
 					alert('error add_new_trip');
 					console.log("add_new_trip ajax error");
 				}
 			});				
+		}
+		
+		function saveFilters(){
+			$(window).unload(function() {
+				rememberFilters(false, false);				
+			});
 		}
 		
 		$(function() {
@@ -328,11 +347,7 @@
 			$("#combobox_to").combobox();
 			$('#datepicker_from').datetimepicker();
 			$('#datepicker_to').datetimepicker();
-/*			$( "#accordion" ).accordion({
-				collapsible: true,
-				active:false
-			});
-*/			
+		
 			//SET DEFAULTS/STYLE
 			$('#datepicker_from').datetimepicker("setDate", new Date('{{date_from}}'));
 			$('#datepicker_to').datetimepicker("setDate", new Date('{{date_to}}'));
@@ -356,24 +371,31 @@
 			// AJAX, EVENT
 			{% autoescape off %}
 			$("[id=search]").click(function( event ) {
-				getTrips(0);
+				filterValues = {
+					'date_from': getfilters('date_from', 'datepicker_from'),
+					'date_to':getfilters('date_to', 'datepicker_to'),
+					'place_from':getfilters('place_from', 'combobox_from'),
+					'place_to':getfilters('place_to', 'combobox_to')
+				}
+				getTrips(filterValues);
 			});
 			
 			$("[id=add_filter]").click(function( event ) {
-				d = { 
+				filterValues = { 
 					dateFrom : '{{ date_from }}',
 					dateTo: '{{ date_to }}', 
 					placeFrom: null,
 					placeTo : null
 				}
-				addFilter(d);
+				addFilter(filterValues);
 			});
 			
 			$("[id=add_new_trip]").click(function( event ) {	
-				addNewTrip();
+				addTrip();
 			});
 			
-			getTrips(1);
+			getTrips();
+			saveFilters();
 			{% endautoescape %}	
 		});
 	</script>
