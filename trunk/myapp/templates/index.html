@@ -8,7 +8,7 @@
 {% load dict_by_key %}
 
 {% block script %}
-<!DOCTYPE html>
+
 	<script type="text/javascript">
 	
 		// IE not support stringify
@@ -167,7 +167,8 @@
 		}
 	
 		function tooglePanels(){
-			$("#accordion").addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")
+			$("#accordion")
+			.addClass("ui-accordion ui-accordion-icons ui-widget ui-helper-reset")
 			.find("h3")
 			.addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
 			.hover(function() { $(this).toggleClass("ui-state-hover"); })
@@ -239,6 +240,7 @@
 			$.map($('#combobox_from_first option'), function(e) { return html_option += '<option value="' + e.value + '">' + e.value + '</option>'; });
 			
 			$('<tr id="filter_' + search_controls + '">'
+				+'<div id = "div_filter_' + search_controls + '">'
 				+'<td>' 
 					+'<input id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
 				+'</td>'
@@ -252,6 +254,7 @@
 					+ html_option
 					+'</select>'	
 				+'</td>'
+				+'</div>'
 			+'</tr>').appendTo('#filter_main');
 			//.insertAfter('#filter_first')
 		

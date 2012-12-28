@@ -67,19 +67,25 @@ def index(request):
 
 	return render_to_response('index.html', data, RequestContext(request))
 
+def tryStringToDate(str, default, format):
+	try:
+		return datetime.datetime.strptime(str, format)
+	except ValueError:
+		return default 
+		
 def search(request):
 	print '--------------------------------> call search'
-	
+ 
 	#dates
 	if request.GET.get('date_from', '') == '':
 		date_from = request.session.get('date_from', [datetime.date.today()])
 	else:
-		date_from = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
-		
+		date_from = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
+
 	if request.GET.get('date_to', '') == '':
 		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=7)])
 	else:
-		date_to = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
+		date_to = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
 
 	#places
 	if request.GET.get('place_from', '') == '':
@@ -98,22 +104,14 @@ def search(request):
 		'place_from':json.dumps(request.session.get('place_from', ''), cls=DjangoJSONEncoder),
 		'place_to':json.dumps(request.session.get('place_to', ''), cls=DjangoJSONEncoder),
 	}
-		
+	
 	# by many filters
 	if isinstance(date_from, list):
-#		q_list = [Q(date__range=[datetime.datetime.strptime(date_from[i], DEFAULT_DATETIME_FORMAT_SERVER), 
-#								 datetime.datetime.strptime(date_to[i], DEFAULT_DATETIME_FORMAT_SERVER)], 
-#					place_from=place_from[i], 
-#					place_to=place_to[i]) for i in range(date_from.__len__())]
 		q_list = [Q(date__range=[date_from[i], date_to[i]], 
 					place_from=place_from[i], 
 					place_to=place_to[i]) for i in range(date_from.__len__())]
 				
 		trips = Trip.objects.filter(reduce(operator.or_, q_list))
-#		data = {
-#			'date_from':datetime.datetime.strptime(date_from[0], DEFAULT_DATETIME_FORMAT_SERVER), 
-#			'date_to':datetime.datetime.strptime(date_to[0], DEFAULT_DATETIME_FORMAT_SERVER),
-#		}
 		data = {
 			'date_from':date_from[0], 
 			'date_to':date_to[0],
