@@ -53,37 +53,12 @@ def set_session(request):
 	request.session['place_from'] = json.loads(request.GET.get('place_from', ''))
 	request.session['place_to'] = json.loads(request.GET.get('place_to', ''))
 	
-#	print request.session['date_from']
-#	print request.session['date_to']
-#	print request.session['place_from']
-#	print request.session['place_to']
-	
 	return render_to_response('add.html', RequestContext(request))
 
 def index(request):
 	print '--------------------------------> call index'
 	
-#	date_from = request.session.get('date_from', [date.today()])
-#	date_to = request.session.get('date_to', [date.today() + timedelta(days=7)])
-	
-#	filters = {
-#		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
-#		'date_to':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_to], cls=DjangoJSONEncoder),
-#		'place_from':json.dumps(request.session.get('place_from', ''), cls=DjangoJSONEncoder),
-#		'place_to':json.dumps(request.session.get('place_to', ''), cls=DjangoJSONEncoder),
-#	}
-	
-#	print filters
-	
 	data = {
-		
-#		'filters' : [json.dumps(filters, cls=DjangoJSONEncoder)],
-	
-#		'date_from':date_from[0].strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-#		'date_to':date_to[0].strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-#		'place_from':request.session.get('place_from', '')[0],
-#		'place_to':request.session.get('place_to', '')[0],
-
 		'cities':dict(DEFAULT_CITY),
 		'time_translate':DEFAULT_TIME, 
 		'date_translate':DEFAULT_DATE,
@@ -100,13 +75,11 @@ def search(request):
 		date_from = request.session.get('date_from', [datetime.date.today()])
 	else:
 		date_from = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
-		#json.loads(request.GET['date_from'])
 		
 	if request.GET.get('date_to', '') == '':
 		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=7)])
 	else:
 		date_to = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
-		#json.loads(request.GET['date_to'])
 
 	#places
 	if request.GET.get('place_from', '') == '':
@@ -118,9 +91,6 @@ def search(request):
 		place_to = request.session.get('place_to', '')
 	else:
 		place_to = json.loads(request.GET['place_to'])
-		
-#	print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-#	print date_from[0]
 	
 	filters = {
 		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
