@@ -43,14 +43,14 @@
 	
 		function phonenumber_to_images(phonenumber){
 			html = '';
-
 			if (phonenumber.indexOf("+") != -1){
 				html = '<img name="accordion_plus" src="" width="16" height="16" alt="">';
 				phonenumber = phonenumber.replace('+', '');
 			}
+				
 			
 			for (var i = 0; i < phonenumber.length; i++) {
-				html = html + '<img name="00' + phonenumber[i] + '" src="" width="16" height="16" alt="">';
+				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="16" height="16" alt="">';
 			}
 			
 			return html;
@@ -92,16 +92,11 @@
 								//+ ' name:' + this.fields.name 
 								+ this.fields.place_from 
 								+ ' -> ' + this.fields.place_to 
-								+ ' ' + new Date(this.fields.date).toString('dd.MM.yyyy HH:mm')
+								+ ' ' + new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('dd.MM.yyyy HH:mm')
 								+ '</a></h3>' 
 								+ '<div><p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
 				);
-
-				/*$("#accordion").accordion("destroy").accordion({
-					collapsible: true,
-					active:false
-				});
-*/
+				
 				phonenumber_images_setpath();
 			});	
 		}
@@ -126,6 +121,7 @@
 						showTrips(json_trips);
 						tooglePanels();
 						
+						// filters
 						// build filters only if filterValues not exists(it F5 - refresh page)
 						// if exists - it means we only search trips
 						if (filterValues == null){
@@ -410,11 +406,12 @@
 			
 			$("[id=add_filter]").click(function( event ) {
 				filterValues = { 
-					dateFrom : '{{ date_from }}',
-					dateTo: '{{ date_to }}', 
-					placeFrom: null,
-					placeTo : null
+					'date_from' : '{{ date_from }}',
+					'date_to': '{{ date_to }}', 
+					'place_from': null,
+					'place_to' : null
 				}
+
 				addFilter(filterValues);
 			});
 			
