@@ -15,8 +15,8 @@ TripType_RU = {
 }
 
 TripType_LT = {
-	('Driver', u'Водитель'),
-	('Passenger', u'Пассажир'),
+	('Driver', u'Vairuotojas'),
+	('Passenger', u'Keleivis'),
 }
 
 #controls
@@ -143,21 +143,21 @@ Date_LT = {
 Validation_RU = {
 	'empty_date' : u'Вы не можете ввести пустую дату', #u'You cannot input empty date'
 	'less_current_date' : u'Вы не можете ввести дату меньше текущей', #u'You cannot input less then current date'
-	'empty_place_from' : u'Вы не должны ввести место отправления', #u'You must input place from to create new trip'
-	'empty_place_to' : u'Вы не должны ввести место прибытия', #u'You must input place to to create new trip'
-	'empty_type' : u'Вы не должны ввести ваш тип поездки',
+	'empty_place_from' : u'Вы должны ввести место отправления', #u'You must input place from to create new trip'
+	'empty_place_to' : u'Вы должны ввести место прибытия', #u'You must input place to to create new trip'
+	'empty_type' : u'Вы должны ввести ваш тип поездки',
 	'empty_name' : u'Вы должны ввести имя', #u'You must input name to create new trip'
 	'required' : u'Поле должно быть заполнено', #u'This field is required'
 }
 
 Validation_LT = {
-	'empty_date' : u'Вы не можете ввести пустую дату', #u'You cannot input empty date'
-	'less_current_date' : u'Вы не можете ввести дату меньше текущей', #u'You cannot input less then current date'
-	'empty_place_from' : u'Вы не должны ввести место отправления', #u'You must input place from to create new trip'
-	'empty_place_to' : u'Вы не должны ввести место прибытия', #u'You must input place to to create new trip'
-	'empty_type' : u'Вы не должны ввести ваш тип поездки',
-	'empty_name' : u'Вы должны ввести имя', #u'You must input name to create new trip'
-	'required' : u'Поле должно быть заполнено', #u'This field is required'
+	'empty_date' : u'Jūs negalite neįvesti datos', #u'You cannot input empty date'
+	'less_current_date' : u'Data yra ankstesnė už šiandienos datą', #u'You cannot input less then current date'
+	'empty_place_from' : u'Jūs turite įvesti miestą', #u'You must input place from to create new trip'
+	'empty_place_to' : u'Jūs turite įvesti miestą', #u'You must input place to to create new trip'
+	'empty_type' : u'Jūs turite įvesti kelionės tipą',
+	'empty_name' : u'Jūs turite įvesti vardą', #u'You must input name to create new trip'
+	'required' : u'Laukas turi būti užpildytas', #u'This field is required'
 }
 
 #defaults
