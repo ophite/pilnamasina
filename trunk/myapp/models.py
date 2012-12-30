@@ -5,13 +5,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 from myapp.translate.localize import *
 
 class Trip(models.Model):
-	name = models.CharField(max_length=150)
+	date = models.DateTimeField()
+	type = models.CharField(max_length=150, choices=DEFAULT_TRIPTYPE)
 	place_from = models.CharField(max_length=150, choices=DEFAULT_CITY)
 	place_to = models.CharField(max_length=150, choices=DEFAULT_CITY)
-	type = models.CharField(max_length=150, choices=DEFAULT_TRIPTYPE)
-	comments = models.TextField(max_length=200, null=True, blank=True)
+	name = models.CharField(max_length=150)
 	phone_number = PhoneNumberField()
-	date = models.DateTimeField()
+	comments = models.TextField(max_length=200, null=True, blank=True)
 
 	class Meta:
 		ordering = ["date"]

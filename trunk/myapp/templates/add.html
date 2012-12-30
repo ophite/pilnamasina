@@ -72,16 +72,22 @@
 				$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
 			}
 
+			
+			diff = $.browser.msie ? 13 : -12
 			width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
-			width = width - 13;
+			width = width + diff;
 			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
-			width = width - 13;
+			width = width + diff;
 			$('#id_name').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_name').width(width);
 			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_phone_number').width(width);	
 			$('#id_comments').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_date').width(width);	
+
+			diff = $.browser.msie ? -2 : -14
+			width = parseInt($('#recaptcha_image').parent().parent().width()) + diff;
+			$('#id_comments').width(width);	
 
 			// AJAX, EVENT
 			{% autoescape off %}

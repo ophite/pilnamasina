@@ -267,7 +267,6 @@
 	
 			$('[id^="datepicker_from' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('[id^="datepicker_to' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));
 			
 			// delete current filter
 			$('[id^="Del_' + search_controls + '"]')
@@ -285,6 +284,7 @@
 					$(this).parent().parent().remove();;
 					//event.preventDefault();
 			});
+            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));
 		}
 
 		/*
@@ -464,7 +464,7 @@
 					</select>
 				</td>
 				<td>
-					 <input id="add_filter" type="submit" value="Add" width="11" />
+					 <input id="add_filter" type="submit" value="Add" style="width: 50px" />
 					 <input id="search" type="submit" value="Go" />
 				</td>
 			</tr>
