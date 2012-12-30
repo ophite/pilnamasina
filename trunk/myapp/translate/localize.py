@@ -159,7 +159,7 @@ Validation_LT = {
 	'empty_type' : u'Jūs turite įvesti kelionės tipą',
 	'empty_name' : u'Jūs turite įvesti vardą', #u'You must input name to create new trip'
 	'required' : u'Laukas turi būti užpildytas', #u'This field is required'
-	'invalid' : u'Neteisingas ivęstas tel. numeris (+370...)', #u'This field is required'
+	'invalid' : u'Neteisingai įvęstas tel. numeris (+370...)', #u'This field is required'
 }
 
 #defaults
