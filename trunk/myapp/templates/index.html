@@ -242,12 +242,12 @@
 			
 			$('<tr id="filter_' + search_controls + '">'
 				+'<div id = "div_filter_' + search_controls + '">'
-				+'<td><b>{{ controls_translate|dict_getbykey:"From:"}}</b><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
+				+'<td style="text-align:center;"><b>{{ controls_translate|dict_getbykey:"From:"}}</b><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
 					+' <select id="combobox_from' + search_controls + '">'
 					+ html_option
 					+'</select>'
 				+'</td>'
-				+'<td><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
+				+'<td style="text-align:center;"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
 					+' <select id="combobox_to' + search_controls + '">'
 					+ html_option
 					+'</select>'	
@@ -258,7 +258,7 @@
 				+'</div>'
 			+'</tr>').appendTo('#filter_main');
 			//.insertAfter('#filter_first')
-		
+		    
 			// reInit
 			setFilterValue(filterValues, search_controls);
 	
@@ -326,7 +326,7 @@
 			json_stringify_IE();
 			
 			// INIT VARS
-			search_controls_maxcount = 2;
+			search_controls_maxcount = 1;
 			search_controls = 0;
 			search_controls_indexes = new Array();
 			
@@ -444,15 +444,15 @@
 			</td>
 		</tr>
 		<table id="filter_main">
-			<tr id="filter_first">
-				<td><b>From:</b><input type="text" id="datepicker_from_first" />
+			<tr>
+				<td style="text-align:center;"><b>From:</b><input type="text" id="datepicker_from_first" />
 					<select id="combobox_from_first" >
 					{% for k,v in cities.items %}
 						<option value={{v}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
-				<td><b>To:</b><input type="text" id="datepicker_to_first" />
+				<td style="text-align:center;"><b>To:</b><input type="text" id="datepicker_to_first" />
 					<select id="combobox_to_first">
 					{% for k,v in cities.items  %}
 						<option value={{v}}>{{v}}</option>
