@@ -84,15 +84,16 @@
 		function showTrips(json_trips){
 			holder = $('#accordion');
 			holder.html('');
-
+ 
 			jQuery.each(json_trips, function(){	
+
 				holder.append('<h3><a href="#">'
 								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="32" height="32" alt="">'
 								//+ ' type:' + this.fields.type 
 								//+ ' name:' + this.fields.name 
 								+ this.fields.place_from 
 								+ ' -> ' + this.fields.place_to 
-								+ ' ' + new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('dd.MM.yyyy HH:mm')
+								+ ' ' +  (($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('dd.MM.yyyy HH:mm') : new Date(this.fields.date).toString('dd.MM.yyyy HH:mm'))
 								+ '</a></h3>' 
 								+ '<div><p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
 				);

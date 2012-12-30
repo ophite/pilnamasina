@@ -48,8 +48,8 @@ def set_session(request):
 #	request.session['place_from'] = request.GET.get('place_from', '')
 #	request.session['place_to'] = request.GET.get('place_to', '')
 		
-	request.session['date_from'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
-	request.session['date_to'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
+	request.session['date_from'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_from', ''))]
+	request.session['date_to'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_to', ''))]
 	request.session['place_from'] = json.loads(request.GET.get('place_from', ''))
 	request.session['place_to'] = json.loads(request.GET.get('place_to', ''))
 	
