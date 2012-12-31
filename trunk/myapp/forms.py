@@ -78,10 +78,10 @@ class TripForm(DivModelForm):
         }
 		
 	def clean(self):
+		print '--------------------------------> call clean'
+		
 		cleaned_data = super(TripForm, self).clean()
 		date = cleaned_data.get("date")
-		
-		print '--------------------------------> call clean'
 		
 		if date is None:
 			self._errors["date"] = ErrorList([DEFAULT_VALIDATION['empty_date']]) 
