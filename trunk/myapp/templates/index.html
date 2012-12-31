@@ -267,6 +267,7 @@
 	
 			$('[id^="datepicker_from' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('[id^="datepicker_to' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('[id^="search"]').width(parseInt($('[id="add_new_trip"]').width()));
 			
 			// delete current filter
 			$('[id^="Del_' + search_controls + '"]')
@@ -285,6 +286,7 @@
 					//event.preventDefault();
 			});
             $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));
+			
 		}
 
 		/*
