@@ -43,16 +43,11 @@ def set_session(request):
 	
 #	format = DEFAULT_DATE.get('pythonDateFormat', DEFAULT_DATETIME_FORMAT_CLIENT)
 	
-#	request.session['date_from'] = datetime.datetime.strptime(request.GET['date_from'], format)	
-#	request.session['date_to'] = datetime.datetime.strptime(request.GET['date_to'], format)
-#	request.session['place_from'] = request.GET.get('place_from', '')
-#	request.session['place_to'] = request.GET.get('place_to', '')
-		
-	request.session['date_from'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_from', ''))]
-	request.session['date_to'] = [datetime.datetime.strptime(date, DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_to', ''))]
+	request.session['date_from'] = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_from', ''))]
+	request.session['date_to'] = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=7), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_to', ''))]
 	request.session['place_from'] = json.loads(request.GET.get('place_from', ''))
 	request.session['place_to'] = json.loads(request.GET.get('place_to', ''))
-	
+
 	return render_to_response('add.html', RequestContext(request))
 
 def index(request):
@@ -85,16 +80,16 @@ def search(request):
 	if request.GET.get('date_to', '') == '':
 		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=7)])
 	else:
-		date_to = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
+		date_to = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=7), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
 
 	#places
 	if request.GET.get('place_from', '') == '':
-		place_from = request.session.get('place_from', '')
+		place_from = request.session.get('place_from', [''])
 	else:
 		place_from = json.loads(request.GET['place_from'])
 
 	if request.GET.get('place_to', '') == '':
-		place_to = request.session.get('place_to', '')
+		place_to = request.session.get('place_to', [''])
 	else:
 		place_to = json.loads(request.GET['place_to'])
 	

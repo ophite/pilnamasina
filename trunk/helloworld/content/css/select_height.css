@@ -1,0 +1,80 @@
+
+.ie .ui-autocomplete {
+	overflow-y: auto;
+}
+.ie7 .ui-autocomplete {
+	height: 200px;
+}
+.ie8 .ui-autocomplete {
+	height: 200px;
+}
+.ie9 .ui-autocomplete {
+	height: 200px;
+}
+.gecko .ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+.win.gecko .ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+.linux.gecko .ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	height: 200px;
+}
+.opera .ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	height: 200px;
+}
+.konqueror .ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	height: 200px;
+}
+.safari .ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	height: 200px;
+}
+.chrome .ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+
+.no_js { display: block }
+.has_js { display: none }
+.js .no_js { display: none }
+.js .has_js { display: block }		
+/*
+	<![if !(IE)]>
+		.ui-autocomplete {
+			max-height: 100px;
+			overflow-y: auto;
+			// prevent horizontal scrollbar 
+			overflow-x: hidden;
+			}
+	<![endif]>
+
+	<![if IE]>
+		.ui-autocomplete {
+			height: 100px;
+		}
+	<![endif]>
+*/

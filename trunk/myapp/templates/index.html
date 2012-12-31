@@ -285,6 +285,7 @@
 					$(this).parent().parent().remove();;
 					//event.preventDefault();
 			});
+			
             $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));
 			
 		}
@@ -294,8 +295,6 @@
 			asyncValue - async mode for refresh current page to save filter values
 		*/
 		function rememberFilters(redirectToAddTrip, asyncValue){
-			
-			//alert(getfilters('date_from', 'datepicker_from'))
 			$.ajax({
 				url: '/set_session/',
 				data: {
@@ -316,8 +315,8 @@
 				type: 'GET',
 				async : asyncValue,
 				error : function () {
-					alert('error add_new_trip');
-					console.log("add_new_trip ajax error");
+					alert('error rememberFilters');
+					console.log("rememberFilters ajax error");
 				}
 			});				
 		}
@@ -466,8 +465,8 @@
 					</select>
 				</td>
 				<td>
-					 <input id="add_filter" type="submit" value="Add" style="width: 50px" />
-					 <input id="search" type="submit" value="Go" />
+					<input id="add_filter" type="submit" value="Add" style="width: 50px" />
+					<input id="search" type="submit" value="Go" />
 				</td>
 			</tr>
 		</table>
