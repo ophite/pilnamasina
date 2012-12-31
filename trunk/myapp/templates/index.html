@@ -6,6 +6,7 @@
 {% endblock %}		
 		
 {% load dict_by_key %}
+{% load order_list %}
 
 {% block script %}
 
@@ -92,13 +93,13 @@
 								//+ ' type:' + this.fields.type 
 								//+ ' name:' + this.fields.name 
 															
-								+ ' ' +  (($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('dd.MM.yyyy HH:mm') : new Date(this.fields.date).toString('dd.MM.yyyy | HH:mm'))
+								+ ' ' +  (($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('yyyy.MM.dd HH:mm') : new Date(this.fields.date).toString('yyyy.MM.dd | HH:mm'))
 								+ ' | ' + this.fields.place_from 
 								+ ' > ' + this.fields.place_to 
-								+ ' | ' + this.fields.phone_number
+								+ ' | ' + phonenumber_to_images(this.fields.phone_number.toString())
 								+ ' | ' + this.fields.name
 								+ '</a></h3>' 
-								+ '<div><p>' + this.fields.comments + '</p> ' + phonenumber_to_images(this.fields.phone_number.toString()) + '</div>'
+								+ '<div><p>' + this.fields.comments + '</p></div>'
 				);
 				
 				phonenumber_images_setpath();
@@ -106,7 +107,6 @@
 		}
 			
 		function getTrips(filterValues){
-					
 			$.ajax({
 				url: "/search/",
 				type: "GET",
@@ -117,7 +117,6 @@
 				},
 				complete: function(jsondata, stat) { 
 					if (stat == "success"){
-						
 						json_all = json_parse(jsondata.responseText);
 						
 						// trips
@@ -202,9 +201,11 @@
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker("setDate", date_to);
 		
-			$('[id^="combobox_from' + search_controls + '"]').combobox();
+			$('[id^="combobox_from' + search_controls + '"]').combobox();			
 			$('[id^="combobox_to' + search_controls + '"]').combobox();
-			
+				
+			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
+		
 			placeFrom = filterValues['place_from'];
 			if (placeFrom != null){
 				$('[id^="combobox_from' + search_controls + '"]').val(placeFrom);
@@ -374,32 +375,18 @@
 			
 			// JQUERY INITIALIZE
 			$( "input[type=submit], button" ).button();
-			$("#combobox_from_first").combobox();
-			$("#combobox_to_first").combobox();
-			$('#datepicker_from_first').datetimepicker();
-			$('#datepicker_to_first').datetimepicker();
-		
+	
 			//SET DEFAULTS/STYLE
-			/*
-			$('#datepicker_from_first').datetimepicker("setDate", new Date('{{date_from}}'));
-			$('#datepicker_to_first').datetimepicker("setDate", new Date('{{date_to}}'));
-			$('#combobox_from_first').val('{{place_from}}');
-			$('#combobox_from_first').next().children('input').val($('#combobox_from_first').val());
-			$('#combobox_to_first').val('{{place_to}}')
-			$('#combobox_to_first').next().children('input').val($('#combobox_to_first').val());
-			*/
-			
 			$("[id=search]").attr('value','{{ controls_translate|dict_getbykey:"Go" }}');
 			$("[id=add_filter]").attr('value','{{ controls_translate|dict_getbykey:"Add" }}');
 			$("[id=add_new_trip]").attr('value','{{ controls_translate|dict_getbykey:"AddNewTrip" }}');
 			$('b:contains("From:")').text('{{ controls_translate|dict_getbykey:"From:" }}');
 			$('b:contains("To:")').text('{{ controls_translate|dict_getbykey:"To:" }}');
 			$('h1:contains("Filters")').text('{{ controls_translate|dict_getbykey:"Filters" }}');
-			{% endautoescape %}	
 			
-			//SET DEFAULTS/STYLE
 			$('#datepicker_from_first').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#datepicker_to_first').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			{% endautoescape %}	
 			
 			// AJAX, EVENT
 			{% autoescape off %}
@@ -452,14 +439,14 @@
 			<tr>
 				<td style="text-align:center;"><b>From:</b><input type="text" id="datepicker_from_first" />
 					<select id="combobox_from_first" >
-					{% for k,v in cities.items %}
+					{% for k,v in cities.items|sort %}
 						<option value={{v}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
 				<td style="text-align:center;"><b>To:</b><input type="text" id="datepicker_to_first" />
 					<select id="combobox_to_first">
-					{% for k,v in cities.items  %}
+					{% for k,v in cities.items|sort  %}
 						<option value={{v}}>{{v}}</option>
 					{% endfor %}
 					</select>

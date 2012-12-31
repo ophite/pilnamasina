@@ -1,6 +1,11 @@
 // combobox
 (function( $ ) {
 	$.widget( "ui.combobox", {
+		options: {
+			cantFindAnyItem: "didn't match any item",
+			showAllItem: "Show All Items"
+		},
+		
 		_create: function() {
 			var input,
 				that = this,
@@ -25,7 +30,7 @@
 					// remove invalid value, as it didn't match anything
 					$( element )
 						.val( "" )
-						.attr( "title", value + " didn't match any item" )
+						.attr( "title", value + this.options.cantFindAnyItem )
 						.tooltip( "open" );
 					select.val( "" );
 					setTimeout(function() {
@@ -83,7 +88,7 @@
 
 			$( "<a>" )
 				.attr( "tabIndex", -1 )
-				.attr( "title", "Show All Items" )
+				.attr( "title", this.options.showAllItem )
 				.tooltip()
 				.appendTo( wrapper )
 				.button({

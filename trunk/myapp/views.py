@@ -92,6 +92,9 @@ def search(request):
 		place_to = request.session.get('place_to', [''])
 	else:
 		place_to = json.loads(request.GET['place_to'])
+
+	print request.GET.get('date_from', '')
+	print date_from, date_to
 	
 	filters = {
 		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
@@ -107,22 +110,13 @@ def search(request):
 					place_to=place_to[i]) for i in range(date_from.__len__())]
 				
 		trips = Trip.objects.filter(reduce(operator.or_, q_list))
-		#data = {
-		#	'date_from':date_from[0], 
-		#	'date_to':date_to[0],
-		#}
 	# by one filter
 	else:
 		trips = Trip.objects.filter(date__range=[date_from, date_to], place_from=place_from, place_to=place_to)
-		#data = {
-		#	'date_from':date_from.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-		#	'date_to':date_to.strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-		#}
 		
 	json_serializer = serializers.get_serializer("json")()
 	jsonlist = [
 		json_serializer.serialize(trips), 
-		#json.dumps(data, cls=DjangoJSONEncoder),
 		json.dumps(filters, cls=DjangoJSONEncoder),
 	]
 

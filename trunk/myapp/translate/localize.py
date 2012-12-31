@@ -135,6 +135,7 @@ Controls_RU = {
 	'Trips': u'Поездки',
 	'Save': u'Сохранить',
 	'Delete': u'-',
+	'ShowAllItems': u'Показать все записи',
 }
 
 Controls_LT = {
@@ -151,6 +152,7 @@ Controls_LT = {
 	'Trips': u'Kelionės',
 	'Save': u'Išsaugoti',
 	'Delete': u'-',
+	'ShowAllItems': u'Показать все записи',
 }
 
 #new trip
@@ -206,8 +208,8 @@ Date_RU = {
 	'dayNamesShort': [u'вск',u'пнд',u'втр',u'срд',u'чтв',u'птн',u'сбт'],
 	'dayNamesMin': [u'Вс',u'Пн',u'Вт',u'Ср',u'Чт',u'Пт',u'Сб'],
 	'weekHeader': u'Не',
-	'dateFormat': u'dd.mm.yy',
-	'pythonDateFormat': '%d.%m.%Y %H:%M',
+	'dateFormat': u'yy.mm.dd',
+	'pythonDateFormat': '%Y.%m.%d %H:%M',
 }
 # LITHUANIAN
 Time_LT = {
@@ -236,8 +238,8 @@ Date_LT = {
 	'dayNamesShort': [u'sekm',u'pirm',u'antr',u'treč',u'ketv',u'penk',u'šešt'],
 	'dayNamesMin': [u'Sk',u'Pr',u'An',u'Tr',u'Kt',u'Pn',u'Še'],
 	'weekHeader': u'Не',
-	'dateFormat': u'dd.mm.yy',
-	'pythonDateFormat': '%d.%m.%Y %H:%M',
+	'dateFormat': u'yy.mm.dd',
+	'pythonDateFormat': '%Y.%m.%d %H:%M',
 }
 
 # Validation
@@ -250,6 +252,7 @@ Validation_RU = {
 	'empty_name' : u'Вы должны ввести имя', #u'You must input name to create new trip'
 	'required' : u'Поле должно быть заполнено', #u'This field is required'
 	'invalid' : u'Не правильный формат номера телефона', #u'This field is required'
+	'captcha_invalid' : u'Не правильная капча', #u'This field is required'
 }
 
 Validation_LT = {
@@ -261,12 +264,13 @@ Validation_LT = {
 	'empty_name' : u'Jūs turite įvesti vardą', #u'You must input name to create new trip'
 	'required' : u'Laukas turi būti užpildytas', #u'This field is required'
 	'invalid' : u'Neteisingai įvęstas tel. numeris (+370...)', #u'This field is required'
+	'captcha_invalid' : u'Не правильная капча', #u'This field is required'
 }
 
 #defaults
 DEFAULT_TRIPTYPE = TripType_LT
 DEFAULT_VALIDATION = Validation_LT 
-DEFAULT_DATETIME_FORMAT_SERVER = '%d.%m.%Y %H:%M'
+DEFAULT_DATETIME_FORMAT_SERVER = '%Y.%m.%d %H:%M'
 DEFAULT_DATETIME_FORMAT_CLIENT = '%m/%d/%Y %H:%M'
 DEFAULT_DATETIME_FORMAT_DJANGO = 'YYYY-MM-DD HH:MM'
 DEFAULT_CONTROLS = Controls_LT
