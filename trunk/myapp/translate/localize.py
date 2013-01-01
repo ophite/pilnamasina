@@ -152,7 +152,7 @@ Controls_LT = {
 	'Trips': u'Kelionės',
 	'Save': u'Išsaugoti',
 	'Delete': u'-',
-	'ShowAllItems': u'Показать все записи',
+	'ShowAllItems': u'Rodyti visus įrašus',
 }
 
 #new trip
@@ -258,8 +258,8 @@ Validation_RU = {
 Validation_LT = {
 	'empty_date' : u'Jūs negalite neįvesti datos', #u'You cannot input empty date'
 	'less_current_date' : u'Data yra ankstesnė už šiandienos datą', #u'You cannot input less then current date'
-	'empty_place_from' : u'Jūs turite įvesti miestą', #u'You must input place from to create new trip'
-	'empty_place_to' : u'Jūs turite įvesti miestą', #u'You must input place to to create new trip'
+	'empty_place_from' : u'Jūs turite įvesti iš kurio miesto išvykstate', #u'You must input place from to create new trip'
+	'empty_place_to' : u'Jūs turite įvesti į kurį miestą vykstate', #u'You must input place to to create new trip'
 	'empty_type' : u'Jūs turite įvesti kelionės tipą',
 	'empty_name' : u'Jūs turite įvesti vardą', #u'You must input name to create new trip'
 	'required' : u'Laukas turi būti užpildytas', #u'This field is required'

@@ -7,9 +7,9 @@ from myapp.translate.localize import *
 class Trip(models.Model):
 	date = models.DateTimeField()
 	type = models.CharField(max_length=150, choices=DEFAULT_TRIPTYPE)
-	place_from = models.CharField(max_length=150, choices=DEFAULT_CITY)
-	place_to = models.CharField(max_length=150, choices=DEFAULT_CITY)
-	name = models.CharField(max_length=150)
+	place_from = models.CharField(max_length=19, choices=DEFAULT_CITY)
+	place_to = models.CharField(max_length=19, choices=DEFAULT_CITY)
+	name = models.CharField(max_length=15)
 	phone_number = PhoneNumberField()
 	comments = models.TextField(max_length=200, null=True, blank=True)
 

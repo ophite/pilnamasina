@@ -19,6 +19,9 @@
 ----------------------------------*/
 .ui-state-disabled { cursor: default !important; }
 
+/* Text
+----------------------------------*/
+.txt-main { font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; font-size: 18px; }
 
 /* Icons
 ----------------------------------*/
