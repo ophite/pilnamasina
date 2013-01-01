@@ -264,7 +264,7 @@ Validation_LT = {
 	'empty_name' : u'Jūs turite įvesti vardą', #u'You must input name to create new trip'
 	'required' : u'Laukas turi būti užpildytas', #u'This field is required'
 	'invalid' : u'Neteisingai įvęstas tel. numeris (+370...)', #u'This field is required'
-	'captcha_invalid' : u'Не правильная капча', #u'This field is required'
+	'captcha_invalid' : u'Neteisingai įvęstas Captcha kodas', #u'This field is required'
 }
 
 #defaults
