@@ -3,7 +3,8 @@
 	$.widget( "ui.combobox", {
 		options: {
 			cantFindAnyItem: "didn't match any item",
-			showAllItem: "Show All Items"
+			showAllItem: "Show All Items",
+			width:145
 		},
 		
 		_create: function() {
@@ -15,7 +16,7 @@
 				wrapper = this.wrapper = $( "<span>" )
 					.addClass( "ui-combobox" )
 					.insertAfter( select );
-
+					
 			function removeIfInvalid(element) {
 				var value = $( element ).val(),
 					matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( value ) + "$", "i" ),
@@ -79,6 +80,8 @@
 				})
 				.addClass( "ui-widget ui-widget-content ui-corner-left" );
 
+			input.width(this.options.width);
+			
 			input.data( "autocomplete" )._renderItem = function( ul, item ) {
 				return $( "<li>" )
 					.data( "item.autocomplete", item )
