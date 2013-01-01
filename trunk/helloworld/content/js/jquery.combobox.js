@@ -30,7 +30,7 @@
 					// remove invalid value, as it didn't match anything
 					$( element )
 						.val( "" )
-						.attr( "title", value + this.options.cantFindAnyItem )
+						.attr( "title", value + that.options.cantFindAnyItem)
 						.tooltip( "open" );
 					select.val( "" );
 					setTimeout(function() {
