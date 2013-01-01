@@ -147,7 +147,7 @@ Controls_LT = {
 	'From:': u'Iš:',
 	'To:': u'Į:',
 	'Type:': u'Tipas:',
-	'Filters': u'Kelionų paieška',
+	'Filters': u'Kelionių paieška',
 	'NewTrip': u'Nauja kelionė',
 	'Trips': u'Kelionės',
 	'Save': u'Išsaugoti',
