@@ -60,6 +60,9 @@
 			$("#id_place_to").combobox();
 			$("#id_place_from").combobox();
 			$("#id_type").combobox();
+			
+			// LOCALIZE
+			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 
 			//Custom style
 			// BEGIN FOR ILIJA
