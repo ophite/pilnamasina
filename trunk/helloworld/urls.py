@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'helloworld.views.home', name='home'),
     #url(r'^', include('myapp.urls')),
-    url(r'^index/$', views.index),
+    url(r'^$', views.index),
     url(r'^add/$', views.add),
 	url(r'^set_session/$', views.set_session),
     url(r'^search/$', views.search),

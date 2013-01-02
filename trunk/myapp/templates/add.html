@@ -96,13 +96,13 @@
 			// add new filter
 			$("[id=trips]").click(function( event ) {
 				$.ajax({
-					url: '/index/',
+					url: '/',
 					success: function(msg){
 						//alert('success');
 					},
 					complete:function(jsondata, stat){
 						if (stat == "success"){
-							document.location.href = location.protocol + '//' + location.host + '/index';
+							document.location.href = location.protocol + '//' + location.host + '/';
 						}
 					},
 					//dataType: "json",

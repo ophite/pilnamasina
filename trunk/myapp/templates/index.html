@@ -144,6 +144,7 @@
 								params[filter] = json_parse(filters[filter])[0];
 							}
 							
+							setFilterStyle('_first');
 							setFilterValue(params, '_first');
 							params = {};
 							
@@ -190,6 +191,18 @@
 			.hide();
 		}
 		
+		function setFilterStyle(search_controls){
+			$('[id^="datepicker_from' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('[id^="datepicker_to' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
+			$('[id^="search"]').width(parseInt($('[id="add_new_trip"]').width()));
+	
+			$('[id^="combobox_from' + search_controls + '"]').combobox();			
+			$('[id^="combobox_to' + search_controls + '"]').combobox();
+			
+			$('[id^="datepicker_from' + search_controls + '"]').width(datetimepicker_width);
+			$('[id^="datepicker_to' + search_controls + '"]').width(datetimepicker_width);
+		}
+		
 		function setFilterValue(filterValues, search_controls){
 			dateFrom = filterValues['date_from'];
 			var date_from = dateFrom != ''? new Date(dateFrom) : new Date();
@@ -200,11 +213,6 @@
 			var date_to = dateTo != ''? new Date(dateTo) : new Date();
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker("setDate", date_to);
-		
-			$('[id^="combobox_from' + search_controls + '"]').combobox();			
-			$('[id^="combobox_to' + search_controls + '"]').combobox();
-				
-			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 		
 			placeFrom = filterValues['place_from'];
 			if (placeFrom != null){
@@ -217,6 +225,9 @@
 				$('[id^="combobox_to' + search_controls + '"]').val(placeTo);
 				$('[id^="combobox_to' + search_controls + '"]').next().children('input').val(placeTo);
 			}
+
+			// localize
+			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 		}
 		
 		function addFilter(filterValues){
@@ -265,10 +276,7 @@
 		    
 			// reInit
 			setFilterValue(filterValues, search_controls);
-	
-			$('[id^="datepicker_from' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('[id^="datepicker_to' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('[id^="search"]').width(parseInt($('[id="add_new_trip"]').width()));
+			setFilterStyle(search_controls);
 			
 			// delete current filter
 			$('[id^="Del_' + search_controls + '"]')
@@ -335,6 +343,7 @@
 			search_controls_maxcount = 1;
 			search_controls = 0;
 			search_controls_indexes = new Array();
+			datetimepicker_width = 160; // set custom datetime width 
 			
 			// LOCALIZE
 			{% autoescape off %}				
@@ -375,17 +384,16 @@
 			
 			// JQUERY INITIALIZE
 			$( "input[type=submit], button" ).button();
-	
-			//SET DEFAULTS/STYLE
+			// for quick draw jquery style
+			setFilterStyle('_first');
+
+			// LOCALIZE
 			$("[id=search]").attr('value','{{ controls_translate|dict_getbykey:"Go" }}');
 			$("[id=add_filter]").attr('value','{{ controls_translate|dict_getbykey:"Add" }}');
 			$("[id=add_new_trip]").attr('value','{{ controls_translate|dict_getbykey:"AddNewTrip" }}');
 			$('b:contains("From:")').text('{{ controls_translate|dict_getbykey:"From:" }}');
 			$('b:contains("To:")').text('{{ controls_translate|dict_getbykey:"To:" }}');
 			$('h1:contains("Filters")').text('{{ controls_translate|dict_getbykey:"Filters" }}');
-			
-			$('#datepicker_from_first').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('#datepicker_to_first').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			{% endautoescape %}	
 			
 			// AJAX, EVENT
@@ -438,7 +446,7 @@
 		<table id="filter_main">
 			<tr>
 				<td style="text-align:center;"><b>From:</b><input type="text" id="datepicker_from_first" />
-					<select id="combobox_from_first" >
+					<select id="combobox_from_first">
 					{% for k,v in cities.items|sort %}
 						<option value={{v}}>{{v}}</option>
 					{% endfor %}
