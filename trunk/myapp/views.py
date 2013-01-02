@@ -15,6 +15,7 @@ from myapp.translate.localize import *
 import operator
 import datetime
 from datetime import date, timedelta
+from django.utils.datastructures import SortedDict
 
 def add(request):
 	print '--------------------------------> call add'
@@ -24,7 +25,7 @@ def add(request):
 		
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/index/')
+			return HttpResponseRedirect('/')
 	else:
 		form = TripForm()
 		
@@ -92,9 +93,6 @@ def search(request):
 		place_to = request.session.get('place_to', [''])
 	else:
 		place_to = json.loads(request.GET['place_to'])
-
-	print request.GET.get('date_from', '')
-	print date_from, date_to
 	
 	filters = {
 		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
@@ -102,18 +100,24 @@ def search(request):
 		'place_from':json.dumps(request.session.get('place_from', ''), cls=DjangoJSONEncoder),
 		'place_to':json.dumps(request.session.get('place_to', ''), cls=DjangoJSONEncoder),
 	}
-	
+
+	cities = dict(DEFAULT_CITY).values()
+	cities_key = dict(DEFAULT_CITY).keys()
+	cities_key.sort()
+	any = dict(DEFAULT_CITY)[cities_key[0]]
+
 	# by many filters
 	if isinstance(date_from, list):
 		q_list = [Q(date__range=[date_from[i], date_to[i]], 
-					place_from=place_from[i], 
-					place_to=place_to[i]) for i in range(date_from.__len__())]
-				
-		trips = Trip.objects.filter(reduce(operator.or_, q_list))
+					place_from__in = cities if place_from[i] == any else (place_from[i],),
+					place_to__in = cities if place_to[i] == any else (place_to[i],)) for i in range(date_from.__len__())]
 	# by one filter
-	else:
-		trips = Trip.objects.filter(date__range=[date_from, date_to], place_from=place_from, place_to=place_to)
-		
+	#else:
+	#	q_list = [Q(date__range=[date_from, date_to], place_from=place_from, place_to=place_to)]
+
+	print q_list
+	trips = Trip.objects.filter(reduce(operator.or_, q_list))
+	
 	json_serializer = serializers.get_serializer("json")()
 	jsonlist = [
 		json_serializer.serialize(trips), 

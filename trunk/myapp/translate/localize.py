@@ -2,6 +2,7 @@
 
 #cities
 Cities_LT = (
+(u' Any', 'Any'),
 (u'Akmenė', 'Akmenė'),
 (u'Alytus', 'Alytus'),
 (u'Anykščiai', u'Anykščiai'),
