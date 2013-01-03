@@ -10,7 +10,17 @@
 {% block script %}
 
 	<script type="text/javascript">
-	$(document).ready(function() {
+		$(function() {
+		
+			// JQUERY INITIALIZE
+			$("input[type=submit], button").button();
+			$("#id_place_to").combobox();
+			$("#id_place_from").combobox();
+			$("#id_type").combobox();
+			$('#id_date').datetimepicker();
+			if ($('#id_date').val().length == 0) {
+				$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
+			}
 			
 			// LOCALIZE
 			{% autoescape off %}			
@@ -49,20 +59,9 @@
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
-			$('h1:contains("New trip")').text('{{ controls_translate|dict_getbykey:"NewTrip" }}');
 			$('input[value="Save"]').val('{{ controls_translate|dict_getbykey:"Save" }}')
-			$( "[id=trips]" ).attr('value','{{ controls_translate|dict_getbykey:"Trips" }}');
-			//$('a:contains("Trips")').text('{{ controls_translate|dict_getbykey:"Trips" }}')
-			{% endautoescape %}	
-		
-			// JQUERY INITIALIZE
-			$( "input[type=submit], button" ).button();
-			$("#id_place_to").combobox();
-			$("#id_place_from").combobox();
-			$("#id_type").combobox();
-			
-			// LOCALIZE
 			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
+			{% endautoescape %}	
 
 			//Custom style
 			// BEGIN FOR ILIJA
@@ -70,21 +69,13 @@
 			// END FOR ILIJA
 		
 			//SET DEFAULTS/STYLE
-			$('#id_date').datetimepicker();
-			if ($('#id_date').val().length == 0) {
-				$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
-			}
-			
 			diff = $.browser.msie ? 13 : -12
-			width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
-			width = width + diff;
+			//width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
+			//width = width + diff;
 			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
 			width = width + diff;
-			$('#id_name').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_name').width(width);
-			$('#id_phone_number').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_phone_number').width(width);	
-			$('#id_comments').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('#id_date').width(width);	
 
 			diff = $.browser.msie ? -2 : -14
@@ -113,7 +104,7 @@
 					}
 				});				
 			});
-			{% endautoescape %}	
+			{% endautoescape %}			
 		});		
 	</script>	
 
@@ -124,10 +115,10 @@
 	<table>
 		<tr>
 			<td>
-				<h1>New trip</h1>
+				<h1>{{ controls_translate|dict_getbykey:"NewTrip" }}</h1>
 			</td>
 			<td id = "right">
-				<input id="trips" type="submit" value="Trips" />
+				<input id="trips" class ="ui-button ui-widget ui-state-default ui-corner-all" type="submit" value={{ controls_translate|dict_getbykey:"Trips" }} />
 				<!-- h1><a href='/index/'> Trips </a></h1 -->
 			</td>
 		</tr>

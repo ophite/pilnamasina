@@ -29,6 +29,9 @@ class Label(Widget):
                 conditional_escape(force_unicode(value))))
 """
 
+jquery_input_class = 'ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right'
+jquery_combo_class = 'ui-combobox-input ui-state-default ui-widget ui-widget-content'
+
 class DivModelForm(forms.ModelForm):
     error_css_class = 'class-error'
     #required_css_class = 'class-required'
@@ -41,17 +44,17 @@ class DivModelForm(forms.ModelForm):
             help_text_html = u'<div class="hefp-text">%s</div>',
             errors_on_separate_row = False)
 
-class TripForm(DivModelForm):
+class TripForm(forms.ModelForm): #DivModelForm
 	captcha = ReCaptchaField()
-	date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class':'ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right'}, format = DEFAULT_DATETIME_FORMAT_SERVER), input_formats=(DEFAULT_DATETIME_FORMAT_SERVER,))
+	date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class':jquery_input_class}, format = DEFAULT_DATETIME_FORMAT_SERVER), input_formats=(DEFAULT_DATETIME_FORMAT_SERVER,))
 
 	def __init__(self, *args, **kwargs):
 		print '--------------------------------> call __init__'
-		self.request = kwargs.pop('request', None)
+		#self.request = kwargs.pop('request', None)
 		super(TripForm, self).__init__(*args, **kwargs)
 		self.label_suffix = ''
 		d = DEFAULT_TRANSLATE_NEW_TRIP
-		
+				
 		for name, field in self.fields.items():
 			print name, field
 			#localize label
@@ -59,12 +62,25 @@ class TripForm(DivModelForm):
 			#localize error msg
 			for k,v in field.error_messages.items():
 				field.error_messages[k] = DEFAULT_VALIDATION.get(k, v)
-            #if field.widget.__class__ == forms.widgets.TextInput:
-             #   if field.widget.attrs.has_key('class'):
-              #      field.widget.attrs['class'] += ' my-class'
-               # else:
-                #    field.widget.attrs.update({'class':'my-class'})
-		
+				
+			if field.widget.__class__ == forms.widgets.Textarea:
+				if field.widget.attrs.has_key('class'):
+					field.widget.attrs['class'] += ' ' + jquery_input_class
+				else:
+					field.widget.attrs.update({'class':jquery_input_class})
+			
+			if field.widget.__class__ == forms.widgets.TextInput:
+				if field.widget.attrs.has_key('class'):
+					field.widget.attrs['class'] += ' ' + jquery_input_class
+				else:
+					field.widget.attrs.update({'class':jquery_input_class})
+
+			if field.widget.__class__ == forms.widgets.Select:
+				if field.widget.attrs.has_key('class'):
+					field.widget.attrs['class'] += ' ' + jquery_combo_class
+				else:
+					field.widget.attrs.update({'class':jquery_combo_class})
+					
 	class Meta:
 		model = Trip
 		widgets = {
@@ -74,8 +90,7 @@ class TripForm(DivModelForm):
             'name': forms.TextInput(),
             'comments': Textarea(attrs={'cols': 40, 'rows': 5}),
 			'phone_number':forms.TextInput(),
-            #'date': forms.DateTimeInput(attrs={'class':'ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right'}, format = DEFAULT_DATETIME_FORMAT_SERVER),
-        }
+        }		
 		
 	def clean(self):
 		print '--------------------------------> call clean'
