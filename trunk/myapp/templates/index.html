@@ -85,7 +85,8 @@
 		function showTrips(json_trips){
 			holder = $('#accordion');
 			holder.html('');
- 
+			
+	 
 			jQuery.each(json_trips, function(){	
 
 				holder.append('<h3><a href="#">'
@@ -257,17 +258,17 @@
 			
 			$('<tr id="filter_' + search_controls + '">'
 				+'<div id = "div_filter_' + search_controls + '">'
-				+'<td style="text-align:center;"><b>{{ controls_translate|dict_getbykey:"From:"}}</b><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
+				+'<td style="text-align:left;" width="387"><b>{{ controls_translate|dict_getbykey:"From:"}}</b><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
 					+' <select id="combobox_from' + search_controls + '">'
 					+ html_option
 					+'</select>'
 				+'</td>'
-				+'<td style="text-align:center;"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
+				+'<td style="text-align:left;" width="373"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
 					+' <select id="combobox_to' + search_controls + '">'
 					+ html_option
 					+'</select>'	
 				+'</td>'
-				+'<td>' 
+				+'<td style="text-align:left;" width="136">' 
 					+'<input id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
 				+'</td>' //knopka minus
 				+'</div>'
@@ -433,7 +434,7 @@
 	
 {% block content %}
 
-	<table>
+	<table align="center" border="1"  width="918">
 		<tr>
 			<td>
 				<h1>Filters</h1>
@@ -443,23 +444,23 @@
 				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
 			</td>
 		</tr>
-		<table id="filter_main">
+		<table id="filter_main" align="center" border="1">
 			<tr>
-				<td style="text-align:center;"><b>From:</b><input type="text" id="datepicker_from_first" />
+				<td style="text-align:left;" width="387"><b>From:</b><input type="text" id="datepicker_from_first" />
 					<select id="combobox_from_first">
 					{% for k,v in cities.items|sort %}
 						<option value={{v}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
-				<td style="text-align:center;"><b>To:</b><input type="text" id="datepicker_to_first" />
+				<td style="text-align:left;" width="373"><b>To:</b><input type="text" id="datepicker_to_first" />
 					<select id="combobox_to_first">
 					{% for k,v in cities.items|sort  %}
 						<option value={{v}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
-				<td>
+				<td style="text-align:right;" width="136">
 					<input id="add_filter" type="submit" value="Add" style="width: 50px" />
 					<input id="search" type="submit" value="Go" />
 				</td>

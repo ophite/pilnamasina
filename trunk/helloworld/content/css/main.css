@@ -3,7 +3,7 @@ body{
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-	font-family: Arial,sans-serif;
+	font-family: Trebuchet MS,Arial,sans-serif;
 	font-size: 13px;
 }
 
@@ -40,8 +40,9 @@ body{
 /*body*/
 
 .body table {
-	vertical-align:top;
-	width: 100%;
+    margin: 0 auto;
+    vertical-align:top;
+    /*width: 927;*/
 }
 
 .readonlyBtn {
@@ -54,7 +55,7 @@ body{
 	background-color: #FFFFD5;
 	border: 2px solid red;
 	margin: 0;
-	font-family: Trebucket,sans-serif;
+	font-family: Trebuchet MS,Arial,sans-serif;
 	font-size: 11px;
 }
 
