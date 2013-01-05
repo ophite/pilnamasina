@@ -268,7 +268,7 @@
 					+ html_option
 					+'</select>'	
 				+'</td>'
-				+'<td style="text-align:left;" width="136">' 
+				+'<td style="text-align:left;">' 
 					+'<input id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
 				+'</td>' //knopka minus
 				+'</div>'
@@ -434,7 +434,7 @@
 	
 {% block content %}
 
-	<table align="center" border="1"  width="918">
+	<table align="center" border="0">
 		<tr>
 			<td>
 				<h1>Filters</h1>
@@ -444,7 +444,7 @@
 				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
 			</td>
 		</tr>
-		<table id="filter_main" align="center" border="1">
+		<table id="filter_main" align="center" border=0">
 			<tr>
 				<td style="text-align:left;" width="387"><b>From:</b><input type="text" id="datepicker_from_first" />
 					<select id="combobox_from_first">
@@ -460,9 +460,9 @@
 					{% endfor %}
 					</select>
 				</td>
-				<td style="text-align:right;" width="136">
-					<input id="add_filter" type="submit" value="Add" style="width: 50px" />
-					<input id="search" type="submit" value="Go" />
+				<td style="text-align:left;">
+				    <input id="add_filter" type="submit" value="Add"/>
+					<input id="search" type="submit" value="Go"/>
 				</td>
 			</tr>
 		</table>
