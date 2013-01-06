@@ -5,6 +5,7 @@ body{
 	padding: 0px;
 	font-family: Trebuchet MS,Arial,sans-serif;
 	font-size: 13px;
+	background-image: url("../img/main_background.jpg");
 }
 
 /*header*/
@@ -42,7 +43,7 @@ body{
 .body table {
     margin: 0 auto;
     vertical-align:top;
-    width: 909;
+    width: 826;
 }
 
 .readonlyBtn {
@@ -63,6 +64,12 @@ body{
 	color: red;
 }
 
+h1 {
+	color: #000000;
+	background-color: #FFFFFF;
+	font-size: 13px; 
+	}
+	
 /*text alignment*/
 #right { 
 	text-align: right; 

@@ -45,13 +45,13 @@
 		function phonenumber_to_images(phonenumber){
 			html = '';
 			if (phonenumber.indexOf("+") != -1){
-				html = '<img name="accordion_plus" src="" width="16" height="16" alt="">';
+				html = '<img name="accordion_plus" src="" width="7" height="12" alt="">';
 				phonenumber = phonenumber.replace('+', '');
 			}
 				
 			
 			for (var i = 0; i < phonenumber.length; i++) {
-				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="16" height="16" alt="">';
+				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="7" height="12" alt="">';
 			}
 			
 			return html;
@@ -268,7 +268,7 @@
 					+ html_option
 					+'</select>'	
 				+'</td>'
-				+'<td style="text-align:left;">' 
+				+'<td style="text-align:right;">' 
 					+'<input id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
 				+'</td>' //knopka minus
 				+'</div>'
@@ -436,15 +436,16 @@
 
 	<table align="center" border="0">
 		<tr>
-			<td>
-				<h1>Filters</h1>
+			<td width="645">
+				<h1>Filters:</h1>
 			</td>
 			<td id="right">
 				<input id="add_new_trip" type="submit" value="Add new trip" />
+				<input id="search" type="submit" value="Go"/>
 				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
 			</td>
 		</tr>
-		<table id="filter_main" align="center" border=0">
+		<table id="filter_main" align="center" border="0">
 			<tr>
 				<td style="text-align:left;" width="387"><b>From:</b><input type="text" id="datepicker_from_first" />
 					<select id="combobox_from_first">
@@ -460,9 +461,9 @@
 					{% endfor %}
 					</select>
 				</td>
-				<td style="text-align:left;">
+				<td style="text-align:right;">
 				    <input id="add_filter" type="submit" value="Add"/>
-					<input id="search" type="submit" value="Go"/>
+					
 				</td>
 			</tr>
 		</table>

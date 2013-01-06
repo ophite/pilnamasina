@@ -11,6 +11,12 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.ui.core.css" />
 	-->
 	
+	<!--
+	deleted items
+	<div class="header-border"><img src="/content/img/main_border.png"/></div>
+	-->
+	
+	
 	<script src="/content/js/jquery-1.8.3.js"></script>
 	<script src="/content/js/jquery-ui.js"></script>
 	<script src="/content/js/json_parse.js"></script>
@@ -23,7 +29,7 @@
 	{% block includes %}
 	{% endblock %}			
 </head>
-<body background="content\img\phonenumberaccordion_man_32.png">
+<body>
 	<script type="text/javascript">
 		// implement JSON.stringify serialization
 		var JSON;
@@ -86,15 +92,21 @@
 	<div id='header'>
 		<div class="header-menu">
 			{% block header %}
-			    <h1>Vienas nevaziuok</h1>
+			<table width="929" border="0" align="center"cellpadding="15" cellspacing="0">
+			 <tr>
+			  <td>
+			   <img class="header" align="left" src="/content/img/Vnv_logo.png"/>
+			  </td>
+			 </tr> 
+			</table>
 			{% endblock %}		
 		</div>			
 	</div>
 	
 	<br><div class="header-border"><img src="/content/img/main_border.png"/></div>
 
-	<div class="body">
-		<table id='maintable' cellspacing="0" border="0" cellpadding="0">
+	<div class="body" >
+		<table id='maintable' cellspacing="0" border="0" cellpadding="0" >
 			<tbody>
 				<tr>
 					<td id='content' class="content" border="1" >
@@ -106,12 +118,12 @@
 		</table>	
 	</div>
 	
-	<br><div class="footer-border"><img src="/content/img/main_border.png"/></div>
+	<br>
 	
 	<div id='footer'>
-		<div class="footer">
+		<div class="footer" style="text-align:right">
 			{% block footer %}
-				<h1>FOOTER BLOCK</h1>
+				<h1>labas@vaziuoknevienas.lt | 2013</h1>
 			{% endblock %}
 		</div>
 	</div>
