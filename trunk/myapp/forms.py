@@ -50,7 +50,7 @@ class TripForm(forms.ModelForm): #DivModelForm
 
 	def __init__(self, *args, **kwargs):
 		print '--------------------------------> call __init__'
-		#self.request = kwargs.pop('request', None)
+		self.request = kwargs.pop('request', None)
 		super(TripForm, self).__init__(*args, **kwargs)
 		self.label_suffix = ''
 		d = DEFAULT_TRANSLATE_NEW_TRIP
