@@ -435,7 +435,7 @@
 	
 {% block content %}
 
-	<table id="filter_main" align="center" border="1">
+	<table id="filter_main" align="center" border="0">
 		<tr>
 		    <td style="text-align:right">
 				<b>Kas:</b>
@@ -448,9 +448,9 @@
 				</select>
 			</td>
 			
-			<td colspan="3" id="right">
+			<td colspan="2" id="right">
 				<input id="add_new_trip" type="submit" value="Add new trip" />
-				<input id="search" type="submit" value="Go"/>
+				
 				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
 			</td>
 			
@@ -476,8 +476,12 @@
 				<td style="text-align:right;">
 				    <input id="add_filter" type="submit" value="Add"/>					
 				</td>
-			</tr>
-		</table>
+		</tr>
+		<tr>
+		    <td colspan="4" align="right">
+			<input  id="search" type="submit" value="Go"/>
+		    </td>
+		</tr>
 	</table>
 	<div id="accordion"></div>	
 

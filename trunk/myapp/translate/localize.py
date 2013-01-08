@@ -2,7 +2,7 @@
 
 #cities
 Cities_LT = (
-(u' Visi', ' Visi'),
+(u'Visi', ' Visi'),
 (u'*Airija', '*Airija'),
 (u'*Anglija', '*Anglija'),
 (u'*Baltarusija', '*Baltarusija'),

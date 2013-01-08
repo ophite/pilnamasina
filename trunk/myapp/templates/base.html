@@ -98,7 +98,7 @@
 	
 	
 	<div>
-	<table width="880" border="1" align="center"cellpadding="25" cellspacing="0">
+	<table width="880" border="0" align="center"cellpadding="25" cellspacing="0">
 		<tr>
 			 <td>
 			     <img class="header" align="left" src="/content/img/Vnv_logo.png"/>
@@ -119,14 +119,20 @@
 			</tbody>
 		</table>	
 	</div>
+	<table align="center" width="780" border="0">
+	    <tr>
+            <td>   
+                <div id='footer'>
+		            <div class="footer" style="text-align:right">
+		                {% block footer %}
+				        <h1>labas@vaziuoknevienas.lt | 2013</h1>
+			            {% endblock %}
+		            </div>
+             	</div>	
+            </td>
+        </td>
+    </table>		
 	
-	<div id='footer'>
-		<div class="footer" style="text-align:right">
-			{% block footer %}
-				<h1>labas@vaziuoknevienas.lt | 2013</h1>
-			{% endblock %}
-		</div>
-	</div>
 		
 </body>
 </html>
