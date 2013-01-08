@@ -186,6 +186,8 @@
 			
 			$('[id^="datepicker_from' + search_controls + '"]').width(datetimepicker_width);
 			$('[id^="datepicker_to' + search_controls + '"]').width(datetimepicker_width);
+				
+			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 		}
 		
 		function setFilterValue(filterValues, search_controls){
@@ -282,7 +284,7 @@
 					$(this).parent().parent().remove();
 			});
 			
-            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));			
+            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width())+1);			
 		}
 
 		function getFilter(key, filter_name){
@@ -385,12 +387,10 @@
 				yearSuffix: ''
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
-			
-			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 
 			// JQUERY INITIALIZE
 			$("input[type=submit], button").button();
-			$('#type').combobox({options: {width: datetimepicker_width}});
+			$('#type').combobox();
 			$('#type').next().children('input').width(datetimepicker_width-$('#type').next().children('a').width());
 
 			// for quick draw jquery style

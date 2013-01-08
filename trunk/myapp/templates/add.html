@@ -48,7 +48,6 @@
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
-			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 			{% endautoescape %}	
 		
 			// JQUERY INITIALIZE
@@ -68,13 +67,15 @@
 		
 			//SET DEFAULTS/STYLE
 			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
-			width = width + ($.browser.msie ? 13 : -10);
+			width = width + ($.browser.msie ? 13 : -9);
 			$('#id_name').width(width);
 			$('#id_phone_number').width(width);	
 			$('#id_date').width(width);	
 
-			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? -2 : -10);
+			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? -2 : -9);
 			$('#id_comments').width(width);	
+
+			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 
 			// AJAX, EVENT
 			{% autoescape off %}
@@ -98,6 +99,7 @@
 					}
 				});				
 			});
+
 			{% endautoescape %}			
 		});		
 	</script>	
