@@ -10,18 +10,7 @@
 {% block script %}
 
 	<script type="text/javascript">
-		$(function() {
-		
-			// JQUERY INITIALIZE
-			$("input[type=submit], button").button();
-			$("#id_place_to").combobox();
-			$("#id_place_from").combobox();
-			$("#id_type").combobox();
-			$('#id_date').datetimepicker();
-			if ($('#id_date').val().length == 0) {
-				$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
-			}
-			
+		$(function() {			
 			// LOCALIZE
 			{% autoescape off %}			
 			$.timepicker.regional['ru'] = {
@@ -59,9 +48,18 @@
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
-			$('input[value="Save"]').val('{{ controls_translate|dict_getbykey:"Save" }}')
 			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 			{% endautoescape %}	
+		
+			// JQUERY INITIALIZE
+			$("input[type=submit], button").button();
+			$("#id_place_to").combobox();
+			$("#id_place_from").combobox();
+			$("#id_type").combobox();
+			$('#id_date').datetimepicker();
+			if ($('#id_date').val().length == 0) {
+				$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
+			}
 
 			//Custom style
 			// BEGIN FOR ILIJA
@@ -69,17 +67,13 @@
 			// END FOR ILIJA
 		
 			//SET DEFAULTS/STYLE
-			diff = $.browser.msie ? 13 : -12
-			//width = parseInt($('#id_place_to').next().children('input').css('width')) + parseInt($('#id_place_to').next().children('a').css('width'));
-			//width = width + diff;
 			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
-			width = width + diff;
+			width = width + ($.browser.msie ? 13 : -12);
 			$('#id_name').width(width);
 			$('#id_phone_number').width(width);	
 			$('#id_date').width(width);	
 
-			diff = $.browser.msie ? -2 : -14
-			width = parseInt($('#recaptcha_image').parent().parent().width()) + diff;
+			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? -2 : -14);
 			$('#id_comments').width(width);	
 
 			// AJAX, EVENT
@@ -119,7 +113,6 @@
 			</td>
 			<td id = "right">
 				<input id="trips" class ="ui-button ui-widget ui-state-default ui-corner-all" type="submit" value={{ controls_translate|dict_getbykey:"Trips" }} />
-				<!-- h1><a href='/index/'> Trips </a></h1 -->
 			</td>
 		</tr>
 	</table>
@@ -131,7 +124,7 @@
 			{{ form.as_table }}
 		{% endautoescape %}
 		</table>
-		<input type='submit' value='Save'/>
+		<input type='submit' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
 	</form> 
 		
 {% endblock %}							

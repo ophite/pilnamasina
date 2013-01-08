@@ -76,7 +76,6 @@
 				values.push($(this).val());
 			});
 
-			//var res = JSON.stringify(values);
 			var res = jQuery.stringify(values);
 			
 			return res;
@@ -90,10 +89,7 @@
 			jQuery.each(json_trips, function(){	
 
 				holder.append('<h3><a href="#">'
-								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="20" height="20" alt="">'
-								//+ ' type:' + this.fields.type 
-								//+ ' name:' + this.fields.name 
-															
+								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="20" height="20" alt="">'														
 								+ ' ' +  (($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('yyyy.MM.dd HH:mm') : new Date(this.fields.date).toString('yyyy.MM.dd | HH:mm'))
 								+ ' | ' + this.fields.place_from 
 								+ ' > ' + this.fields.place_to 
@@ -145,12 +141,12 @@
 								params[filter] = json_parse(filters[filter])[0];
 							}
 							
-							setFilterStyle('_first');
+							setFilterStyle('_first');							
 							setFilterValue(params, '_first');
 							params = {};
 							
 							// other dynamic filters 
-							for(var i = 1; i<filterLength; i++){
+							for(var i = 1; i < filterLength; i++){
 								for(filter in filters){
 									params[filter] = json_parse(filters[filter])[i];
 								}
@@ -177,7 +173,7 @@
 			.find("h3")
 			.addClass("ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-corner-bottom")
 			.hover(function() { $(this).toggleClass("ui-state-hover"); })
-			//.prepend('<span class="ui-icon ui-icon-triangle-1-e"></span>')
+			//.prepend('<span class="ui-icon ui-icon-triangle-1-e"></span>') //treugolnik
 			.click(function() {
 				$(this)
 				.toggleClass("ui-accordion-header-active ui-state-active ui-state-default ui-corner-bottom")
@@ -205,6 +201,7 @@
 		}
 		
 		function setFilterValue(filterValues, search_controls){
+			// date
 			dateFrom = filterValues['date_from'];
 			var date_from = dateFrom != ''? new Date(dateFrom) : new Date();
 			$('[id^="datepicker_from' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
@@ -214,7 +211,7 @@
 			var date_to = dateTo != ''? new Date(dateTo) : new Date();
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker("setDate", date_to);
-		
+			// place
 			placeFrom = filterValues['place_from'];
 			if (placeFrom != null){
 				$('[id^="combobox_from' + search_controls + '"]').val(placeFrom);
@@ -246,7 +243,6 @@
 			while(search_controls<=search_controls_maxcount)
 
 			if(search_controls_indexes.length > search_controls_maxcount){
-				//$('#Add').hide();
 				$('#add_filter').attr('disabled', true);
 			}
 			
@@ -273,7 +269,6 @@
 				+'</td>' //knopka minus
 				+'</div>'
 			+'</tr>').appendTo('#filter_main');
-			//.insertAfter('#filter_first')
 		    
 			// reInit
 			setFilterValue(filterValues, search_controls);
@@ -289,15 +284,12 @@
 					search_controls_indexes.splice(search_controls_indexes.indexOf(parseInt(search_control)), 1);
 
 					search_controls = 0;
-					//$('#add_filter').show();
 					$('#add_filter').attr('disabled', false)
 					
-					$(this).parent().parent().remove();;
-					//event.preventDefault();
+					$(this).parent().parent().remove();
 			});
 			
-            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));
-			
+            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));			
 		}
 
 		/*
@@ -344,7 +336,7 @@
 			search_controls_maxcount = 1;
 			search_controls = 0;
 			search_controls_indexes = new Array();
-			datetimepicker_width = 160; // set custom datetime width 
+			datetimepicker_width = 120; // set custom datetime width 
 			
 			// LOCALIZE
 			{% autoescape off %}				
@@ -382,7 +374,7 @@
 				yearSuffix: ''
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
-			
+
 			// JQUERY INITIALIZE
 			$( "input[type=submit], button" ).button();
 			// for quick draw jquery style
@@ -462,8 +454,7 @@
 					</select>
 				</td>
 				<td style="text-align:right;">
-				    <input id="add_filter" type="submit" value="Add"/>
-					
+				    <input id="add_filter" type="submit" value="Add"/>					
 				</td>
 			</tr>
 		</table>

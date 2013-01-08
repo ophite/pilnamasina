@@ -105,20 +105,22 @@ def search(request):
 	cities_key = dict(DEFAULT_CITY).keys()
 	cities_key.sort()
 	any = dict(DEFAULT_CITY)[cities_key[0]]
-
+	
 	# by many filters
 	if isinstance(date_from, list):
 		q_list = [Q(date__range=[date_from[i], date_to[i]], 
-					place_from__in = cities if place_from[i] == any else (place_from[i],),
-					place_to__in = cities if place_to[i] == any else (place_to[i],)) for i in range(date_from.__len__())]
+					place_from__in = cities if place_from[i].strip() == any.strip() else (place_from[i],),
+					place_to__in = cities if place_to[i].strip() == any.strip() else (place_to[i],)) for i in range(date_from.__len__())]
 	# by one filter
 	#else:
 	#	q_list = [Q(date__range=[date_from, date_to], place_from=place_from, place_to=place_to)]
 
-	print q_list
+	#print q_list
 	trips = Trip.objects.filter(reduce(operator.or_, q_list))
 	
-	json_serializer = serializers.get_serializer("json")()
+	print trips
+	
+	json_serializer = serializers.get_serializer("json")()	
 	jsonlist = [
 		json_serializer.serialize(trips), 
 		json.dumps(filters, cls=DjangoJSONEncoder),
