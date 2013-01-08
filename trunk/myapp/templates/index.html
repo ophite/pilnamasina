@@ -218,9 +218,6 @@
 				$('[id^="type"]').val(type);
 				$('[id^="type"]').next().children('input').val(type);
 			}
-			
-			// localize
-			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 		}
 		
 		function addFilter(filterValues){
@@ -287,11 +284,6 @@
             $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width()));			
 		}
 
-		/*
-			redirectToAddTrip - for redirect ot add.html page
-			asyncValue - async mode for refresh current page to save filter values
-		*/
-
 		function getFilter(key, filter_name){
 			var values = new Array();
 			
@@ -314,6 +306,10 @@
 			}
 		}
 		
+		/*
+			redirectToAddTrip - for redirect ot add.html page
+			asyncValue - async mode for refresh current page to save filter values
+		*/
 		function rememberFilters(redirectToAddTrip, asyncValue){
 			$.ajax({
 				url: '/set_session/',
@@ -388,10 +384,13 @@
 				yearSuffix: ''
 			};
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
+			
+			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 
 			// JQUERY INITIALIZE
 			$("input[type=submit], button").button();
-			$('[id^="type"]').combobox();
+			$('#type').combobox({options: {width: datetimepicker_width}});
+			$('#type').next().children('input').width(datetimepicker_width-$('#type').next().children('a').width());
 
 			// for quick draw jquery style
 			setFilterStyle(first_filter_prefix);
@@ -406,7 +405,6 @@
 			{% endautoescape %}	
 			
 			// AJAX, EVENT
-			{% autoescape off %}
 			$("[id=search]").click(function( event ) {
 				filterValues = getFilters();
 				getTrips(filterValues);
@@ -429,7 +427,6 @@
 			
 			getTrips();
 			saveFilters();
-			{% endautoescape %}	
 		});
 	</script>
 
