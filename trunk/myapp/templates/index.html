@@ -246,12 +246,13 @@
 			
 			$('<tr id="filter_' + search_controls + '">'
 				+'<div id = "div_filter_' + search_controls + '">'
-				+'<td style="text-align:left;" width="387"><b>{{ controls_translate|dict_getbykey:"From:"}}</b><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
+				+'<td style="text-align:right"><b>{{ controls_translate|dict_getbykey:"From:"}}</b></td>'
+				+'<td style="text-align:left;" colspan="0"><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
 					+' <select id="combobox_from' + search_controls + '">'
 					+ html_option
 					+'</select>'
 				+'</td>'
-				+'<td style="text-align:left;" width="373"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
+				+'<td style="text-align:left;"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
 					+' <select id="combobox_to' + search_controls + '">'
 					+ html_option
 					+'</select>'	
@@ -345,7 +346,7 @@
 			search_controls_maxcount = 1;
 			search_controls = 0;
 			search_controls_indexes = new Array();
-			datetimepicker_width = 120; // set custom datetime width 
+			datetimepicker_width = 121; // set custom datetime width 
 			first_filter_prefix = '_first';
 			
 			// LOCALIZE
@@ -434,36 +435,38 @@
 	
 {% block content %}
 
-	<table align="center" border="0">
+	<table id="filter_main" align="center" border="1">
 		<tr>
-			<td width="645">
-				
+		    <td style="text-align:right">
+				<b>Kas:</b>
 			</td>
-			<td id="right">
+			<td>
+				<select id="type">
+					{% for k,v in types.items|sort %}
+						<option value={{k}}>{{v}}</option>
+					{% endfor %}
+				</select>
+			</td>
+			
+			<td colspan="3" id="right">
 				<input id="add_new_trip" type="submit" value="Add new trip" />
 				<input id="search" type="submit" value="Go"/>
 				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
 			</td>
+			
 		</tr>
-		<table id="filter_main" align="center" border="0">
-			<tr>
-				<td style="text-align:left;" width="387">
-					<select id="type">
-					{% for k,v in types.items|sort %}
-						<option value={{k}}>{{v}}</option>
-					{% endfor %}
-					</select>
+		    <tr>
+			    <td style="text-align:right">
+				<b>From:</b>
 				</td>
-			</tr>
-			<tr>
-				<td style="text-align:left;" width="387"><b>From:</b><input type="text" id="datepicker_from_first" />
+				<td><input type="text" id="datepicker_from_first" />
 					<select id="combobox_from_first">
 					{% for k,v in cities.items|sort %}
 						<option value={{k}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
-				<td style="text-align:left;" width="373"><b>To:</b><input type="text" id="datepicker_to_first" />
+				<td style="text-align:left;"><b>To:</b><input type="text" id="datepicker_to_first" />
 					<select id="combobox_to_first">
 					{% for k,v in cities.items|sort  %}
 						<option value={{k}}>{{v}}</option>
