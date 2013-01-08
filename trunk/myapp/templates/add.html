@@ -68,12 +68,12 @@
 		
 			//SET DEFAULTS/STYLE
 			width = parseInt($('#id_type').next().children('input').css('width')) + parseInt($('#id_type').next().children('a').css('width'));
-			width = width + ($.browser.msie ? 13 : -12);
+			width = width + ($.browser.msie ? 13 : -10);
 			$('#id_name').width(width);
 			$('#id_phone_number').width(width);	
 			$('#id_date').width(width);	
 
-			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? -2 : -14);
+			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? -2 : -10);
 			$('#id_comments').width(width);	
 
 			// AJAX, EVENT

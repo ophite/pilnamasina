@@ -68,18 +68,6 @@
 				$(this).attr('src', location.protocol + '//' + location.host + '/content/img/phonenumber/' + name + '.png');
 			});
 		}
-
-		function getfilters(key, filter_name){
-			var values = new Array();
-			
-			$('[id^="' + filter_name + '"]').each(function(){
-				values.push($(this).val());
-			});
-
-			var res = jQuery.stringify(values);
-			
-			return res;
-		}
 		
 		function showTrips(json_trips){
 			holder = $('#accordion');
@@ -141,8 +129,8 @@
 								params[filter] = json_parse(filters[filter])[0];
 							}
 							
-							setFilterStyle('_first');							
-							setFilterValue(params, '_first');
+							setFilterStyle(first_filter_prefix);							
+							setFilterValue(params, first_filter_prefix);
 							params = {};
 							
 							// other dynamic filters 
@@ -224,6 +212,13 @@
 				$('[id^="combobox_to' + search_controls + '"]').next().children('input').val(placeTo);
 			}
 
+			// for first only
+			if (search_controls == first_filter_prefix) {
+				type = filterValues['type'];
+				$('[id^="type"]').val(type);
+				$('[id^="type"]').next().children('input').val(type);
+			}
+			
 			// localize
 			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
 		}
@@ -296,15 +291,33 @@
 			redirectToAddTrip - for redirect ot add.html page
 			asyncValue - async mode for refresh current page to save filter values
 		*/
+
+		function getFilter(key, filter_name){
+			var values = new Array();
+			
+			$('[id^="' + filter_name + '"]').each(function(){
+				values.push($(this).val());
+			});
+
+			var res = jQuery.stringify(values);
+			
+			return res;
+		}
+		
+		function getFilters(){
+			return {
+					'date_from':getFilter('date_from', 'datepicker_from'),
+					'date_to':getFilter('date_to', 'datepicker_to'),
+					'place_from':getFilter('place_from', 'combobox_from'),
+					'place_to':getFilter('place_to', 'combobox_to'),
+					'type':jQuery.stringify([$('#type').val(),])
+			}
+		}
+		
 		function rememberFilters(redirectToAddTrip, asyncValue){
 			$.ajax({
 				url: '/set_session/',
-				data: {
-					'date_from': getfilters('date_from', 'datepicker_from'),
-					'date_to':getfilters('date_to', 'datepicker_to'),
-					'place_from':getfilters('place_from', 'combobox_from'),
-					'place_to':getfilters('place_to', 'combobox_to')
-				},	
+				data: getFilters(),	
 				success: function(msg){
 					//alert('success');
 				},
@@ -337,6 +350,7 @@
 			search_controls = 0;
 			search_controls_indexes = new Array();
 			datetimepicker_width = 120; // set custom datetime width 
+			first_filter_prefix = '_first';
 			
 			// LOCALIZE
 			{% autoescape off %}				
@@ -376,9 +390,11 @@
 			$.datepicker.setDefaults($.datepicker.regional['ru']);
 
 			// JQUERY INITIALIZE
-			$( "input[type=submit], button" ).button();
+			$("input[type=submit], button").button();
+			$('[id^="type"]').combobox();
+
 			// for quick draw jquery style
-			setFilterStyle('_first');
+			setFilterStyle(first_filter_prefix);
 
 			// LOCALIZE
 			$("[id=search]").attr('value','{{ controls_translate|dict_getbykey:"Go" }}');
@@ -392,12 +408,7 @@
 			// AJAX, EVENT
 			{% autoescape off %}
 			$("[id=search]").click(function( event ) {
-				filterValues = {
-					'date_from': getfilters('date_from', 'datepicker_from'),
-					'date_to':getfilters('date_to', 'datepicker_to'),
-					'place_from':getfilters('place_from', 'combobox_from'),
-					'place_to':getfilters('place_to', 'combobox_to')
-				}
+				filterValues = getFilters();
 				getTrips(filterValues);
 			});
 			
@@ -439,17 +450,26 @@
 		</tr>
 		<table id="filter_main" align="center" border="0">
 			<tr>
+				<td style="text-align:left;" width="387">
+					<select id="type">
+					{% for k,v in types.items|sort %}
+						<option value={{k}}>{{v}}</option>
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td style="text-align:left;" width="387"><b>From:</b><input type="text" id="datepicker_from_first" />
 					<select id="combobox_from_first">
 					{% for k,v in cities.items|sort %}
-						<option value={{v}}>{{v}}</option>
+						<option value={{k}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
 				<td style="text-align:left;" width="373"><b>To:</b><input type="text" id="datepicker_to_first" />
 					<select id="combobox_to_first">
 					{% for k,v in cities.items|sort  %}
-						<option value={{v}}>{{v}}</option>
+						<option value={{k}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
