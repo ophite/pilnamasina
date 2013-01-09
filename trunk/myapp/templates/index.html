@@ -249,18 +249,18 @@
 			$('<tr id="filter_' + search_controls + '">'
 				+'<div id = "div_filter_' + search_controls + '">'
 				+'<td style="text-align:right"><b>{{ controls_translate|dict_getbykey:"From:"}}</b></td>'
-				+'<td style="text-align:left;" colspan="0"><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
+				+'<td style="text-align:left;"><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
 					+' <select id="combobox_from' + search_controls + '">'
 					+ html_option
 					+'</select>'
 				+'</td>'
-				+'<td style="text-align:left;"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
+				+'<td style="text-align:left;" width="333"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
 					+' <select id="combobox_to' + search_controls + '">'
 					+ html_option
 					+'</select>'	
 				+'</td>'
-				+'<td style="text-align:right;">' 
-					+'<input id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
+				+'<td valign="middle" width="17" style="text-align:left;">' 
+					+'<img src="content/img/Icons/Web_2.0/Zoom_Out.png" width="17" height="17" id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
 				+'</td>' //knopka minus
 				+'</div>'
 			+'</tr>').appendTo('#filter_main');
@@ -448,14 +448,15 @@
 				</select>
 			</td>
 			
-			<td colspan="2" id="right">
-				<input id="add_new_trip" type="submit" value="Add new trip" />
-				
-				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
-			</td>
+			    <td colspan="3" id="right">
 			
-		</tr>
-		    <tr>
+			        <img src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="submit" value="Add new trip" />
+				   <!-- <input id="add_new_trip" type="submit" value="Add new trip" /> // KNOPKA "SUKURTI -->
+				   <!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
+				   
+			</td>
+				</tr>
+		        <tr>
 			    <td style="text-align:right">
 				<b>From:</b>
 				</td>
@@ -466,21 +467,21 @@
 					{% endfor %}
 					</select>
 				</td>
-				<td style="text-align:left;"><b>To:</b><input type="text" id="datepicker_to_first" />
+				<td style="text-align:left;" width="333"><b>To:</b><input type="text" id="datepicker_to_first" />
 					<select id="combobox_to_first">
 					{% for k,v in cities.items|sort  %}
 						<option value={{k}}>{{v}}</option>
 					{% endfor %}
 					</select>
 				</td>
-				<td style="text-align:right;">
-				    <input id="add_filter" type="submit" value="Add"/>					
+				<td valign="middle" width="17" style="text-align:left;">
+				<img src="content/img/Icons/Web_2.0/Zoom_In.png" id="add_filter" type="submit" value="Add" width="17" height="17"/> 
+				<!-- <input id="add_filter" type="submit" value="Add"/> -->	
 				</td>
-		</tr>
-		<tr>
-		    <td colspan="4" align="right">
-			<input  id="search" type="submit" value="Go"/>
-		    </td>
+				<td style="text-align:right;" width="32">
+				    <img src="content/img/Icons/Web_2.0/Search.png" id="search" type="submit" value="Go" />
+			        <!-- <input  id="search" type="submit" value="Go"/> // KNOPKA "IESKOTI"-->					
+				</td>
 		</tr>
 	</table>
 	<div id="accordion"></div>	
