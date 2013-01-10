@@ -45,13 +45,13 @@
 		function phonenumber_to_images(phonenumber){
 			html = '';
 			if (phonenumber.indexOf("+") != -1){
-				html = '<img name="accordion_plus" src="" width="7" height="12" alt="">';
+				html = '<img name="accordion_plus" src="" width="8" height="11" alt="">';
 				phonenumber = phonenumber.replace('+', '');
 			}
 				
 			
 			for (var i = 0; i < phonenumber.length; i++) {
-				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="7" height="12" alt="">';
+				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="8" height="11" alt="">';
 			}
 			
 			return html;
@@ -248,13 +248,13 @@
 			
 			$('<tr id="filter_' + search_controls + '">'
 				+'<div id = "div_filter_' + search_controls + '">'
-				+'<td style="text-align:right"><b>{{ controls_translate|dict_getbykey:"From:"}}</b></td>'
-				+'<td style="text-align:left;"><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
+				+'<td></td>'
+				+'<td style="text-align:left"><b>{{ controls_translate|dict_getbykey:"From:"}}</b><input class="search_datepicker" type="text" id="datepicker_from' + search_controls + '" />'
 					+' <select id="combobox_from' + search_controls + '">'
 					+ html_option
 					+'</select>'
 				+'</td>'
-				+'<td style="text-align:left;" width="333"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
+				+'<td style="text-align:left;"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
 					+' <select id="combobox_to' + search_controls + '">'
 					+ html_option
 					+'</select>'	
@@ -437,55 +437,48 @@
 
 	<table id="filter_main" align="center" border="0">
 		<tr>
-		    <td style="text-align:right">
-				<b>Kas:</b>
+		     <td colspan="5" id="right">
+			    <input src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="image" value="Add new trip" />
+			    <!-- <img src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="submit" value="Add new trip" /> -->
+			    <!-- <input id="add_new_trip" type="submit" value="Add new trip" /> // KNOPKA "SUKURTI -->
+				<!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
 			</td>
-			<td>
-				<select id="type">
+	    </tr>
+		<tr>
+		    <td width="170">
+				<b>Kas:</b><select id="type">
 					{% for k,v in types.items|sort %}
 						<option value={{k}}>{{v}}</option>
 					{% endfor %}
 				</select>
-			</td>
-			
-			    <td colspan="3" id="right">
-			
-			        <input src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="image" value="Add new trip" />
-			        <!-- <img src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="submit" value="Add new trip" /> -->
-				   <!-- <input id="add_new_trip" type="submit" value="Add new trip" /> // KNOPKA "SUKURTI -->
-				   <!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
-				   
-			</td>
-				</tr>
-		        <tr>
-			    <td style="text-align:right">
-				<b>From:</b>
-				</td>
-				<td><input type="text" id="datepicker_from_first" />
-					<select id="combobox_from_first">
+		    </td>
+			<td style="text-align:left">
+				<b>From:</b><input type="text" id="datepicker_from_first" />
+				<select id="combobox_from_first">
 					{% for k,v in cities.items|sort %}
 						<option value={{k}}>{{v}}</option>
 					{% endfor %}
-					</select>
-				</td>
-				<td style="text-align:left;" width="333"><b>To:</b><input type="text" id="datepicker_to_first" />
-					<select id="combobox_to_first">
+				</select>
+			</td>
+			<td style="text-align:left;">
+			    <b>To:</b><input type="text" id="datepicker_to_first" />
+				<select id="combobox_to_first">
 					{% for k,v in cities.items|sort  %}
 						<option value={{k}}>{{v}}</option>
 					{% endfor %}
-					</select>
-				</td>
-				<td valign="middle" width="17" style="text-align:left;">
+				</select>
+			</td>
+			<td valign="middle" width="17" style="text-align:left;">
 				<input src="content/img/Icons/Web_2.0/Zoom_In.png" id="add_filter" type="image" value="Add" width="17" height="17"/> 
 				<!-- <img src="content/img/Icons/Web_2.0/Zoom_In.png" id="add_filter" type="submit" value="Add" width="17" height="17"/>  -->
 				<!-- <input id="add_filter" type="submit" value="Add"/> -->	
-				</td>
-				<td style="text-align:right;" width="32">
-				    <input src="content/img/Icons/Web_2.0/Search.png" id="search" type="image" value="Go" />
-			        <!-- <input  id="search" type="submit" value="Go"/> // KNOPKA "IESKOTI"-->					
-				</td>
+			</td>
+			<td style="text-align:right;" width="32">
+				<input src="content/img/Icons/Web_2.0/Search.png" id="search" type="image" value="Go" />
+			    <!-- <input  id="search" type="submit" value="Go"/> // KNOPKA "IESKOTI"-->					
+			</td>
 		</tr>
-	</table>
+	</table><br>
 	<div id="accordion"></div>	
 
 {% endblock %}							
