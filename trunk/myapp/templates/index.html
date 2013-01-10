@@ -271,7 +271,7 @@
 			
 			// delete current filter
 			$('[id^="Del_' + search_controls + '"]')
-				.button()
+				//.button()
 				.click(function( event ) {
 						
 					str = $(this).attr('id');
@@ -284,7 +284,7 @@
 					$(this).parent().parent().remove();
 			});
 			
-            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width())+1);			
+            $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width())+1);						
 		}
 
 		function getFilter(key, filter_name){
@@ -391,7 +391,7 @@
 			// JQUERY INITIALIZE
 			$("input[type=submit], button").button();
 			$('#type').combobox();
-			$('#type').next().children('input').width(datetimepicker_width-$('#type').next().children('a').width());
+			$('#type').next().children('input').width(datetimepicker_width - $('#type').next().children('a').width());
 
 			// for quick draw jquery style
 			setFilterStyle(first_filter_prefix);
