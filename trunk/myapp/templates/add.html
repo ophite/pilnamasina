@@ -114,8 +114,9 @@
 				<h1>{{ controls_translate|dict_getbykey:"NewTrip" }}</h1>
 			</td>
 			<td id = "right">
-				<input id="trips" class ="ui-button ui-widget ui-state-default ui-corner-all" type="submit" value={{ controls_translate|dict_getbykey:"Trips" }} />
+				<input src="content/img/Icons/Web_2.0/Search.png" id="trips" type="image" value={{ controls_translate|dict_getbykey:"Trips" }} />
 			</td>
+			<!-- class ="ui-button ui-widget ui-state-default ui-corner-all"  -->
 		</tr>
 	</table>
 	
@@ -126,7 +127,7 @@
 			{{ form.as_table }}
 		{% endautoescape %}
 		</table>
-		<input src="content/img/Icons/Web_2.0/Search.png" type='submit' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
+		<input src="content/img/Icons/Web_2.0/Search.png" type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
 	</form> 
 		
 {% endblock %}		

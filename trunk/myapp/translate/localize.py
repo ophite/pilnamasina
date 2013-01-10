@@ -131,13 +131,15 @@ Cities_LT = (
 
 #TriopType
 TripType_RU = {
-	('Driver', u'Водитель'),
-	('Passenger', u'Пассажир'),
+	(u' All', 'Все'), #DONT TUCH!!!
+	(u'Driver', 'Водитель'),
+	(u'Passenger', 'Пассажир'),
 }
 
 TripType_LT = {
-	('Driver', u'Vairuotojas'),
-	('Passenger', u'Keleivis'),
+	(u' Visi', 'Visi'), #DONT TUCH!!!
+	(u'Driver', 'Vairuotojas'),
+	(u'Passenger', 'Keleivis'),
 }
 
 #controls
