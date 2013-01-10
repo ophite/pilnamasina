@@ -78,8 +78,7 @@ def get_sort_tuple_first(tuple):
 	first = dict(tuple)[keys[0]]
 	
 	return first
-	
-		
+			
 def search(request):
 	print '--------------------------------> call search'
 	print request.GET.get('type')
@@ -122,12 +121,11 @@ def search(request):
 	cities = dict(DEFAULT_CITY).values()
 	any = get_sort_tuple_first(DEFAULT_CITY)
 	
-	print type[0]
-	print filters
+	#print filters
 	
 	# by many filters
 	if isinstance(date_from, list):
-		q_list = [Q(type__in = type,
+		q_list = [Q(#type__in = type,
 					date__range=[date_from[i], date_to[i]], 
 					place_from__in = cities if place_from[i].strip() == any.strip() else (place_from[i],),
 					place_to__in = cities if place_to[i].strip() == any.strip() else (place_to[i],)) for i in range(date_from.__len__())]
@@ -138,6 +136,7 @@ def search(request):
 	#print q_list
 	trips = Trip.objects.filter(reduce(operator.or_, q_list))
 	
+	print trips
 	json_serializer = serializers.get_serializer("json")()	
 	jsonlist = [
 		json_serializer.serialize(trips), 

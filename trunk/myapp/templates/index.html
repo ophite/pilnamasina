@@ -260,11 +260,11 @@
 					+'</select>'	
 				+'</td>'
 				+'<td valign="middle" width="17" style="text-align:left;">' 
-					+'<img src="content/img/Icons/Web_2.0/Zoom_Out.png" width="17" height="17" id="Del_' + search_controls + '" type="submit" value="{{ controls_translate|dict_getbykey:"Delete" }}" />'
+					+'<input src="content/img/Icons/Web_2.0/Zoom_Out.png" id="Del_' + search_controls + '" type="image" value="{{ controls_translate|dict_getbykey:"Delete" }}" width="17" height="17"/>'
 				+'</td>' //knopka minus
 				+'</div>'
 			+'</tr>').appendTo('#filter_main');
-		    
+	    
 			// reInit
 			setFilterValue(filterValues, search_controls);
 			setFilterStyle(search_controls);
@@ -450,7 +450,8 @@
 			
 			    <td colspan="3" id="right">
 			
-			        <img src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="submit" value="Add new trip" />
+			        <input src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="image" value="Add new trip" />
+			        <!-- <img src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="submit" value="Add new trip" /> -->
 				   <!-- <input id="add_new_trip" type="submit" value="Add new trip" /> // KNOPKA "SUKURTI -->
 				   <!-- <h1><a href='/add/' id="add_new_trip"> Add new trip </a></h1> -->
 				   
@@ -475,11 +476,12 @@
 					</select>
 				</td>
 				<td valign="middle" width="17" style="text-align:left;">
-				<img src="content/img/Icons/Web_2.0/Zoom_In.png" id="add_filter" type="submit" value="Add" width="17" height="17"/> 
+				<input src="content/img/Icons/Web_2.0/Zoom_In.png" id="add_filter" type="image" value="Add" width="17" height="17"/> 
+				<!-- <img src="content/img/Icons/Web_2.0/Zoom_In.png" id="add_filter" type="submit" value="Add" width="17" height="17"/>  -->
 				<!-- <input id="add_filter" type="submit" value="Add"/> -->	
 				</td>
 				<td style="text-align:right;" width="32">
-				    <img src="content/img/Icons/Web_2.0/Search.png" id="search" type="submit" value="Go" />
+				    <input src="content/img/Icons/Web_2.0/Search.png" id="search" type="image" value="Go" />
 			        <!-- <input  id="search" type="submit" value="Go"/> // KNOPKA "IESKOTI"-->					
 				</td>
 		</tr>
