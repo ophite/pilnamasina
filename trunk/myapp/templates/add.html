@@ -11,6 +11,8 @@
 
 	<script type="text/javascript">
 		$(function() {			
+			all = ' Visi'
+			
 			// LOCALIZE
 			{% autoescape off %}			
 			$.timepicker.regional['ru'] = {
@@ -60,6 +62,11 @@
 				//$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
 			}
 			$("#id_phone_number").val('{{ phonenumber }}');
+			
+			// Delete visi
+			$("#id_type option[value='" + all + "']").remove();
+			$("#id_place_to option[value='" + all + "']").remove();
+			$("#id_place_from option[value='" + all + "']").remove();
 			
 			//Custom style
 			// BEGIN FOR ILIJA

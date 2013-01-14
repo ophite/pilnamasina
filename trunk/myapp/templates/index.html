@@ -217,8 +217,11 @@
 			// for first only
 			if (search_controls == first_filter_prefix) {
 				type = filterValues['type'];
-				$('[id^="type"]').val(type);
-				$('[id^="type"]').next().children('input').val(type);
+				
+				if (placeFrom != null){
+					$('[id^="type"]').val(type);
+					$('[id^="type"]').next().children('input').val(type);
+				}
 			}
 		}
 		
