@@ -57,9 +57,10 @@
 			$("#id_type").combobox();
 			$('#id_date').datetimepicker();
 			if ($('#id_date').val().length == 0) {
-				$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
+				//$('#id_date').datetimepicker("setDate", new Date('{{date_from}}'));
 			}
-
+			$("#id_phone_number").val('{{ phonenumber }}');
+			
 			//Custom style
 			// BEGIN FOR ILIJA
 			$('form > table').children('tbody').children('tr').children('th').css('text-align', 'right');			
@@ -114,7 +115,7 @@
 				<h1>{{ controls_translate|dict_getbykey:"NewTrip" }}</h1>
 			</td>
 			<td id = "right">
-				<input src="content/img/Icons/Web_2.0/Search.png" id="trips" type="image" value={{ controls_translate|dict_getbykey:"Trips" }} />
+				<input src="../content/img/Icons/Web_2.0/Arrow_Previous.png" id="trips" type="image" value={{ controls_translate|dict_getbykey:"Trips" }} />
 			</td>
 			<!-- class ="ui-button ui-widget ui-state-default ui-corner-all"  -->
 		</tr>
@@ -127,10 +128,7 @@
 			{{ form.as_table }}
 		{% endautoescape %}
 		</table>
-		<input src="content/img/Icons/Web_2.0/Search.png" type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
+		<input src="../content/img/Icons/Web_2.0/Save.png" type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
 	</form> 
 		
-{% endblock %}		
-
-<img src="content/img/Icons/Web_2.0/Search.png"/>
-					
+{% endblock %}					

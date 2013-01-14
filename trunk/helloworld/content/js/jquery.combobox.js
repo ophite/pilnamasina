@@ -2,7 +2,7 @@
 (function( $ ) {
 	$.widget( "ui.combobox", {
 		options: {
-			cantFindAnyItem: "didn't match any item",
+			cantFindAnyItem: " neturi atitikimo", // "didn't match any item",
 			showAllItem: "Show All Items",
 			width:145
 		},

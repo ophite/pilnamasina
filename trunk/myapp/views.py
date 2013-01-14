@@ -35,6 +35,7 @@ def add(request):
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
 		'date_from':datetime.datetime.today().strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
+		'phonenumber':'+3706',
 	}
 	
 	return render_to_response('add.html', c, RequestContext(request))
@@ -47,16 +48,21 @@ def set_session(request):
 	any_city = get_sort_tuple_first(DEFAULT_CITY)
 	any_type = get_sort_tuple_first(DEFAULT_TRIPTYPE)
 	
+	print any_type
+	
 	request.session['date_from'] = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_from', ''))]
 	request.session['date_to'] = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=7), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_to', ''))]
 	request.session['place_from'] = json.loads(request.GET.get('place_from', any_city)) #''))
 	request.session['place_to'] = json.loads(request.GET.get('place_to', any_city)) #''))
+	request.session['type'] = json.loads(request.GET.get('type', any_type))
+#	
+#	print request.session['type']
+#	print json.loads(request.GET.get('type', ''))
+#	print json.loads(request.GET.get('type', any_type))
+#	print dict(DEFAULT_TRIPTYPE)
+#	[dict(DEFAULT_TRIPTYPE)[json.loads(request.GET.get('type', any_type))[0]]] #dict(DEFAULT_TRIPTYPE)[dict(DEFAULT_TRIPTYPE).keys()[0]]))
 	
-	print json.loads(request.GET.get('type', any_type))
-	print dict(DEFAULT_TRIPTYPE)
-	request.session['type'] = [dict(DEFAULT_TRIPTYPE)[json.loads(request.GET.get('type', any_type))[0]]] #dict(DEFAULT_TRIPTYPE)[dict(DEFAULT_TRIPTYPE).keys()[0]]))
-	
-	print request.session['type']
+	#print request.session['type']
 	#print request.GET.get('type', '')
 	#print [dict(DEFAULT_TRIPTYPE)[request.session['type'][0]]]
 	
@@ -72,6 +78,8 @@ def index(request):
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
 	}
+	
+	print data
 
 	return render_to_response('index.html', data, RequestContext(request))
 
@@ -99,9 +107,9 @@ def search(request):
 		date_from = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
 
 	if request.GET.get('date_to', '') == '':
-		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=7)])
+		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=14)])
 	else:
-		date_to = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=7), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
+		date_to = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=14), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
 
 	#places
 	if request.GET.get('place_from', '') == '':
@@ -128,7 +136,8 @@ def search(request):
 		'place_from':json.dumps(request.session.get('place_from', ''), cls=DjangoJSONEncoder),
 		'place_to':json.dumps(request.session.get('place_to', ''), cls=DjangoJSONEncoder),
 #		'type':json.dumps([dict(DEFAULT_TRIPTYPE)[d] for d in type], cls=DjangoJSONEncoder),
-		'type':json.dumps(type, cls=DjangoJSONEncoder),
+		'type':json.dumps(request.session.get('type', ''), cls=DjangoJSONEncoder),
+		#json.dumps(type, cls=DjangoJSONEncoder),
 	}
 
 	cities = dict(DEFAULT_CITY).values()
@@ -140,6 +149,8 @@ def search(request):
 #	print type[0]
 #	print any_type
 #	print types
+	print filters['place_from']
+	print filters['type']
 	
 	# by many filters
 	if isinstance(date_from, list):
@@ -153,10 +164,10 @@ def search(request):
 
 	#print q_list
 	trips = Trip.objects.filter(reduce(operator.or_, q_list))
-	trips2 = Trip.objects.all()
+	#trips2 = Trip.objects.all()
 	
-	print trips
-	print trips2[0].type
+	#print trips
+	#print trips2[0].type
 	
 	json_serializer = serializers.get_serializer("json")()	
 	jsonlist = [

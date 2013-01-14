@@ -131,7 +131,7 @@ Cities_LT = (
 
 #TriopType
 TripType_RU = {
-	(u' All', 'Все'), #DONT TUCH!!!
+	(u' All', 'Все'), 
 	(u'Driver', 'Водитель'),
 	(u'Passenger', 'Пассажир'),
 }
@@ -168,7 +168,7 @@ Controls_LT = {
 	'Trips': u'Kelionės',
 	'From:': u'Iš:',
 	'To:': u'Į:',
-	'Type:': u'Tipas:',
+	'Type:': u'Kas:',
 	'Filters': u'Kelionių paieška',
 	'NewTrip': u'Nauja kelionė',
 	'Trips': u'Kelionės',
