@@ -49,10 +49,22 @@ z
 /*and header*/
 /*body*/
 
-.body table {
+#maintable{
     margin: 0 auto;
     vertical-align:top;
     width: 925;
+}
+
+.tableindex {
+    margin: 0 auto;
+    vertical-align:top;
+    width: 925;
+}
+
+.tableadd {
+    /* margin: 0 auto; */
+    vertical-align:top;
+    width: 432;
 }
 
 .readonlyBtn {
