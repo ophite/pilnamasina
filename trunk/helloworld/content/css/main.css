@@ -6,6 +6,9 @@ body{
 	font-family: Trebuchet MS,Arial,sans-serif;
 	font-size: 13px;
 	background-image: url("../img/main_background.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+    background-position: center;
 }
 
 /*header*/
@@ -18,7 +21,7 @@ body{
 	width: 100%;
 	text-align: center;
 }
-
+z
 .footer {
 	float: left; 
 	color: #000000; 
@@ -26,6 +29,10 @@ body{
 	margin-left:5px;*/
 	width: 100%;
 	text-align: center;
+}
+
+.footer2 { 
+	margin-right:31px;
 }
 
 .header-border img {
@@ -66,8 +73,8 @@ body{
 
 h1 {
 	color: #000000;
-	/*background-color: #FFFFFF;*/
 	font-size: 13px; 
+	background: rgba(255, 255, 255, 0.3);
 	}
 	
 /*text alignment*/
