@@ -70,7 +70,8 @@
 			
 			//Custom style
 			// BEGIN FOR ILIJA
-			$('form > table').children('tbody').children('tr').children('th').css('text-align', 'right');			
+			$('form > table').children('tbody').children('tr').children('th').css('text-align', 'right');
+            $('form > table').children('tbody').children('tr').children('th').css('color', 'white');				
 			$('form > table').css('width', 432);
 			// END FOR ILIJA
 		
@@ -123,7 +124,8 @@
 				<!-- <h1>{{ controls_translate|dict_getbykey:"NewTrip" }}</h1> -->
 			<!-- </td> -->
 			<td id = "right">
-				<input src="../content/img/Icons/Web_2.0/Arrow_Previous.png" title="Grizti" id="trips" type="image" value={{ controls_translate|dict_getbykey:"Trips" }} />
+			    <input src="../content/img/Icons/CC/Check_W.png" title="Grizti" id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Trips" }} />
+				<input src="../content/img/Icons/CC/Delete_W.png" title="Grizti" id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Trips" }} />
 			</td>
 			<!-- class ="ui-button ui-widget ui-state-default ui-corner-all"  -->
 		</tr>
@@ -131,14 +133,14 @@
 	
 	<form action="/add/" method="post">
 		{% csrf_token %}
-		<table class="tableadd" >
+		<table class="tableadd" color="white">
 		{% autoescape off %}
 			{{ form.as_table }}
 		{% endautoescape %}
 		<tr>
 			<td></td>
 			<td>
-				<input src="../content/img/Icons/Web_2.0/Save.png" title="Issaugoti" type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
+				<input src="../content/img/CC/Check.png" title="Issaugoti" type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
 			</td>
 		</tr>
 		</table>

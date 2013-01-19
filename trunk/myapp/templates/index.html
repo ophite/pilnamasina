@@ -45,13 +45,13 @@
 		function phonenumber_to_images(phonenumber){
 			html = '';
 			if (phonenumber.indexOf("+") != -1){
-				html = '<img name="accordion_plus" src="" width="8" height="11" alt="">';
+				html = '<img name="accordion_plus" src="" width="11" height="11" alt="">';
 				phonenumber = phonenumber.replace('+', '');
 			}
 				
 			
 			for (var i = 0; i < phonenumber.length; i++) {
-				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="8" height="11" alt="">';
+				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="11" height="11" alt="">';
 			}
 			
 			return html;

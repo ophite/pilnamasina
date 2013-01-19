@@ -11,6 +11,15 @@ body{
     background-position: center;
 }
 
+html, body, #wrap {
+  height: 98%;
+}
+
+body > #wrap {
+  height: auto;
+  min-height: 98%;
+}
+
 /*header*/
 
 .header-menu {
@@ -23,19 +32,12 @@ body{
 }
 z
 .footer {
-	float: left; 
-	color: #000000; 
-/*	margin-top:4px; 
-	margin-left:5px;*/
-	width: 100%;
-	text-align: center;
-}
+  
+  margin: 500px;
+  /*height: 0px; */
+  clear:both;
+ }
 
-.footer2 { 
-    margin-left:31px;
-	margin-right:62px;
-	
-}
 
 .header-border img {
 	width: 100%;
@@ -46,6 +48,11 @@ z
 	height: 2px;
 }
 
+ .footer-table{
+  width: 830px; 
+  margin-left: 195px;
+ }
+ 
 /*and header*/
 /*body*/
 

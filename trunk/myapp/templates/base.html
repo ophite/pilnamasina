@@ -88,15 +88,15 @@
 	{% block script %}
 	{% endblock %}		
 	
-	<div id='header'>
+<!-- 	<div id='header'>
 		<div class="header-menu">
 			{% block header %}
 			
 			{% endblock %}		
 		</div>			
 	</div>
-	
-	
+	 -->
+<div id="wrap">	
 	<div>
 	<table width="925" border="0" align="center" cellpadding="25" cellspacing="0">
 		<tr>
@@ -119,20 +119,22 @@
 			</tbody>
 		</table>	
 	</div>
-	<table class="footer3" width="925" align="center" border="0">
-	    <tr>
-            <td>   
-                <div id="footer">
-		            <div class="footer footer2" style="text-align:right">
+</div>
+<br>
+<div class="footer">
+	<table class="footer-table" cellspacing="0" cellpadding="0" border="0">
+		    <td align="left">
+			<img src="../content/img/fb_vk.png">
+            <td align="right">   
+
 		                {% block footer %}
-							<h1>labas@vaziuoknevienas.lt (c) 2013</h1>
+							<img src="../content/img/email.png">
 			            {% endblock %}
-		            </div>
-             	</div>	
+		       
             </td>
         </td>
     </table>		
-	
+</div>
 		
 </body>
 </html>
