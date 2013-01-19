@@ -257,12 +257,12 @@
 					+ html_option
 					+'</select>'
 				+'</td>'
-				+'<td style="text-align:left;"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
+				+'<td style="text-align:left"><b>{{ controls_translate|dict_getbykey:"To:"}}</b><input class="search_datepicker" type="text" id="datepicker_to' + search_controls + '" />'
 					+' <select id="combobox_to' + search_controls + '">'
 					+ html_option
 					+'</select>'	
 				+'</td>'
-				+'<td valign="middle" width="17" style="text-align:left;">' 
+				+'<td valign="middle" width="17" style="text-align:center">' 
 					+'<input src="content/img/Icons/Web_2.0/Orange/Zoom_Out_O.png" title="Pasalinti filtra" id="Del_' + search_controls + '" type="image" value="{{ controls_translate|dict_getbykey:"Delete" }}" width="17" height="17"/>'
 				+'</td>' //knopka minus
 				+'</div>'
@@ -465,7 +465,7 @@
 					{% endfor %}
 				</select>
 			</td>
-			<td style="text-align:left;">
+			<td style="text-align:left">
 			    <b>To:</b><input type="text" id="datepicker_to_first" />
 				<select id="combobox_to_first">
 					{% for k,v in cities.items|sort  %}
@@ -473,12 +473,12 @@
 					{% endfor %}
 				</select>
 			</td>
-			<td valign="middle" width="17" style="text-align:left;">
+			<td valign="middle" width="18" style="text-align:center">
 				<input src="content/img/Icons/Web_2.0/Orange/Zoom_In_O.png" id="add_filter" type="image" value="Add" width="17" height="17" title="Prideti filtra"/> 
 				<!-- <img src="content/img/Icons/Web_2.0/Zoom_In.png" id="add_filter" type="submit" value="Add" width="17" height="17"/>  -->
 				<!-- <input id="add_filter" type="submit" value="Add"/> -->	
 			</td>
-			<td style="text-align:right;" width="32">
+			<td width="32">
 				<input src="content/img/Icons/Web_2.0/Search.png" title="Pradeti paieska" id="search" type="image" value="Go" />
 			    <!-- <input  id="search" type="submit" value="Go"/> // KNOPKA "IESKOTI"-->					
 			</td>
