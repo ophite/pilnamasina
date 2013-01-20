@@ -12,12 +12,12 @@ body{
 }
 
 html, body, #wrap {
-  height: 97.5%;
+  height: 97.3%;
 }
 
 body > #wrap {
   height: auto;
-  min-height: 97.5%;
+  min-height: 97.3%;
 }
 
 /*header*/
