@@ -131,7 +131,7 @@ Cities_LT = (
 
 #TriopType
 TripType_RU = {
-	(u' Any', 'Все'), 
+	(u' Any', 'Все'),  #DONT TUCH!!!
 	(u'Driver', 'Водитель'),
 	(u'Passenger', 'Пассажир'),
 }
@@ -158,6 +158,10 @@ Controls_RU = {
 	'Save': u'Сохранить',
 	'Delete': u'-',
 	'ShowAllItems': u'Показать все записи',
+	'AddNewTrip_Tooltip': u'Создать поездку',
+	'Search_Tooltip': u'Начать поиск по фильтрам',
+	'AddFilter_Tooltip': u'Добавить фильтр',
+	'DeleteFilter_tooltip': u'Удалить фильтр',
 }
 
 Controls_LT = {
@@ -175,6 +179,10 @@ Controls_LT = {
 	'Save': u'Išsaugoti',
 	'Delete': u'-',
 	'ShowAllItems': u'Rodyti visus įrašus',
+	'AddNewTrip_Tooltip': u'Sukurti skelbimą',
+	'Search_Tooltip': u'Pradėti paiešką',
+	'AddFilter_Tooltip': u'Pridėti paiešką',
+	'DeleteFilter_tooltip': u'Pašalinti filtrą',
 }
 
 #new trip
