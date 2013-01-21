@@ -12,7 +12,7 @@
 	<script src="/content/js/jquery-ui.js"></script>
 	<script src="/content/js/json_parse.js"></script>
 	<script src="/content/js/css_browser_selector.js"></script>
-		
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Content-language" content="lt" />
 	<title>Vaziuok ne vienas | Pakeleiviu paieska Lietuvoje.</title>
@@ -23,7 +23,10 @@
 	{% endblock %}		
 	
 	{% block includes %}
-	{% endblock %}			
+	{% endblock %}	
+
+	{% load dict_by_key %}
+	
 </head>
 <body>
 	<script type="text/javascript">
@@ -55,7 +58,37 @@
 				}
 			};
 		}
+	
+		// IE not support stringify
+		jQuery.extend({
+			stringify  : function stringify(obj) {
+				var t = typeof (obj);
+				if (t != "object" || obj === null) {
+					// simple data type
+					if (t == "string") obj = '"' + obj + '"';
+					return String(obj);
+				} else {
+					// recurse array or object
+					var n, v, json = [], arr = (obj && obj.constructor == Array);
 
+					for (n in obj) {
+						v = obj[n];
+						t = typeof(v);
+						
+						if (obj.hasOwnProperty(n)) {
+							if (t == "string") 
+								v = '"' + v + '"'; 
+							else if (t == "object" && v !== null) 
+								v = jQuery.stringify(v);
+								
+							json.push((arr ? "" : '"' + n + '":') + String(v));
+						}
+					}
+					return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+				}
+			}
+		});
+	
 		// common functions
 		function str_to_list(var_str){
 			var res = new Array();
@@ -80,6 +113,43 @@
 			};
 		}
 
+		//TODO must be outside *.js file
+		function localize_datetime(){
+			$.timepicker.regional['ru'] = {
+				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
+				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
+				hourText: '{{ time_translate|dict_getbykey:"hourText"}}',
+				minuteText: '{{ time_translate|dict_getbykey:"minuteText"}}',
+				secondText: '{{ time_translate|dict_getbykey:"secondText"}}',
+				millisecText: '{{ time_translate|dict_getbykey:"millisecText"}}',
+				timezoneText: '{{ time_translate|dict_getbykey:"timezoneText"}}',
+				currentText: '{{ time_translate|dict_getbykey:"currentText"}}',
+				closeText: '{{ time_translate|dict_getbykey:"closeText"}}',
+				timeFormat: '{{ time_translate|dict_getbykey:"timeFormat"}}',
+				amNames: str_to_list('{{ time_translate|dict_getbykey:"amNames"}}'),
+				pmNames: str_to_list('{{ time_translate|dict_getbykey:"pmNames"}}'),
+				isRTL: false
+			};
+			$.timepicker.setDefaults($.timepicker.regional['ru']);			
+			$.datepicker.regional['ru'] = {
+				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',
+				prevText: '{{ date_translate|dict_getbykey:"prevText"}}',
+				nextText: '{{ date_translate|dict_getbykey:"nextText"}}',
+				currentText: '{{ date_translate|dict_getbykey:"currentText"}}',
+				monthNames:str_to_list('{{ date_translate|dict_getbykey:"monthNames"}}'),
+				monthNamesShort: str_to_list('{{ date_translate|dict_getbykey:"monthNamesShort"}}'),
+				dayNames: str_to_list('{{ date_translate|dict_getbykey:"dayNames"}}'),
+				dayNamesShort: str_to_list('{{ date_translate|dict_getbykey:"dayNamesShort"}}'),
+				dayNamesMin: str_to_list('{{ date_translate|dict_getbykey:"dayNamesMin"}}'),
+				weekHeader: '{{ date_translate|dict_getbykey:"weekHeader"}}',
+				dateFormat: '{{ date_translate|dict_getbykey:"dateFormat"}}',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: false,
+				yearSuffix: ''
+			};
+			$.datepicker.setDefaults($.datepicker.regional['ru']);		
+		}
 	</script>	
 	
 	{% block script %}

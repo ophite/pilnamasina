@@ -13,46 +13,13 @@
 {% block script %}
 
 	<script type="text/javascript">
+
 		$(function() {			
 			all = ' Any'
 			
 			// LOCALIZE
 			{% autoescape off %}			
-			$.timepicker.regional['ru'] = {
-				timeOnlyTitle: '{{ time_translate|dict_getbykey:"timeOnlyTitle"}}',
-				timeText: '{{ time_translate|dict_getbykey:"timeText"}}',
-				hourText: '{{ time_translate|dict_getbykey:"hourText"}}',
-				minuteText: '{{ time_translate|dict_getbykey:"minuteText"}}',
-				secondText: '{{ time_translate|dict_getbykey:"secondText"}}',
-				millisecText: '{{ time_translate|dict_getbykey:"millisecText"}}',
-				timezoneText: '{{ time_translate|dict_getbykey:"timezoneText"}}',
-				currentText: '{{ time_translate|dict_getbykey:"currentText"}}',
-				closeText: '{{ time_translate|dict_getbykey:"closeText"}}',
-				timeFormat: '{{ time_translate|dict_getbykey:"timeFormat"}}',
-				amNames: str_to_list('{{ time_translate|dict_getbykey:"amNames"}}'),
-				pmNames: str_to_list('{{ time_translate|dict_getbykey:"pmNames"}}'),
-				isRTL: false
-			};
-			$.timepicker.setDefaults($.timepicker.regional['ru']);
-			$.datepicker.regional['ru'] = {
-				closeText: '{{ date_translate|dict_getbykey:"closeText"}}',
-				prevText: '{{ date_translate|dict_getbykey:"prevText"}}',
-				nextText: '{{ date_translate|dict_getbykey:"nextText"}}',
-				currentText: '{{ date_translate|dict_getbykey:"currentText"}}',
-				monthNames:str_to_list('{{ date_translate|dict_getbykey:"monthNames"}}'),
-				monthNamesShort: str_to_list('{{ date_translate|dict_getbykey:"monthNamesShort"}}'),
-				dayNames: str_to_list('{{ date_translate|dict_getbykey:"dayNames"}}'),
-				dayNamesShort: str_to_list('{{ date_translate|dict_getbykey:"dayNamesShort"}}'),
-				dayNamesMin: str_to_list('{{ date_translate|dict_getbykey:"dayNamesMin"}}'),
-				weekHeader: '{{ date_translate|dict_getbykey:"weekHeader"}}',
-				dateFormat: '{{ date_translate|dict_getbykey:"dateFormat"}}',
-				firstDay: 1,
-				isRTL: false,
-				showMonthAfterYear: false,
-				yearSuffix: ''
-			};
-			$.datepicker.setDefaults($.datepicker.regional['ru']);
-
+			localize_datetime();
 			{% endautoescape %}	
 		
 			// JQUERY INITIALIZE
@@ -127,8 +94,8 @@
 				<!-- <h1>{{ controls_translate|dict_getbykey:"NewTrip" }}</h1> -->
 			<!-- </td> -->
 			<td id = "right">
-			    <input src="../content/img/Icons/CC/Check_W.png" title="Grizti" id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Trips" }} />
-				<input src="../content/img/Icons/CC/Delete_W.png" title="Grizti" id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Trips" }} />
+			    <input src="../content/img/Icons/CC/Check_W.png" title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Save" }} />
+				<input src="../content/img/Icons/CC/Delete_W.png" title='{{ controls_translate|dict_getbykey:"Trips_tooltip" }}' id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Trips" }} />
 			</td>
 			<!-- class ="ui-button ui-widget ui-state-default ui-corner-all"  -->
 		</tr>
@@ -143,7 +110,7 @@
 		<tr>
 			<td></td>
 			<td>
-				<input src="../content/img/Icons/CC/Check.png" title="Issaugoti" type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
+				<input src="../content/img/Icons/CC/Check.png" title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
 			</td>
 		</tr>
 		</table>

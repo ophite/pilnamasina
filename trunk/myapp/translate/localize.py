@@ -162,6 +162,8 @@ Controls_RU = {
 	'Search_Tooltip': u'Начать поиск по фильтрам',
 	'AddFilter_Tooltip': u'Добавить фильтр',
 	'DeleteFilter_tooltip': u'Удалить фильтр',
+	'Save_tooltip': u'Сохранить сообщение',
+	'Trips_tooltip': u'Закрыть форму',
 }
 
 Controls_LT = {
@@ -183,6 +185,8 @@ Controls_LT = {
 	'Search_Tooltip': u'Pradėti paiešką',
 	'AddFilter_Tooltip': u'Pridėti paiešką',
 	'DeleteFilter_tooltip': u'Pašalinti filtrą',
+	'Save_tooltip': u'Išsaugoti skelbimą',
+	'Trips_tooltip': u'Uždaryti formą',
 }
 
 #new trip
