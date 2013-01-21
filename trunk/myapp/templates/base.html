@@ -2,31 +2,21 @@
 <head>
 	<!-- <link rel="stylesheet" type="text/css" media="screen" href="/content/css/ui-darkness/jquery-ui-1.9.2.custom.css" /> -->
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/ui-darkness/jquery-ui-1.9.2.custom.min.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery-ui-timepicker-addon.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/main.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/select_height.css" />
+
     <link rel="shortcut icon" type="image/png" href="/content/img/favicon.png">
+		
+	<script src="/content/js/jquery-1.8.3.js"></script>
+	<script src="/content/js/jquery-ui.js"></script>
+	<script src="/content/js/json_parse.js"></script>
+	<script src="/content/js/css_browser_selector.js"></script>
 		
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Content-language" content="lt" />
 	<title>Vaziuok ne vienas | Pakeleiviu paieska Lietuvoje.</title>
 	<meta name="description" content="Surask sau draugiska kompanija. Greitas, patogus ir pigus budas keliauti tarp Lietuvos miestu." />
 	<meta name="keywords" content="keliones, keliones po Lietuva, Lietuvos skelbimai, keliones Lietuvoje, ieskau pakeleiviu, pakeleiviai, pakeliui, keliauti, vaziuoja, vaziuoju, pigios keliones, keleivis, keleiviai, vaziuok ne vienas, vaziuoju ne vienas, vienas nevaziuoju, vienas nevaziuok, keleiviu pervezimas, keleiviu vezimas, veza, vezimas, vezti, paves, atstumas tarp lietuvos miestu, kelias, keliai, marsrutas, marsrutai, ieskau pakeleiviu, kartu, surask, kompanija, kompanijos, autostopu, tranzavimas, tranzas, vaziavimas, pakeleiviu paieska, paieska, taksi, taxi, tarpmiestinis, tranzuoti, vairuotojai, keleiviai" />
-	<!--
-	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/ui-darkness/jquery-ui.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.ui.core.css" />
-	-->
-	
-	<!--
-	deleted items
-	<div class="header-border"><img src="/content/img/main_border.png"/></div>
-	-->
-	
-	<script src="/content/js/jquery-1.8.3.js"></script>
-	<script src="/content/js/jquery-ui.js"></script>
-	<script src="/content/js/json_parse.js"></script>
-	<script src="/content/js/jquery-ui-timepicker-addon.js"></script>
-	<script src="/content/js/css_browser_selector.js"></script>
 
 	{% block source %}
 	{% endblock %}		
@@ -94,54 +84,41 @@
 	{% block script %}
 	{% endblock %}		
 	
-<!-- 	<div id='header'>
-		<div class="header-menu">
-			{% block header %}
-			
-			{% endblock %}		
-		</div>			
-	</div>
-	 -->
-<div id="wrap">	
-	<div>
-	<table width="925" border="0" align="center" cellpadding="25" cellspacing="0">
-		<tr>
-			 <td>
-			     <img class="header" align="left" src="/content/img/Vnv_logo.png"/>
-			 </td>
-		</tr> 
-	</table>
-	</div>
-
-	<div class="body" >
-		<table id='maintable' cellspacing="0" border="0" cellpadding="0" >
-			<tbody>
+	<div id="wrap">	
+		<div>
+			<table width="925" border="0" align="center" cellpadding="25" cellspacing="0">
 				<tr>
-					<td id='content' class="content" border="1" >
-						{% block content %}
-						{% endblock %}							
+					<td>
+						<img class="header" align="left" src="/content/img/Vnv_logo.png"/>
 					</td>
-				</tr>
-			</tbody>
-		</table>	
+				</tr> 
+			</table>
+		</div>
+		<div class="body" >
+			<table id='maintable' cellspacing="0" border="0" cellpadding="0" >
+				<tbody>
+					<tr>
+						<td id='content' class="content" border="1" >
+							{% block content %}
+							{% endblock %}							
+						</td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
 	</div>
-</div>
-<br>
-<div class="footer">
-	<table valign="middle" width="1000" cellspacing="10" cellpadding="0" border="0" align="right">
-<!-- 		    <td align="left">
-			    <img src="../content/img/fb_vk.png">
+	<!-- <br> -->
+	<div class="footer">
+		<table valign="middle" width="1000" cellspacing="10" cellpadding="0" border="0" align="right">
+	<!-- 	<td align="left">
+				<img src="../content/img/fb_vk.png">
 			</td> -->
-            <td  align="right">   
-
-		                {% block footer %}
-							<a href="mailto:labas@vaziuoknevienas.lt?Subject=VNV vartotojas(-a)"><img src="../content/img/email.png">
-			            {% endblock %}
-		    
+			<td  align="right">   
+				{% block footer %}
+					<a href="mailto:labas@vaziuoknevienas.lt?Subject=VNV vartotojas(-a)"><img src="../content/img/email.png">
+				{% endblock %}
 			</td>
-           
-    </table>		
-</div>
-		
+		</table>		
+	</div>
 </body>
 </html>
