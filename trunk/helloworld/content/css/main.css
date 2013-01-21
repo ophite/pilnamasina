@@ -5,6 +5,7 @@ body{
 	padding: 0px;
 	font-family: Trebuchet MS,Arial,sans-serif;
 	font-size: 13px;
+	color: white;
 	background-image: url("../img/main_background.jpg");
 	background-attachment: fixed;
 	background-repeat: no-repeat;
@@ -55,6 +56,10 @@ z
     margin: 0 auto;
     vertical-align:top;
     width: 925;
+}
+
+.errorlist{
+    color: red; 
 }
 
 .tableindex {
