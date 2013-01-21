@@ -453,7 +453,7 @@
 		    <td width="170">
 				<b>Type:</b><select id="type">
 					{% for k,v in types.items|sort %}
-						<option value={{k}} display={{v}}>{{v}}</option>
+						<option value={{v}} display={{v}}>{{v}}</option>
 					{% endfor %}
 				</select>
 		    </td>
@@ -461,7 +461,7 @@
 				<b>From:</b><input type="text" id="datepicker_from_first" />
 				<select id="combobox_from_first">
 					{% for k,v in cities.items|sort %}
-						<option value={{k}} display={{v}}>{{v}}</option>
+						<option value={{v}} display={{v}}>{{v}}</option>
 					{% endfor %}
 				</select>
 			</td>
@@ -469,7 +469,7 @@
 			    <b>To:</b><input type="text" id="datepicker_to_first" />
 				<select id="combobox_to_first">
 					{% for k,v in cities.items|sort  %}
-						<option value={{k}} display={{v}}>{{v}}</option>
+						<option value={{v}} display={{v}}>{{v}}</option>
 					{% endfor %}
 				</select>
 			</td>

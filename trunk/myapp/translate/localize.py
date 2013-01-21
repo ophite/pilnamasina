@@ -2,7 +2,7 @@
 
 #cities
 Cities_LT = (
-(u' Visi', 'Visi'), #DONT TUCH!!!
+(u' Any', 'Visi'), #DONT TUCH!!!
 (u'*Airija', '*Airija'),
 (u'*Anglija', '*Anglija'),
 (u'*Baltarusija', '*Baltarusija'),
@@ -131,13 +131,13 @@ Cities_LT = (
 
 #TriopType
 TripType_RU = {
-	(u' All', 'Все'), 
+	(u' Any', 'Все'), 
 	(u'Driver', 'Водитель'),
 	(u'Passenger', 'Пассажир'),
 }
 
 TripType_LT = {
-	(u' Visi', 'Visi'), #DONT TUCH!!!
+	(u' Any', 'Visi'), #DONT TUCH!!!
 	(u'Driver', 'Vairuotojas'),
 	(u'Passenger', 'Keleivis'),
 }

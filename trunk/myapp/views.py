@@ -17,6 +17,19 @@ import datetime
 from datetime import date, timedelta
 from django.utils.datastructures import SortedDict
 
+def tryStringToDate(str, default, format):
+	try:
+		return datetime.datetime.strptime(str, format)
+	except ValueError:
+		return default 
+
+def get_sort_tuple_first(tuple):
+	keys = dict(tuple).keys()
+	keys.sort()
+	first = dict(tuple)[keys[0]]
+	
+	return first
+
 def add(request):
 	print '--------------------------------> call add'
 
@@ -82,20 +95,6 @@ def index(request):
 	print data
 
 	return render_to_response('index.html', data, RequestContext(request))
-
-def tryStringToDate(str, default, format):
-	try:
-		return datetime.datetime.strptime(str, format)
-	except ValueError:
-		return default 
-
-def get_sort_tuple_first(tuple):
-	#cities = dict(tuple).values()
-	keys = dict(tuple).keys()
-	keys.sort()
-	first = dict(tuple)[keys[0]]
-	
-	return first
 			
 def search(request):
 	print '--------------------------------> call search'
