@@ -165,6 +165,7 @@ Controls_RU = {
 	'Save_tooltip': u'Сохранить сообщение',
 	'Trips_tooltip': u'Закрыть форму',
 	'SiteName': u'Едь не один | Поиск попутчиков в Литве',
+	'SiteDescription': u'Найди себе дружескую компанию. Быстрый, удобный и дешевый способ путешествовать между городами Литвы',
 }
 
 Controls_LT = {
@@ -189,6 +190,7 @@ Controls_LT = {
 	'Save_tooltip': u'Išsaugoti skelbimą',
 	'Trips_tooltip': u'Uždaryti formą',
 	'SiteName': u'Važiuok ne vienas | Pakeleivių paieška Lietuvoje',
+	'SiteDescription': u'Surask sau draugiską kompaniją. Greitas, patogus ir pigus būdas keliauti tarp Lietuvos miestų',
 }
 
 #new trip
