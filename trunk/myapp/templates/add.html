@@ -62,6 +62,7 @@
 			// AJAX, EVENT
 			{% autoescape off %}
 			// add new filter
+		/*
 			$("[id=trips]").click(function( event ) {
 				$.ajax({
 					url: '/',
@@ -81,7 +82,7 @@
 					}
 				});				
 			});
-
+*/
 			{% endautoescape %}			
 		});		
 	</script>	
@@ -95,10 +96,10 @@
 			<!-- <td> -->
 				<!-- <h1>{{ controls_translate|dict_getbykey:"NewTrip" }}</h1> -->
 			<!-- </td> -->
-			<td id = "right">
+			<!-- <td id = "right">
 			    <input src="../content/img/Icons/CC/Check_W.png" title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Save" }} />
 				<input src="../content/img/Icons/CC/Delete_W.png" title='{{ controls_translate|dict_getbykey:"Trips_tooltip" }}' id="trips" type="image" width="32" height="32" value={{ controls_translate|dict_getbykey:"Trips" }} />
-			</td>
+			</td> -->
 			<!-- class ="ui-button ui-widget ui-state-default ui-corner-all"  -->
 		</tr>
 	</table>
@@ -112,7 +113,9 @@
 		<tr>
 			<td></td>
 			<td>
-				<input src="../content/img/Icons/CC/Check.png" title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/>
+			    <input src="../content/img/Icons/CC/Check_W.png" title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' type="image" value={{ controls_translate|dict_getbykey:"Save" }} name="save" />
+				<input src="../content/img/Icons/CC/Delete_W.png" title='{{ controls_translate|dict_getbykey:"Trips_tooltip" }}' type="image" value={{ controls_translate|dict_getbykey:"Trips" }} id="trips" name="delete" />
+				<!-- <input src="../content/img/Icons/CC/Check.png" title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/> -->
 			</td>
 		</tr>
 		</table>

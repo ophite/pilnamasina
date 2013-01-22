@@ -33,6 +33,9 @@ def get_sort_tuple_first(tuple):
 def add(request):
 	print '--------------------------------> call add'
 
+	if 'delete' in request.POST:
+		return render_to_response('index.html', RequestContext(request))
+	
 	if request.method == 'POST':
 		form = TripForm(request.POST, request=request)
 		
