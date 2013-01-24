@@ -34,7 +34,7 @@ def add(request):
 	print '--------------------------------> call add'
 
 	if 'delete' in request.POST:
-		return render_to_response('index.html', RequestContext(request))
+		return HttpResponseRedirect('/')
 	
 	if request.method == 'POST':
 		form = TripForm(request.POST, request=request)
@@ -95,7 +95,7 @@ def index(request):
 		'controls_translate':DEFAULT_CONTROLS,
 	}
 	
-	print data
+	#print data
 
 	return render_to_response('index.html', data, RequestContext(request))
 			
