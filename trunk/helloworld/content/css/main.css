@@ -5,7 +5,7 @@ body{
 	padding: 0px;
 	font-family: Trebuchet MS,Arial,sans-serif;
 	font-size: 13px;
-	color: white;
+	color: #ec8e0c;
 	background-image: url("../img/main_background.jpg");
 	background-attachment: fixed;
 	background-repeat: no-repeat;
@@ -13,12 +13,12 @@ body{
 }
 
 html, body, #wrap {
-  height: 97.3%;
+  height: 98%;
 }
 
 body > #wrap {
   height: auto;
-  min-height: 97.3%;
+  min-height: 98%;
 }
 
 /*header*/
@@ -60,6 +60,7 @@ z
 
 .errorlist{
     color: red; 
+	font-size: 12px;
 }
 
 .tableindex {

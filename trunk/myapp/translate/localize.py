@@ -131,7 +131,7 @@ Cities_LT = (
 
 #TriopType
 TripType_RU = {
-	(u' Any', 'Все'),  #DONT TUCH!!!
+	(u'Any', 'Все'),  #DONT TUCH!!!
 	(u'Driver', 'Водитель'),
 	(u'Passenger', 'Пассажир'),
 }
@@ -165,7 +165,7 @@ Controls_RU = {
 	'Save_tooltip': u'Сохранить сообщение',
 	'Trips_tooltip': u'Закрыть форму',
 	'SiteName': u'Едь не один | Поиск попутчиков в Литве',
-	'SiteDescription': u'Найди себе дружескую компанию. Быстрый, удобный и дешевый способ путешествовать между городами Литвы',
+	'SiteDescription': u'Найди себе дружелюбную компанию. Быстрый, удобный и дешевый способ путешествовать между городами Литвы',
 }
 
 Controls_LT = {
@@ -185,7 +185,7 @@ Controls_LT = {
 	'ShowAllItems': u'Rodyti visus įrašus',
 	'AddNewTrip_Tooltip': u'Sukurti skelbimą',
 	'Search_Tooltip': u'Pradėti paiešką',
-	'AddFilter_Tooltip': u'Pridėti paiešką',
+	'AddFilter_Tooltip': u'Pridėti filtrą',
 	'DeleteFilter_tooltip': u'Pašalinti filtrą',
 	'Save_tooltip': u'Išsaugoti skelbimą',
 	'Trips_tooltip': u'Uždaryti formą',
@@ -294,7 +294,7 @@ Validation_RU = {
 }
 
 Validation_LT = {
-	'empty_date' : u'Jūs negalite neįvesti datos', #u'You cannot input empty date'
+	'empty_date' : u'Jūs neįvedėte datos', #u'You cannot input empty date'
 	'less_current_date' : u'Data yra ankstesnė už šiandienos datą', #u'You cannot input less then current date'
 	'empty_place_from' : u'Jūs turite įvesti iš kurio miesto išvykstate', #u'You must input place from to create new trip'
 	'empty_place_to' : u'Jūs turite įvesti į kurį miestą vykstate', #u'You must input place to to create new trip'
