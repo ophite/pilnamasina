@@ -54,6 +54,7 @@ z
 
 #maintable{
     margin: 0 auto;
+	position: center;
     vertical-align:top;
     width: 925;
 }

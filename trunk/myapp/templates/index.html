@@ -21,12 +21,12 @@
 		function phonenumber_to_images(phonenumber){
 			html = '';
 			if (phonenumber.indexOf("+") != -1){
-				html = '<img name="accordion_plus" src="" width="11" height="11" alt="">';
+				html = '<img name="accordion_plus" src="" width="11" height="11" alt="" border="0">';
 				phonenumber = phonenumber.replace('+', '');
 			}
 			
 			for (var i = 0; i < phonenumber.length; i++) {
-				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="11" height="11" alt="">';
+				html = html + '<img name="00' + phonenumber.charAt(i) + '" src="" width="11" height="11" alt="" border="0">';
 			}
 			
 			return html;
@@ -51,7 +51,7 @@
 			jQuery.each(json_trips, function(){	
 
 				holder.append('<h3><a href="#">'
-								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="20" height="20" alt="">'														
+								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="20" height="20" alt="kas" border="0">'														
 								+ ' ' +  (($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('yyyy.MM.dd HH:mm') : new Date(this.fields.date).toString('yyyy.MM.dd | HH:mm'))
 								+ ' | ' + this.fields.place_from 
 								+ ' > ' + this.fields.place_to 
