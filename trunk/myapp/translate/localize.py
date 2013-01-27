@@ -164,8 +164,8 @@ Controls_RU = {
 	'DeleteFilter_tooltip': u'Удалить фильтр',
 	'Save_tooltip': u'Сохранить сообщение',
 	'Trips_tooltip': u'Закрыть форму',
-	'SiteName': u'Едь не один | Поиск попутчиков в Литве',
-	'SiteDescription': u'Найди себе дружелюбную компанию. Быстрый, удобный и дешевый способ путешествовать между городами Литвы',
+	'SiteName': u'Полная машина | Поиск попутчиков в Литве',
+	'SiteDescription': u'Найди себе дружелюбную компанию. Быстрый, удобный и дешевый способ путешествовать между городами Литвы и за границу',
 }
 
 Controls_LT = {
@@ -189,8 +189,8 @@ Controls_LT = {
 	'DeleteFilter_tooltip': u'Pašalinti filtrą',
 	'Save_tooltip': u'Išsaugoti skelbimą',
 	'Trips_tooltip': u'Uždaryti formą',
-	'SiteName': u'Važiuok ne vienas | Pakeleivių paieška Lietuvoje',
-	'SiteDescription': u'Surask sau draugiską kompaniją. Greitas, patogus ir pigus būdas keliauti tarp Lietuvos miestų',
+	'SiteName': u'Pilna mašina | Pakeleivių paieška Lietuvoje',
+	'SiteDescription': u'Surask sau draugiską kompaniją. Greitas, patogus ir pigus būdas keliauti tarp Lietuvos miestų ir į užsienį',
 }
 
 #new trip
