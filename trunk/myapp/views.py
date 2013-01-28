@@ -69,6 +69,7 @@ def set_session(request):
 	any_type = get_sort_tuple_first(DEFAULT_TRIPTYPE)
 	
 	print any_type
+	print request.GET.get('type', '1111')
 	
 	request.session['date_from'] = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_from', ''))]
 	request.session['date_to'] = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=7), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_to', ''))]
@@ -156,7 +157,15 @@ def search(request):
 #	print any_type
 #	print types
 	print filters['place_from']
+	
+	print 'filters[type]'
 	print filters['type']
+	print 'types'
+	print types
+	print 'type anytype'
+	print type[0].strip(), '---->', any_type.strip()
+	print 'type'
+	print type
 	
 	# by many filters
 	if isinstance(date_from, list):
