@@ -32,8 +32,12 @@ def get_sort_tuple_first(tuple):
 
 def add(request):
 	print '--------------------------------> call add'
+	print '--------------------------------> ' 
+	print request.POST
 
-	if 'delete' in request.POST:
+#	TODO Button cancel click 
+#	u'delete' in request.POST or 
+	if u'delete.x' in request.POST :
 		return HttpResponseRedirect('/')
 	
 	if request.method == 'POST':
