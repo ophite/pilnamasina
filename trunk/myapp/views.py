@@ -6,7 +6,8 @@ from django.utils import simplejson as json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 from django.db.models import Q
- 
+from django.utils.datastructures import SortedDict
+
 #my
 from myapp.models import Trip
 from myapp.forms import TripForm
@@ -15,7 +16,6 @@ from myapp.translate.localize import *
 import operator
 import datetime
 from datetime import date, timedelta
-from django.utils.datastructures import SortedDict
 
 def tryStringToDate(str, default, format):
 	try:
@@ -32,8 +32,6 @@ def get_sort_tuple_first(tuple):
 
 def add(request):
 	print '--------------------------------> call add'
-	print '--------------------------------> ' 
-	print request.POST
 
 #	TODO Button cancel click 
 #	u'delete' in request.POST or 
@@ -55,7 +53,7 @@ def add(request):
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
 		'date_from':datetime.datetime.today().strftime(DEFAULT_DATETIME_FORMAT_CLIENT),
-		'phonenumber':'+3706',
+		'phonenumber': DEFAULT_PHONEPREFIX,
 	}
 	
 	return render_to_response('add.html', c, RequestContext(request))
@@ -68,25 +66,12 @@ def set_session(request):
 	any_city = get_sort_tuple_first(DEFAULT_CITY)
 	any_type = get_sort_tuple_first(DEFAULT_TRIPTYPE)
 	
-	print any_type
-	print request.GET.get('type', '1111')
-	
 	request.session['date_from'] = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_from', ''))]
 	request.session['date_to'] = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=7), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET.get('date_to', ''))]
 	request.session['place_from'] = json.loads(request.GET.get('place_from', any_city)) #''))
 	request.session['place_to'] = json.loads(request.GET.get('place_to', any_city)) #''))
 	request.session['type'] = json.loads(request.GET.get('type', any_type))
-#	
-#	print request.session['type']
-#	print json.loads(request.GET.get('type', ''))
-#	print json.loads(request.GET.get('type', any_type))
-#	print dict(DEFAULT_TRIPTYPE)
-#	[dict(DEFAULT_TRIPTYPE)[json.loads(request.GET.get('type', any_type))[0]]] #dict(DEFAULT_TRIPTYPE)[dict(DEFAULT_TRIPTYPE).keys()[0]]))
-	
-	#print request.session['type']
-	#print request.GET.get('type', '')
-	#print [dict(DEFAULT_TRIPTYPE)[request.session['type'][0]]]
-	
+		
 	return render_to_response('add.html', RequestContext(request))
 
 def index(request):
@@ -99,8 +84,6 @@ def index(request):
 		'date_translate':DEFAULT_DATE,
 		'controls_translate':DEFAULT_CONTROLS,
 	}
-	
-	#print data
 
 	return render_to_response('index.html', data, RequestContext(request))
 			
@@ -129,50 +112,32 @@ def search(request):
 	else:
 		place_to = json.loads(request.GET['place_to'])
 
+	#type
 	if request.GET.get('type', '') == '':
 		type = request.session.get('type', dict(DEFAULT_TRIPTYPE).keys())
 	else:
 		type = json.loads(request.GET['type'])
-		
-#	print type
-#	print dict(DEFAULT_TRIPTYPE).keys()
 	
 	filters = {
 		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
 		'date_to':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_to], cls=DjangoJSONEncoder),
 		'place_from':json.dumps(request.session.get('place_from', ''), cls=DjangoJSONEncoder),
 		'place_to':json.dumps(request.session.get('place_to', ''), cls=DjangoJSONEncoder),
-#		'type':json.dumps([dict(DEFAULT_TRIPTYPE)[d] for d in type], cls=DjangoJSONEncoder),
 		'type':json.dumps(request.session.get('type', ''), cls=DjangoJSONEncoder),
-		#json.dumps(type, cls=DjangoJSONEncoder),
 	}
 
-	cities = dict(DEFAULT_CITY).values()
-	types = dict(DEFAULT_TRIPTYPE).keys()
+	type_dict = dict(DEFAULT_TRIPTYPE)
+	cities_keys = dict(DEFAULT_CITY).values()
 	
 	any_city = get_sort_tuple_first(DEFAULT_CITY)
 	any_type = get_sort_tuple_first(DEFAULT_TRIPTYPE)
-	
-#	print type[0]
-#	print any_type
-#	print types
-	print filters['place_from']
-	
-	print 'filters[type]'
-	print filters['type']
-	print 'types'
-	print types
-	print 'type anytype'
-	print type[0].strip(), '---->', any_type.strip()
-	print 'type'
-	print type
-	
+		
 	# by many filters
 	if isinstance(date_from, list):
-		q_list = [Q(type__in = types if type[0].strip() == any_type.strip() else type,
+		q_list = [Q(type__in = type_dict.keys() if type[0].strip() == any_type.strip() else [k if type_dict[k] == type[0] else '' for k in type_dict],
 					date__range=[date_from[i], date_to[i]], 
-					place_from__in = cities if place_from[i].strip() == any_city.strip() else (place_from[i],),
-					place_to__in = cities if place_to[i].strip() == any_city.strip() else (place_to[i],)) for i in range(date_from.__len__())]
+					place_from__in = cities_keys if place_from[i].strip() == any_city.strip() else (place_from[i],),
+					place_to__in = cities_keys if place_to[i].strip() == any_city.strip() else (place_to[i],)) for i in range(date_from.__len__())]
 	# by one filter
 	#else:
 	#	q_list = [Q(date__range=[date_from, date_to], place_from=place_from, place_to=place_to)]
@@ -180,9 +145,6 @@ def search(request):
 	#print q_list
 	trips = Trip.objects.filter(reduce(operator.or_, q_list))
 	#trips2 = Trip.objects.all()
-	
-	#print trips
-	#print trips2[0].type
 	
 	json_serializer = serializers.get_serializer("json")()	
 	jsonlist = [

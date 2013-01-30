@@ -137,7 +137,7 @@ TripType_RU = {
 }
 
 TripType_LT = {
-	(u' Any', 'Visi'), #DONT TUCH!!!
+	(u' Any', 'Visi'), 
 	(u'Driver', 'Vairuotojas'),
 	(u'Passenger', 'Keleivis'),
 }
@@ -305,7 +305,10 @@ Validation_LT = {
 	'captcha_invalid' : u'Neteisingai įvęstas Captcha kodas', #u'This field is required'
 }
 
+PhonePrefix_LT = '+3706'
+
 #defaults
+DEFAULT_PHONEPREFIX = PhonePrefix_LT
 DEFAULT_TRIPTYPE = TripType_LT
 DEFAULT_VALIDATION = Validation_LT 
 DEFAULT_DATETIME_FORMAT_SERVER = '%Y.%m.%d %H:%M'

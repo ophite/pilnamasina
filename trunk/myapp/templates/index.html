@@ -20,6 +20,7 @@
 	
 		function phonenumber_to_images(phonenumber){
 			html = '';
+			
 			if (phonenumber.indexOf("+") != -1){
 				html = '<img name="accordion_plus" src="" width="11" height="11" alt="" border="0">';
 				phonenumber = phonenumber.replace('+', '');
@@ -153,7 +154,7 @@
 		function setFilterStyle(search_controls){
 			$('[id^="datepicker_from' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
 			$('[id^="datepicker_to' + search_controls + '"]').addClass('ui-combobox-input ui-state-default ui-widget ui-widget-content ui-corner-left ui-corner-right');
-			$('[id^="search"]').width(parseInt($('[id="add_new_trip"]').width()));
+//			$('[id^="search"]').width(parseInt($('[id="add_new_trip"]').width()));
 	
 			$('[id^="combobox_from' + search_controls + '"]').combobox();			
 			$('[id^="combobox_to' + search_controls + '"]').combobox();
