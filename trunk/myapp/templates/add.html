@@ -44,7 +44,7 @@
 			// BEGIN FOR ILIJA
 			$('form > table').children('tbody').children('tr').children('th').css('text-align', 'right');
             $('form > table').children('tbody').children('tr').children('th').css('color', 'white')
-           	$('form > table').css('width', 432);
+           	//$('form > table').css('width', 432);
 			// END FOR ILIJA
 		
 			//SET DEFAULTS/STYLE
@@ -103,7 +103,7 @@
 			<!-- class ="ui-button ui-widget ui-state-default ui-corner-all"  -->
 		</tr>
 	</table>
-	
+<!-- 	
 	<form action="/add/" method="post">
 		{% csrf_token %}
 		<table class="tableadd" color="white">
@@ -115,10 +115,37 @@
 			<td>
 			    <input src="../content/img/Icons/CC/Check.png" alt='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' type="image" value={{ controls_translate|dict_getbykey:"Save" }} name="save" style="width: 35px;" />
 				<input src="../content/img/Icons/CC/Delete.png" alt='{{ controls_translate|dict_getbykey:"Trips_tooltip" }}' title='{{ controls_translate|dict_getbykey:"Trips_tooltip" }}' type="image" value={{ controls_translate|dict_getbykey:"Trips" }} id="trips" name="delete" style="width: 35px;" />
-				<!-- <input src="../content/img/Icons/CC/Check.png" title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' type='image' value='{{ controls_translate|dict_getbykey:"Save" }}'/> -->
 			</td>
 		</tr>
 		</table>
 	</form> 
-		
+ -->
+	<form action="/add/" method="post">
+		{% csrf_token %}
+		<table class="tableadd" color="white">
+			{% autoescape off %}
+			{% for field in form %}
+				<tr>
+					<td class="fieldWrapper">
+						{{ field.label_tag }}
+					</td>
+					<td class="fieldWrapper">
+						{{ field }}
+					</td>
+					<td class="fieldWrapper">
+						{{ field.errors }}
+					</td>
+				</tr>
+			{% endfor %}
+			{% endautoescape %}
+			<tr>
+				<td></td>
+				<td>
+					<input src="../content/img/Icons/CC/Check.png" alt='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' title='{{ controls_translate|dict_getbykey:"Save_tooltip" }}' type="image" value={{ controls_translate|dict_getbykey:"Save" }} name="save" style="width: 35px;" />
+					<input src="../content/img/Icons/CC/Delete.png" alt='{{ controls_translate|dict_getbykey:"Trips_tooltip" }}' title='{{ controls_translate|dict_getbykey:"Trips_tooltip" }}' type="image" value={{ controls_translate|dict_getbykey:"Trips" }} id="trips" name="delete" style="width: 35px;" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
 {% endblock %}					
