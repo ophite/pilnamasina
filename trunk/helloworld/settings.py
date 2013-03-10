@@ -21,6 +21,18 @@ DATABASES = {
     }
 }
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#        'NAME': 'trip',                      # Or path to database file if using sqlite3.
+#        'USER': 'staf',                      # Not used with sqlite3.
+#        'PASSWORD': '1111',                  # Not used with sqlite3.
+#        'HOST': 'localhost',                 # Set to empty string for localhost. Not used with sqlite3.
+#        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+#    }
+#}
+
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -160,6 +172,9 @@ LOGGING = {
 MEDIA_CONTENT = os.path.join(os.path.dirname(__file__), 'content')
 MEDIA_IMAGES = os.path.join(os.path.dirname(__file__), 'content/css/ui-darkness/images')
 
-RECAPTCHA_PUBLIC_KEY = '6LfoXtoSAAAAAIjWR7J8ZH2thBmhR1KDFPOEovUI'
-RECAPTCHA_PRIVATE_KEY = '6LfoXtoSAAAAAI0c0cYVdMES7hs64aMXbGpk3tq0'
+#RECAPTCHA_PUBLIC_KEY = '6LfoXtoSAAAAAIjWR7J8ZH2thBmhR1KDFPOEovUI'
+#RECAPTCHA_PRIVATE_KEY = '6LfoXtoSAAAAAI0c0cYVdMES7hs64aMXbGpk3tq0'
+RECAPTCHA_PUBLIC_KEY = '6LcUHN4SAAAAAKXMJzmKJMYZCEJMp-kRSaZUWfn_'
+RECAPTCHA_PRIVATE_KEY = '6LcUHN4SAAAAAPNfwjhfkK8Vr3e7OYEsRzR7oGgs'
+
 #RECAPTCHA_USE_SSL = True
