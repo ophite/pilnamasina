@@ -180,18 +180,13 @@
 			</table>	
 		</div>
 	</div>
-	<!-- <br> -->
-	<div class="footer">
-		<table valign="middle" width="1000" cellspacing="10" cellpadding="0" border="0" align="left">
-	<!-- 	<td align="left">
-				<img src="../content/img/fb_vk.png">
-			</td> -->
-			<td  align="right">   
-				{% block footer %}
-					<a href="mailto:labas@pilnamasina.lt?Subject=PM vartotojas(-a)"><img src="../content/img/email_pm.png" border="0">
-				{% endblock %}
-			</td>
-		</table>		
+	<!-- footer -->
+	<div class="footer" style="width:98%; text-align:right;">
+		{% block footer %}
+			<a href="mailto:labas@pilnamasina.lt?Subject=PM vartotojas(-a)">
+				<img src="../content/img/email_pm.png" border="0">
+			</a>
+		{% endblock %}
 	</div>
 </body>
 </html>
