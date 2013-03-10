@@ -203,7 +203,7 @@ NewTrip_RU = {
 	'comments': 'Комментарий:',
 	'phone_number': '* Телефон:',
 	'date': '* Дата:',
-	'captcha': '* Код безопасности ',
+	'captcha': '* Код безопасности:',
 }
 
 #LITHUANIAN
@@ -215,7 +215,7 @@ NewTrip_LT = {
 	'comments': 'Komentaras:',
 	'phone_number': '* Telefonas:',
 	'date': '* Data:',
-	'captcha': '* Apsaugos kodas ',
+	'captcha': '* Apsaugos kodas:',
 }
 
 # time

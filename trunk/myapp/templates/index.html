@@ -237,7 +237,7 @@
 					+ html_option
 					+'</select>'	
 				+'</td>'
-				+'<td valign="middle" width="17" style="text-align:center">' 
+				+'<td valign="middle" width="17" style="text-align:center" >' 
 					+'<input src="content/img/Icons/Web_2.0/Orange/Zoom_Out_O.png" title="{{ controls_translate|dict_getbykey:"DeleteFilter_tooltip" }}" id="Del_' + search_controls + '" type="image" value="{{ controls_translate|dict_getbykey:"Delete" }}" width="17" height="17"/>'
 				+'</td>' //knopka minus
 				+'</div>'
@@ -381,14 +381,14 @@
 	
 {% block content %}
 
-	<table id="filter_main" align="center" border="0" class="tableindex">
+	<table id="filter_main" align="center" border="0" class="tableindex" cellspacing="5">
 		<tr>
 		     <td colspan="5" id="right">
 			    <input src="content/img/Icons/Web_2.0/Write.png" id="add_new_trip" type="image" value='{{ controls_translate|dict_getbykey:"AddNewTrip" }}' title='{{ controls_translate|dict_getbykey:"AddNewTrip_Tooltip" }}' />
 			</td>
 	    </tr>
 		<tr>
-		    <td width="170">
+		    <td width="163">
 				<b>Type:</b><select id="type">
 					{% for k,v in types.items|sort %}
 						<option value={{v}} display={{v}}>{{v}}</option>
