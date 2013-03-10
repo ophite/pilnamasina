@@ -60,8 +60,9 @@ body > #wrap {
 }
 
 .errorlist{
-    color: red; 
+    color: white; 
 	font-size: 12px;
+	background: rgba(255, 0, 0, 0.5);
 }
 
 .tableindex {

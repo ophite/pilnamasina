@@ -196,26 +196,26 @@ Controls_LT = {
 #new trip
 #RUSSIAN
 NewTrip_RU = {
-	'name': 'Имя:',
-	'place_from': 'Откуда:',
-	'place_to': 'Куда:',
-	'type': 'Роль:',
+	'name': '* Имя:',
+	'place_from': '* Откуда:',
+	'place_to': '* Куда:',
+	'type': '* Роль:',
 	'comments': 'Комментарий:',
-	'phone_number': 'Телефон:',
-	'date': 'Дата:',
-	'captcha': ' ',
+	'phone_number': '* Телефон:',
+	'date': '* Дата:',
+	'captcha': '* Код безопасности ',
 }
 
 #LITHUANIAN
 NewTrip_LT = {
-	'name': 'Vardas:',
-	'place_from': 'Iš:',
-	'place_to': 'Į:',
-	'type': 'Esu:',
+	'name': '* Vardas:',
+	'place_from': '* Iš:',
+	'place_to': '* Į:',
+	'type': '* Esu:',
 	'comments': 'Komentaras:',
-	'phone_number': 'Telefonas:',
-	'date': 'Data:',
-	'captcha': ' ',
+	'phone_number': '* Telefonas:',
+	'date': '* Data:',
+	'captcha': '* Apsaugos kodas ',
 }
 
 # time
@@ -286,7 +286,7 @@ Validation_RU = {
 	'less_current_date' : u'Вы не можете ввести дату меньше текущей', #u'You cannot input less then current date'
 	'empty_place_from' : u'Вы должны ввести место отправления', #u'You must input place from to create new trip'
 	'empty_place_to' : u'Вы должны ввести место прибытия', #u'You must input place to to create new trip'
-	'empty_type' : u'Вы должны ввести ваш тип поездки',
+	'empty_type' : u'Вы должны ввести тип участника',
 	'empty_name' : u'Вы должны ввести имя', #u'You must input name to create new trip'
 	'required' : u'Поле должно быть заполнено', #u'This field is required'
 	'invalid' : u'Не правильный формат номера телефона', #u'This field is required'
@@ -294,14 +294,14 @@ Validation_RU = {
 }
 
 Validation_LT = {
-	'empty_date' : u'Jūs neįvedėte datos', #u'You cannot input empty date'
-	'less_current_date' : u'Data yra ankstesnė už šiandienos datą', #u'You cannot input less then current date'
-	'empty_place_from' : u'Jūs turite įvesti iš kurio miesto išvykstate', #u'You must input place from to create new trip'
-	'empty_place_to' : u'Jūs turite įvesti į kurį miestą vykstate', #u'You must input place to to create new trip'
-	'empty_type' : u'Jūs turite įvesti kelionės tipą',
-	'empty_name' : u'Jūs turite įvesti vardą', #u'You must input name to create new trip'
+	'empty_date' : u'Įveskite kelionės datą', #u'You cannot input empty date'
+	'less_current_date' : u'Laikas negali būtį ankstesnis už dabartinį', #u'You cannot input less then current date'
+	'empty_place_from' : u'Įveskite miestą, iš kurio išvykstate', #u'You must input place from to create new trip'
+	'empty_place_to' : u'Įveskite miestą, į kurį vykstate', #u'You must input place to to create new trip'
+	'empty_type' : u'Įveskite dalyvio tipą',
+	'empty_name' : u'Įveskite dalyvio vardą', #u'You must input name to create new trip'
 	'required' : u'Laukas turi būti užpildytas', #u'This field is required'
-	'invalid' : u'Neteisingai įvęstas tel. numeris (+3706...)', #u'This field is required'
+	'invalid' : u'Neteisingai įvęstas tel. numeris', #u'This field is required'
 	'captcha_invalid' : u'Neteisingai įvęstas Captcha kodas', #u'This field is required'
 }
 
