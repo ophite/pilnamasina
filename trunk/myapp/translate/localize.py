@@ -294,14 +294,14 @@ Validation_RU = {
 }
 
 Validation_LT = {
-	'empty_date' : u'Įveskite kelionės datą', #u'You cannot input empty date'
-	'less_current_date' : u'Laikas negali būtį ankstesnis už dabartinį', #u'You cannot input less then current date'
-	'empty_place_from' : u'Įveskite miestą, iš kurio išvykstate', #u'You must input place from to create new trip'
-	'empty_place_to' : u'Įveskite miestą, į kurį vykstate', #u'You must input place to to create new trip'
-	'empty_type' : u'Įveskite dalyvio tipą',
-	'empty_name' : u'Įveskite dalyvio vardą', #u'You must input name to create new trip'
+	'empty_date' : u'Kokia kelionės data?', #u'You cannot input empty date'
+	'less_current_date' : u'Įveskite vėlesnį laiką', #u'You cannot input less then current date'
+	'empty_place_from' : u'Iš kurio miesto išvykstate?', #u'You must input place from to create new trip'
+	'empty_place_to' : u'Į kurį miestą vykstate?', #u'You must input place to to create new trip'
+	'empty_type' : u'Koks dalyvio tipas?',
+	'empty_name' : u'Koks dalyvio vardas?', #u'You must input name to create new trip'
 	'required' : u'Laukas turi būti užpildytas', #u'This field is required'
-	'invalid' : u'Neteisingai įvęstas tel. numeris', #u'This field is required'
+	'invalid' : u'Neteisingas tel. numeris', #u'This field is required'
 	'captcha_invalid' : u'Neteisingai įvęstas Captcha kodas', #u'This field is required'
 }
 
