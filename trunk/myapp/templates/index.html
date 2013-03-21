@@ -88,6 +88,7 @@
 						// build filters only if filterValues not exists(it F5 - refresh page)
 						// if exists - it means we only search trips
 						if (filterValues == null){
+							
 							// filters
 							filters = json_parse(json_all[1]);
 							filterLength = 0;					
@@ -176,6 +177,7 @@
 			var date_to = dateTo != ''? new Date(dateTo) : new Date();
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
 			$('[id^="datepicker_to' + search_controls + '"]').datetimepicker("setDate", date_to);
+
 			// place
 			placeFrom = filterValues['place_from'];
 			if (placeFrom != null){
@@ -371,8 +373,11 @@
 				addTrip();
 			});
 			
-			getTrips();
+			// after left page (change filters) saving filters
 			saveFilters();
+			//first time page loading
+			rememberFilters(false, false);
+			getTrips();
 		});
 		
 	</script>
