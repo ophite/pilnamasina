@@ -126,7 +126,6 @@ Cities_LT = (
 (u'Zarasai', 'Zarasai'),
 (u'Žagarė', 'Žagarė'),
 (u'Žiežmariai', 'Žiežmariai'),
-(u'Draunas', 'Draunas'),
 )
 
 #TriopType
@@ -258,8 +257,8 @@ Time_LT = {
 	'secondText': u'Sekundės',
 	'millisecText': u'Milisekundės',
 	'timezoneText': u'Laiko juosta',
-	'currentText': u'Dabar',
-	'closeText': u'Uždaryti',
+	'currentText': u'Važiuočiau dabar',
+	'closeText': u'Išsaugoti',
 	'timeFormat': u'HH:mm',
 	'amNames': ['AM', 'A'],
 	'pmNames': ['PM', 'P'],
