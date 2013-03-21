@@ -51,9 +51,13 @@
 			
 			jQuery.each(json_trips, function(){	
 
+				//TODO need to fix
+				var dateVar = ($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')) : new Date(this.fields.date);
+				dateVar.setHours(dateVar.getHours() - 7);
+				
 				holder.append('<h3><a href="#">'
 								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="20" height="20" alt="kas" border="0">'														
-								+ ' ' +  (($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')).toString('yyyy.MM.dd HH:mm') : new Date(this.fields.date).toString('yyyy.MM.dd | HH:mm'))
+								+ ' ' +  dateVar.toString('yyyy.MM.dd | HH:mm')
 								+ ' | ' + this.fields.place_from 
 								+ ' > ' + this.fields.place_to 
 								+ ' | ' + phonenumber_to_images(this.fields.phone_number.toString())
