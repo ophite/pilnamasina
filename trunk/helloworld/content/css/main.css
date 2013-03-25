@@ -33,11 +33,12 @@ body > #wrap {
 }
 
 .footer {
-  position: fixed;
+  position: bottom;
   /*margin: 500px;*/
   /*height: 0px; */
   clear:both;
   float: right; 
+  padding-right: 20px;
  }
 
 
