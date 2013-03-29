@@ -97,9 +97,9 @@ def search(request):
 		date_from = [tryStringToDate(date, datetime.date.today(), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_from'])]
 
 	if request.GET.get('date_to', '') == '':
-		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=14)])
+		date_to = request.session.get('date_to', [datetime.date.today() + datetime.timedelta(days=7)])
 	else:
-		date_to = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=14), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
+		date_to = [tryStringToDate(date, datetime.date.today() + datetime.timedelta(days=7), DEFAULT_DATETIME_FORMAT_SERVER) for date in json.loads(request.GET['date_to'])]
 
 	#places
 	if request.GET.get('place_from', '') == '':
