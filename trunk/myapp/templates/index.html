@@ -273,11 +273,19 @@
             $('[id^="Del_' + search_controls + '"]').width(parseInt($('[id="add_filter"]').width())+1);						
 		}
 
-		function getFilter(key, filter_name){
+		function getFilter(filter_name, default_value){
 			var values = new Array();
 			
 			$('[id^="' + filter_name + '"]').each(function(){
-				values.push($(this).val());
+				if ($(this).val() == null || $(this).val() == '')
+				{			
+					//alert(default_value)
+					values.push(default_value);
+				}
+				else
+				{				
+					values.push($(this).val());
+				}
 			});
 
 			var res = jQuery.stringify(values);
@@ -287,17 +295,17 @@
 		
 		function getFilters(){
 			return {
-					'date_from':getFilter('date_from', 'datepicker_from'),
-					'date_to':getFilter('date_to', 'datepicker_to'),
-					'place_from':getFilter('place_from', 'combobox_from'),
-					'place_to':getFilter('place_to', 'combobox_to'),
+					'date_from':getFilter('datepicker_from', new Date().toString("yyyy.mm.dd HH:MM")),
+					'date_to':getFilter('datepicker_to', new Date().addDays(7).toString("yyyy.mm.dd HH:MM")),
+					'place_from':getFilter('combobox_from', null),
+					'place_to':getFilter('combobox_to', null),
 					'type':jQuery.stringify([$('#type option[value^="' + $('#type').val() + '"]').attr('display'),])
 					//'type':jQuery.stringify([$('#type').val(),])
 			}
 		}
 		
 		/*
-			redirectToAddTrip - for redirect ot add.html page
+			redirectToAddTrip - for redirect on add.html page
 			asyncValue - async mode for refresh current page to save filter values
 		*/
 		function rememberFilters(redirectToAddTrip, asyncValue){
@@ -382,7 +390,8 @@
 			// after left page (change filters) saving filters
 			saveFilters();
 			//first time page loading
-			rememberFilters(false, false);
+			rememberFilters(false, true);
+			filterValues = getFilters();
 			getTrips();
 		});
 		
