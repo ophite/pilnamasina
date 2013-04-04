@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^add/$', views.add),
 	url(r'^set_session/$', views.set_session),
     url(r'^search/$', views.search),
+    url(r'^filters/$', views.getFilters),
     #url(r'^index/$', views.test_template),
 
     # Uncomment the admin/doc line below to enable admin documentation:

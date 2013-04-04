@@ -2,11 +2,11 @@
 
 {% block source %}
 
-	<script src="/content/js/jquery-ui-timepicker-addon.js"></script>
-	<script src="/content/js/jquery.combobox.js" type="text/javascript"></script>
-
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery-ui-timepicker-addon.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="/content/css/jquery.combobox.css" />
+
+	<script src="/content/js/jquery-ui-timepicker-addon.js"></script>
+	<script src="/content/js/jquery.combobox.js" type="text/javascript"></script>
 	
 {% endblock %}		
 
@@ -57,35 +57,9 @@
 
 			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? -2 : -9);
 			$('#id_comments').width(width);	
-
-			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');
-
-			// AJAX, EVENT
-			{% autoescape off %}
-			// add new filter
-		/*
-			$("[id=trips]").click(function( event ) {
-				$.ajax({
-					url: '/',
-					success: function(msg){
-						//alert('success');
-					},
-					complete:function(jsondata, stat){
-						if (stat == "success"){
-							document.location.href = location.protocol + '//' + location.host + '/';
-						}
-					},
-					//dataType: "json",
-					type: 'GET',
-					error : function () {
-						alert('error trips');
-						console.log("trips ajax error");
-					}
-				});				
-			});
-*/
-			{% endautoescape %}			
-		});		
+			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');	
+		});
+		
 	</script>	
 
 {% endblock %}
