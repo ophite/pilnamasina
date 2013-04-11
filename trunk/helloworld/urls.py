@@ -30,8 +30,11 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Uncomment the next line to enable the admin:
 	url(r'^admin/', include(admin.site.urls)),
-
+	
     #serve static files
+	(r'^robots\.txt$', views.robots), 
+#	(r'^robots\.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /", mimetype="text/plain")),
+#	(r'^robots.txt$', 'django.views.static.serve', { 'path' : '/static/robots.txt', 'document_root': settings.MEDIA_ROOT, 'show_indexes': False }), 
     (r'^content/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_CONTENT}),
     (r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_IMAGES}),    
 	(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),

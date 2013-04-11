@@ -1,38 +1,39 @@
 # Django settings for helloworld project.
 import os
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Kobernik Yura', 'kobernik.yura@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
 #debug
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'mysql',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': '1111',                  # Not used with sqlite3.
-        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
-
+if DEBUG == True:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+			'NAME': 'mysql',                      # Or path to database file if using sqlite3.
+			'USER': 'root',                      # Not used with sqlite3.
+			'PASSWORD': '1111',                  # Not used with sqlite3.
+			'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+			'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+		}
+	}
+else:
 #deploy
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#        'NAME': 'trip',                      # Or path to database file if using sqlite3.
-#        'USER': 'staf',                      # Not used with sqlite3.
-#        'PASSWORD': '1111',                  # Not used with sqlite3.
-#        'HOST': 'localhost',                 # Set to empty string for localhost. Not used with sqlite3.
-#        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
-#    }
-#}
+	DATABASES = {
+	    'default': {
+	        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+	        'NAME': 'trip',                      # Or path to database file if using sqlite3.
+	        'USER': 'staf',                      # Not used with sqlite3.
+	        'PASSWORD': '1111',                  # Not used with sqlite3.
+	        'HOST': 'localhost',                 # Set to empty string for localhost. Not used with sqlite3.
+	        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+	    }
+	}
 
 
 # Local time zone for this installation. Choices can be found here:

@@ -16,7 +16,7 @@ from myapp.translate.localize import *
 import operator
 import datetime
 from datetime import date, timedelta
-from helloworld.settings import DEBUG
+from helloworld.settings import DEBUG, TEMPLATE_DIRS
 
 def tryStringToDate(str, default, format):
 	try:
@@ -201,3 +201,22 @@ def getFilters(request):
 def test_template(request):
 	trips = Trip.objects.all()
 	return render_to_response('test_template.html', {'trips':trips}, RequestContext(request))
+
+from django.template import TemplateDoesNotExist 
+from django.http import HttpResponse 
+import os
+
+def robots(request):
+	print '--------------------------------> call robots'
+	PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+	#TEMPLATE_DIRS[0].replace('/','\\')
+#	print PROJECT_PATH /var/www/domniak/data/www/pilnamasina.lt/myapp
+	# 
+	try: 
+#		return HttpResponse(PROJECT_PATH);
+		return HttpResponse(open(PROJECT_PATH.replace('\\','/')+'/templates/robots.txt').read(), 'text/plain') 
+	except TemplateDoesNotExist: 
+		raise Http404() 		
+#	template = PROJECT_PATH + '\\templates\\robots.txt'
+#	context = {1:'1'}
+#	return render_to_response(template, context, RequestContext(request))		
