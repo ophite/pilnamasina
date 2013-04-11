@@ -53,7 +53,7 @@
 
 				//TODO need to fix
 				var dateVar = ($.browser.msie) ? new Date(this.fields.date.replace('-','/').replace('T', ' ')) : new Date(this.fields.date);
-				dateVar.setHours(dateVar.getHours() - 7);
+				dateVar.setHours(dateVar.getHours() - 8);
 				
 				holder.append('<h3><a href="#">'
 								+ '<img name=' + (this.fields.type == 'Passenger' ? 'accordion_man_32' : 'accordion_auto_32') + ' src="" width="20" height="20" alt="kas" border="0">'														
