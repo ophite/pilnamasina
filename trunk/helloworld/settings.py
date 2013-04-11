@@ -10,6 +10,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#debug
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -21,6 +22,7 @@ DATABASES = {
     }
 }
 
+#deploy
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -137,6 +139,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'myapp',
+	'django.contrib.sitemaps',
 )
 
 # A sample logging configuration. The only tangible logging

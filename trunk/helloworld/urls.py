@@ -8,6 +8,13 @@ import settings
 from django.contrib import admin
 admin.autodiscover()
 
+
+#sitemap
+from myapp.sitemap import StaticSitemap
+sitemaps = {
+        'main':StaticSitemap,
+        }
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'helloworld.views.home', name='home'),
@@ -27,4 +34,5 @@ urlpatterns = patterns('',
     #serve static files
     (r'^content/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_CONTENT}),
     (r'^images/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_IMAGES}),    
+	(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 )
