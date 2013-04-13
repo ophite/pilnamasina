@@ -302,6 +302,7 @@ Validation_LT = {
 	'required' : u'Laukas turi būti užpildytas', #u'This field is required'
 	'invalid' : u'Neteisingas tel. numeris', #u'This field is required'
 	'captcha_invalid' : u'Neteisingai įvęstas Captcha kodas', #u'This field is required'
+	'invalid_phonenumber_length' : u'Не правильная длинна телефонного номера', #u'This field is required'
 }
 
 PhonePrefix_LT = '+3706'

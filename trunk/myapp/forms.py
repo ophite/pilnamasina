@@ -121,5 +121,10 @@ class TripForm(forms.ModelForm): #DivModelForm
 		name = cleaned_data.get("name")
 		if name is None:
 			self._errors["name"] = ErrorList([DEFAULT_VALIDATION['empty_name']])
+				
+#TODO		
+		phone_number = cleaned_data.get("phone_number")
+		if len(phone_number) < 11:
+			self._errors["phone_number"] = ErrorList([DEFAULT_VALIDATION['invalid_phonenumber_length']])
 		
 		return cleaned_data
