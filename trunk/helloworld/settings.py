@@ -77,7 +77,8 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+# static - not working django admin static!!!
+STATIC_URL = '/admin_static/'
 
 # session time
 SESSION_COOKIE_AGE = 60*30
@@ -173,8 +174,9 @@ LOGGING = {
 }
 
 
+ADMIN_STATIC = os.path.join(os.path.dirname(__file__), 'admin_static')
 MEDIA_CONTENT = os.path.join(os.path.dirname(__file__), 'content')
-MEDIA_IMAGES = os.path.join(os.path.dirname(__file__), 'content/css/ui-darkness/images')
+#MEDIA_IMAGES = os.path.join(os.path.dirname(__file__), 'content/css/ui-darkness/images')
 
 #RECAPTCHA_PUBLIC_KEY = '6LfoXtoSAAAAAIjWR7J8ZH2thBmhR1KDFPOEovUI'
 #RECAPTCHA_PRIVATE_KEY = '6LfoXtoSAAAAAI0c0cYVdMES7hs64aMXbGpk3tq0'
