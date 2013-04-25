@@ -169,7 +169,13 @@
 	
 	{% block script %}
 	{% endblock %}		
-	
+	<table cellpadding="" cellspacing="" align="right">  
+        <tr>
+            <td>		
+	            <a href="https://www.facebook.com/pages/Pilnamasinalt/505326639525508?ref=ts&fref=ts"><img class="header" src="/content/img/fb_logo.png"/ border="0"></a>
+	        </td>
+        <tr>			
+	</table>
 	<div id="wrap">	
 		<div>
 			<table width="925" border="0" align="center" cellpadding="25" cellspacing="0">
@@ -181,22 +187,39 @@
 			</table>
 		</div>
 		<div class="body" >
-			<table align="center" id='maintable' cellspacing="0" border="0" cellpadding="0"  >
+			<table align="center" id='maintable' cellspacing="5" border="0" cellpadding="0"  >
 				<tbody>
 					<tr>
-						<td id='content' class="content" border="1" >
+						<td id='content' class="content" border="1" colspan="5" >
 							{% block content %}
-							{% endblock %}							
+							{% endblock %}					
 						</td>
+					</tr>
+					<tr>
+					    <td>
+						
+						</td>
+					</tr>
+					<tr>
+					    <td width="34">
+				        </td>
+					    <td>
+					        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FPilnamasinalt%2F505326639525508%3Fref%3Dnotif%26notif_t%3Dfbpage_admin&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+					    </td>
 					</tr>
 				</tbody>
 			</table>	
 		</div>
 	</div>
+	
+	
+
+
+
 	<!-- footer -->
+	
 	<div class="footer" style="width:98%; text-align:right;">
-		{% block footer %}
-				<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FPilnamasinalt%2F505326639525508%3Fref%3Dnotif%26notif_t%3Dfbpage_admin&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>			
+		{% block footer %}		
 				<a href="mailto:labas@pilnamasina.lt?Subject=PM vartotojas(-a)">
 				<img src="../content/img/email_pm.png" border="0">
 			</a>
