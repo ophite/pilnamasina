@@ -220,3 +220,12 @@ def robots(request):
 #	template = PROJECT_PATH + '\\templates\\robots.txt'
 #	context = {1:'1'}
 #	return render_to_response(template, context, RequestContext(request))		
+
+def google(request):
+	print '--------------------------------> call google'
+	
+	data = {
+		'DEBUG' : DEBUG,
+	}
+
+	return render_to_response('google4d6b20cf8373e41a.html', data, RequestContext(request))

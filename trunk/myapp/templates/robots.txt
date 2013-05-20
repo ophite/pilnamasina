@@ -1,0 +1,3 @@
+User-agent: *
+Host: 
+Sitemap: http://pilnamasina.lt//sitemap.xml
