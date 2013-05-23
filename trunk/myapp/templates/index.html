@@ -188,6 +188,7 @@
 		function setFilterValue(filterValues, search_controls){
 			// date
 			dateFrom = filterValues['date_from'];
+
 			var date_from = dateFrom != ''? new Date(dateFrom) : new Date();
 			
 			$('[id^="datepicker_from' + search_controls + '"]').datetimepicker('destroy').datetimepicker();
@@ -383,9 +384,15 @@
 			});
 			
 			$("[id=add_filter]").click(function( event ) {
+				
+				var dateFrom = new Date();
+				dateFrom.setHours(0,0,0,0);
+				var dateTo = new Date().addDays(7);
+				dateTo.setHours(0,0,0,0);
+				
 				filterValues = { 
-					'date_from' : new Date(),//'{{ date_from }}',
-					'date_to': new Date().addDays(7),//'{{ date_to }}', 
+					'date_from' : dateFrom,//'{{ date_from }}',
+					'date_to': dateTo,//'{{ date_to }}', 
 					'place_from': null,
 					'place_to' : null
 				}
