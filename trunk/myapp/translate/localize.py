@@ -168,7 +168,7 @@ Controls_RU = {
 	'Save_tooltip': u'Сохранить сообщение',
 	'Trips_tooltip': u'Закрыть форму',
 	'SiteName': u'Полная машина | Поиск попутчиков в Литве',
-	'SiteDescription': u'Найди себе дружелюбную компанию. Быстрый, удобный и дешевый способ путешествовать между городами Литвы и за границу',
+	'SiteDescription': u'Найди себе дружелюбную компанию. Быстрый и удобный способ путешествовать между городами Литвы и за границу.',
 }
 
 Controls_LT = {
@@ -193,7 +193,7 @@ Controls_LT = {
 	'Save_tooltip': u'Išsaugoti skelbimą',
 	'Trips_tooltip': u'Uždaryti formą',
 	'SiteName': u'Pilna mašina | Pakeleivių paieška Lietuvoje',
-	'SiteDescription': u'Surask sau draugiską kompaniją. Greitas, patogus ir pigus būdas keliauti tarp Lietuvos miestų ir į užsienį',
+	'SiteDescription': u'Surask sau draugiską kompaniją. Greitas ir patogus būdas keliauti tarp Lietuvos miestų ir į užsienį.',
 }
 
 #new trip
