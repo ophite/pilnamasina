@@ -7,12 +7,12 @@ print len(array)
 
 n = len(array)
 
-for i in range(0,n):
+for i in range(0, n):
 	for j in range(n-1, i, -1):
 		if array[j-1] > array[j]:
 			x = array[j-1]
-			array[j-1]=array[j]
-			array[j]=x
+			array[j-1] = array[j]
+			array[j] = x
 
 print(array)
 print len(array)

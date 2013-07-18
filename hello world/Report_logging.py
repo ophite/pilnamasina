@@ -19,14 +19,11 @@ go
 class GetXML(object):
 #	def __init__(self, arg):
 #		self.arg = arg
-	folders = [	 
-				'C:\Projects\coda\Directory'
+	folders = ['C:\Projects\coda\Directory'
 			   ,'C:\Projects\coda\Warehouse' 
-			   ,'C:\Projects\coda\Directory\ReportPredefined' 
-	]
+			   ,'C:\Projects\coda\Directory\ReportPredefined']
 
-	procedures_custom = [
-'''		 'JournalWMSIn_BuildMoveOrder'
+	procedures_custom = ['''		 'JournalWMSIn_BuildMoveOrder'
 		,'JournalWMSIn_BuildMoveOrder_Z'
 		,'JournalWMSIn_BuildRegisterIn'				#copy
 		,'JournalWMSIn_BuildRest' 					#copy
@@ -47,12 +44,9 @@ class GetXML(object):
 		,'ReportCustomPrint_GetContractComissionExpeditor'	#- no param ReportID
 	]
 
-	procedures_custom2 = [
-		 'ReportPredefined_GetCustomerSaldoPrint'
-	]
+	procedures_custom2 = ['ReportPredefined_GetCustomerSaldoPrint']
 
-	procedures_builders = [
-		 'JournalBuy_Build'
+	procedures_builders = ['JournalBuy_Build'
 		,'JournalBuy_BuildRet'
 		,'JournalCashdesk_BuildCashorder'
 		,'JournalClaim_BuildClaim'
@@ -80,8 +74,7 @@ class GetXML(object):
 		,'JournalWMSOther_BuildWithSource'
 		,'JournalWMSOut_BuildWithSource'
 		,'JournalWMSOut_BuildWithSource_OrderShipment'
-		,'JournalWMSTTN_BuildWMSTTN'
-	]
+		,'JournalWMSTTN_BuildWMSTTN']
 
 #########################################################################
 
@@ -196,11 +189,11 @@ class GetXML(object):
 			else:
 				raise Exception('cant find symbol _ in procudure name')
 
-######################################################################### 
+#########################################################################
 
 	cmdFileName = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'CompileFileForLoggingPrintReports.cmd')
 
-	def CreateCmdFileHeader(self, server = 'kib17', database = 'coda_dev'):
+	def CreateCmdFileHeader(self, server='kib17', database='coda_dev'):
 		header = '''echo off 
 
 SET SERVER=%s 
@@ -240,7 +233,6 @@ SET DB_EDIT=PRODUCTION.CODA
 		self.Parse_Delete(self.procedures_custom2)		
 
 #########################################################################
-
 c = GetXML()
 c.Start_Add()
 #c.Start_Delete()
