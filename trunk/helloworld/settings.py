@@ -7,7 +7,8 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
      ('Kobernik Yura', 'kobernik.yura@gmail.com'),
 )
- 
+
+#aaaaaaaa
 MANAGERS = ADMINS
 #django admin staf-1111 ubuntu
 #debug
