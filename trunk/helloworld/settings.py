@@ -1,7 +1,7 @@
 # Django settings for helloworld project.
 import os
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -9,14 +9,15 @@ ADMINS = (
 )
  
 MANAGERS = ADMINS
-
+#django admin staf-1111 ubuntu
 #debug
 if DEBUG == True:
 	DATABASES = {
 		'default': {
 			'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 			'NAME': 'mysql',                      # Or path to database file if using sqlite3.
-			'USER': 'root',                      # Not used with sqlite3.
+#			'USER': 'root',                      # Not used with sqlite3.
+            'USER': 'yura',                      # Not used with sqlite3.
 			'PASSWORD': '1111',                  # Not used with sqlite3.
 			'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
 			'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
@@ -119,6 +120,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'helloworld.urls'
+#ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'helloworld.wsgi.application'
@@ -152,15 +154,17 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
+    #ubuntu TODO
+    #'filters': {
+     #   'require_debug_false': {
+     #       '()': 'django.utils.log.RequireDebugFalse'
+      #  }
+    #},
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            #ubuntu TODO
+            #'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },

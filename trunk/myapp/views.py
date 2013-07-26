@@ -2,11 +2,17 @@
 from django.shortcuts import render_to_response
 from django.template import loader, Context, RequestContext
 from django.http import HttpResponseRedirect, Http404, HttpResponse
-from django.utils import simplejson as json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 from django.db.models import Q
 from django.utils.datastructures import SortedDict
+
+# instead of this line. because of django version
+#from django.utils import simplejson as json
+try:
+	import json
+except ImportError:
+   	from django.utils import simplejson as json
 
 #my
 from myapp.models import Trip
@@ -182,8 +188,8 @@ def getFilters(request):
 	type = getFilter_type(request)
 	
 	filters = {
-		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls=DjangoJSONEncoder),
-		'date_to':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_to], cls=DjangoJSONEncoder),
+		'date_from':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_from], cls = DjangoJSONEncoder),
+		'date_to':json.dumps([d.strftime(DEFAULT_DATETIME_FORMAT_CLIENT) for d in date_to], cls = DjangoJSONEncoder),
 		'place_from':json.dumps(place_from, cls=DjangoJSONEncoder),
 		'place_to':json.dumps(place_to, cls=DjangoJSONEncoder),
 		'type':json.dumps(type, cls=DjangoJSONEncoder),
