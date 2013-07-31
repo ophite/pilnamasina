@@ -16,8 +16,10 @@ if DEBUG == True:
 		'default': {
 			'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 			'NAME': 'mysql',                      # Or path to database file if using sqlite3.
-#			'USER': 'root',                      # Not used with sqlite3.
-            'USER': 'yura',                      # Not used with sqlite3.
+#windows
+            'USER': 'root',                      # Not used with sqlite3.
+#ubuntu
+#            'USER': 'yura',                      # Not used with sqlite3.
 			'PASSWORD': '1111',                  # Not used with sqlite3.
 			'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
 			'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
