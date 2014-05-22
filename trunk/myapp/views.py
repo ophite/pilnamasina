@@ -8,21 +8,22 @@ from django.db.models import Q
 from django.utils.datastructures import SortedDict
 
 # instead of this line. because of django version
-#from django.utils import simplejson as json
+# from django.utils import simplejson as json
 try:
 	import json
 except ImportError:
    	from django.utils import simplejson as json
 
-#my
+# my
 from myapp.models import Trip
-from myapp.forms import TripForm
+from myapp.forms import TripForm, TripFormCaptcha
 from myapp.translate.localize import *
+
 
 import operator
 import datetime
 from datetime import date, timedelta
-from helloworld.settings import DEBUG, TEMPLATE_DIRS
+from helloworld.settings import DEBUG, TEMPLATE_DIRS, USE_TZ
 
 def tryStringToDate(str, default, format):
 	try:
@@ -44,15 +45,29 @@ def add(request):
 #	u'delete' in request.POST or 
 	if u'delete.x' in request.POST :
 		return HttpResponseRedirect('/')
-	
+
+	#new trip logic
+	if request.session.get('new_trip_time', None) == None or (datetime.datetime.today() - request.session['new_trip_time']).total_seconds() >= NEW_TRIP_SESSION_DURATION:
+		request.session['new_trip_count'] = 0
+		request.session['new_trip_time'] = datetime.datetime.today()
+
 	if request.method == 'POST':
-		form = TripForm(request.POST, request=request)
-		
+		if request.session['new_trip_count'] < NEW_TRIP_COUNT:
+			form = TripForm(request.POST, request=request)	
+		else:
+			form = TripFormCaptcha(request.POST, request=request)	
+
 		if form.is_valid():
 			form.save()
+			request.session['new_trip_count'] = request.session['new_trip_count'] + 1
 			return HttpResponseRedirect('/')
+		else:
+			request.session['new_trip_time'] = datetime.datetime.today()
 	else:
-		form = TripForm()
+		if request.session.get('new_trip_count', 0) >= NEW_TRIP_COUNT:
+			form = TripFormCaptcha()
+		else:
+			form = TripForm()
 		
 	c = {
 		'form':form, 
@@ -204,6 +219,11 @@ def getFilters(request):
 
 	return HttpResponse(json.dumps(jsonlist))
 
+
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>> 
+
 def test_template(request):
 	trips = Trip.objects.all()
 	return render_to_response('test_template.html', {'trips':trips}, RequestContext(request))
@@ -235,3 +255,32 @@ def google(request):
 	}
 
 	return render_to_response('google4d6b20cf8373e41a.html', data, RequestContext(request))
+
+
+
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
+def jamuParse(request):
+	print '--------------------------------> call jamuParse'
+	html = "<html><body>It is now %s.</body></html>" % datetime.datetime.now()
+	try:
+		json_data = json.loads(request.body)
+		if json_data['apikey'] == 'dasd122121kkjndsdas9898as8da':
+			if json_data['trips_json'].__len__() > 0:
+				for trip in json_data['trips_json']:
+					date = datetime.datetime.strptime(trip['date'].encode('utf-8'), DEFAULT_DATETIME_FORMAT_JAMU)
+					tripObject = Trip.objects.create_trip(date=date, 
+		      								 type=str(trip['type'].encode('utf-8')), 
+		      								 place_from=trip['place_from'], 
+		      								 place_to=trip['place_to'], 
+		      								 name=trip['name'], 
+		      								 phone_number="+370"+trip['phone_number'], 
+		      								 comments=trip['comments'])
+
+	except KeyError:
+		HttpResponseServerError("error in jamu data!")
+
+	return HttpResponse(html)

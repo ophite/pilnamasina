@@ -16,7 +16,8 @@ if DEBUG == True:
 		'default': {
 			'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 			'NAME': 'mysql',                      # Or path to database file if using sqlite3.
-            'USER': 'root',                      # Not used with sqlite3.
+			'USER': 'root',                      # Not used with sqlite3.
+#            'USER': 'yura',                      # Not used with sqlite3.
 			'PASSWORD': '1111',                  # Not used with sqlite3.
 			'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
 			'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
@@ -57,7 +58,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"

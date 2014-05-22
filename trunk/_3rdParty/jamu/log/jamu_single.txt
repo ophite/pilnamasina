@@ -1,0 +1,1 @@
+"[{\"phone_number\": \"\", \"name\": \"Emilis Muliuolis\", \"place_to\": \"\", \"date\": \"None\", \"type\": \"\", \"dateArchive\": \"None\", \"place_from\": \"\", \"comments\": \"Siandien apie 17.30 Vilnius-Klaipeda. yra vietos. 861543921\"}]"

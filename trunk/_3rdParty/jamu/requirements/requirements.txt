@@ -1,0 +1,13 @@
+ - pip
+ - selenium
+ - requests
+
+
+ 1. В папке requirements файл get-pip.py. Перейти в эту папку и в консоли набрать команду 
+ python get-pip.py install
+ 2. После того как скачается архив, перейти в распакованную папку архива и набрать команду
+ python setup.py install
+ 3. После того как все отработает (смотри что б ошибок не было) - набрать команду 
+ pip install -U selenium
+ 4. pip install requests
+ 5. Все теперь ты можешь запускать парсер

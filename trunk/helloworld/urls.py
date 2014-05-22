@@ -25,6 +25,8 @@ urlpatterns = patterns('',
     url(r'^search/$', views.search),
     url(r'^filters/$', views.getFilters),
     url(r'^google4d6b20cf8373e41a.html$', views.google),
+    url(r'^api/jamu/$', views.jamuParse),
+    # url(r'^parse/$', views.parse),
     #url(r'^index/$', views.test_template),
 
     # Uncomment the admin/doc line below to enable admin documentation:

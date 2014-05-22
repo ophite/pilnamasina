@@ -1,4 +1,4 @@
-﻿# coding=utf-8
+# coding=utf-8
 from django import forms
 from django.core import validators
 from django.forms import ModelForm, Textarea
@@ -45,11 +45,12 @@ class DivModelForm(forms.ModelForm):
             errors_on_separate_row = False)
 
 class TripForm(forms.ModelForm): #DivModelForm
-	captcha = ReCaptchaField()
+	# captcha = ReCaptchaField()
 	date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class':jquery_input_class}, format = DEFAULT_DATETIME_FORMAT_SERVER), input_formats=(DEFAULT_DATETIME_FORMAT_SERVER,))
 
 	def __init__(self, *args, **kwargs):
-		print '--------------------------------> call __init__'
+		print '--------------------------------> call __init__ TripForm'
+
 		self.request = kwargs.pop('request', None)
 		super(TripForm, self).__init__(*args, **kwargs)
 		self.label_suffix = ''
@@ -80,7 +81,7 @@ class TripForm(forms.ModelForm): #DivModelForm
 					field.widget.attrs['class'] += ' ' + jquery_combo_class
 				else:
 					field.widget.attrs.update({'class':jquery_combo_class})
-					
+
 	class Meta:
 		model = Trip
 		widgets = {
@@ -100,9 +101,18 @@ class TripForm(forms.ModelForm): #DivModelForm
 		
 		if date is None:
 			self._errors["date"] = ErrorList([DEFAULT_VALIDATION['empty_date']]) 
+			
 		else:
-			#now = datetime.datetime.utcnow().replace(tzinfo=utc) + datetime.timedelta(hours = 1)
-			now = timezone.localtime(timezone.now()) - datetime.timedelta(hours = 1)
+
+			# now = datetime.datetime.utcnow().replace(tzinfo=utc) + datetime.timedelta(hours = 1)
+			now = datetime.datetime.utcnow().replace(tzinfo=utc) # + datetime.timedelta(hours = 1)
+			print 1111111111111
+			print now
+			now = timezone.make_naive(now, timezone.get_default_timezone())
+			print 2222222222222
+			print now
+			print date
+			# now = timezone.localtime(timezone.now()) - datetime.timedelta(hours = 1)
 			if date < now:
 				self._errors["date"] = ErrorList([DEFAULT_VALIDATION['less_current_date']]) 		
 
@@ -128,3 +138,6 @@ class TripForm(forms.ModelForm): #DivModelForm
 			self._errors["phone_number"] = ErrorList([DEFAULT_VALIDATION['invalid_phonenumber_length']])
 		
 		return cleaned_data
+
+class TripFormCaptcha(TripForm): #DivModelForm
+	captcha = ReCaptchaField()

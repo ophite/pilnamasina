@@ -55,7 +55,7 @@
 			$('#id_phone_number').width(width);	
 			$('#id_date').width(width);	
 
-			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? -2 : -9);
+			width = parseInt($('#recaptcha_image').parent().parent().width()) + ($.browser.msie ? 2 : 9);
 			$('#id_comments').width(width);	
 			$('[title^="Show All Items"]').attr('title', '{{ controls_translate|dict_getbykey:"ShowAllItems" }}');	
 		});
